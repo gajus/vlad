@@ -26,12 +26,12 @@ $outcome = $vlad->test('
 		user[name][last_name]
 	email
 		user[email]
-	not_empty +suppress
+	not_empty
 	email
 		user[alt_email]
 ');
 
-die(var_dump( $outcome ));
+ay( $outcome );
 
 // @todo Pass parameters to rule
 // @todo Pass options to input
@@ -40,7 +40,7 @@ function ay () {
 	if (ob_get_level()) {
 		ob_clean();
 	}
-    
+	
 	if (!headers_sent()) {
 		header('Content-Type: text/plain; charset="UTF-8"', true);
 	}

@@ -6,7 +6,7 @@ class String extends \ay\vlad\Rule {
 		return is_string($this->value);
 	}
 	
-	protected function getMessage () {
+	public function getMessage () {
 		return [
 			'name' => 'invalid_type',
 			'message' => 'The input is not a string.'
