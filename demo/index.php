@@ -10,7 +10,9 @@ $input = [
 			'first_name' => 'a',
 			'last_name' => 'b'
 		],
-		'email' => 'foo@bar',
+		'email' => 'foo@bar.ltd',
+		'alt1_email' => '',
+		'alt2_email' => 'test',
 		'birthdate' => '1991-01-23'
 	]
 ];
@@ -24,14 +26,23 @@ $outcome = $vlad->test('
 	string
 		user[name][first_name]
 		user[name][last_name]
+		user[email]
 	email
 		user[email]
-	not_empty
+	not_empty mute
 	email
-		user[alt_email]
+		user[alt1_email]
+		user[alt2_email]
 ');
 
 ay( $outcome );
+
+/*not_empty
+	string
+		
+	email
+		user[email]*/
+
 
 // @todo Pass parameters to rule
 // @todo Pass options to input

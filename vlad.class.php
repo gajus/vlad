@@ -9,7 +9,7 @@ class Vlad {
 		if ($input === null) {
 			$input = $_POST;
 		}
-	
+		
 		$this->input = $input;
 	}
 	
@@ -43,8 +43,8 @@ class Vlad {
 					'options' => []
 				];
 				
-				if (isset($input_line[1])) {
-					$rule['options'] = $this->parseAttributes();
+				if (isset($rule_line[1])) {
+					$rule['options'] = $this->parseOptions($rule_line[1]);
 				}
 				
 				$test['rule'][] = $rule;
@@ -61,7 +61,7 @@ class Vlad {
 				];
 				
 				if (isset($input_line[1])) {
-					$input['options'] = $this->parseAttributes();
+					$input['options'] = $this->parseAttributes($input_line[1]);
 				}
 				
 				$test['input'][] = $input;
@@ -90,12 +90,14 @@ class Vlad {
 	}
 	
 	public function test ($test_script) {
-		$failed = [];
+		$failed_test_script = [];
 	
 		$test_script = $this->parseTest($test_script);
 		
-		foreach ($test_script as $ts) {
-			foreach ($ts['rule'] as $rule) {
+		foreach ($test_script as $test) {
+			$failed_test = [];
+			
+			foreach ($test['rule'] as $rule) {
 				$rule_class_name = $rule['name'];
 				
 				if (strpos($rule['name'], '/') === false) {
@@ -108,8 +110,8 @@ class Vlad {
 					throw new \Exception('Rule must extend ay\vlad\Rule.');
 				}
 				
-				foreach ($ts['input'] as $input) {
-					if (isset($failed[$input['selector']])) {
+				foreach ($test['input'] as $input) {
+					if (isset($failed_test_script[$input['selector']]) || isset($failed_test[$input['selector']])) {
 						continue;
 					}
 				
@@ -119,17 +121,25 @@ class Vlad {
 					$rule_instance = new $rule_class_name( $value );
 					
 					if (!$rule_instance->isValid()) {
-						$failed[$input['selector']] = [
+						$failed_test[$input['selector']] = [
 							'name' => $input['selector'],
+							'value' => $value,
 							'rule' => $rule,
 							'message' => $rule_instance->getMessage()
 						];
 					}
 				}
 			}
+			
+			// Before merging test results with the test script results, remove input that did not pass "mute" rules.
+			foreach ($failed_test as $input_name => $result) {
+				if (!array_key_exists('mute', $result['rule']['options'])) {
+					$failed_test_script[$input_name] = $result;
+				}
+			}
 		}
 		
-		return array_values($failed);
+		return array_values($failed_test_script);
 	}
 	
 	private function getPath ($selector) {
@@ -157,10 +167,10 @@ class Vlad {
 	/**
 	 * @author https://gist.github.com/rodneyrehm/3070128
 	 */
-	private function parseAttributes ($text) {
-		$attributes = [];
+	private function parseOptions ($text) {
+		$options = [];
 		$pattern = '#(?(DEFINE)
-				(?<name>[a-zA-Z][a-zA-Z0-9-:]*)
+				(?<name>[a-zA-Z][\.a-zA-Z0-9-:]*)
 				(?<value_double>"[^"]+")
 				(?<value_single>\'[^\']+\')
 				(?<value_none>[^\s>]+)
@@ -170,10 +180,10 @@ class Vlad {
 	 
 		if (preg_match_all($pattern, $text, $matches, PREG_SET_ORDER)) {
 			foreach ($matches as $match) {
-				$attributes[$match['n']] = isset($match['v']) ? trim($match['v'], '\'"') : null;
+				$options[$match['n']] = isset($match['v']) ? trim($match['v'], '\'"') : null;
 			}
 		}
 		
-		return $attributes;
+		return $options;
 	}
 }
