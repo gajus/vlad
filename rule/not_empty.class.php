@@ -3,7 +3,7 @@ namespace ay\vlad\rule;
 
 class Not_Empty extends \ay\vlad\Rule {
 	public function isValid () {
-		return strlen(trim($this->value));
+		return strlen($this->value);
 	}
 	
 	public function getMessage () {
