@@ -13,28 +13,82 @@ class Vlad {
 		$this->input = $input;
 	}
 	
-	private function parseTest () {
-		$rule = [
-			[
-				'rule' => ['name' => 'is_eq_a'],
-				'input' => [
-					[
-						'selector' => 'user[name]',
-						'options' => [
-							'scope' => 'group'
-						]
-					]
-				]
-			]
-		];
+	private function parseTest ($test_str) {
+		// Prototype implementation.
 		
-		return $rule;
+		// Remove the whitespace lines
+		$test = array_values(array_filter(explode(PHP_EOL, $test_str), function ($e) {
+			return trim($e);
+		}));
+		
+		if (empty($test)) {
+			throw new \InvalidArgumentException('Test has no rules.');
+		}
+		
+		// Number of tabs in the first line set offset.
+		// It is assumed that tab does not occur in the line beyond indentation.
+		
+		$offset = mb_strrpos($test[0], "\t");
+		
+		$offset = $offset === false ? 0 : $offset + 1;
+		
+		$test_arr = [];
+		
+		foreach ($test as $i => $tl) {
+			$tl_offset = mb_strrpos($tl, "\t");
+			
+			$tl_offset = $tl_offset === false ? 0 : $tl_offset + 1;
+			
+			if ($tl_offset === $offset) {
+				$rule = [
+					'rule' => [
+						'name' => trim($tl)
+					]
+				];		
+			} else if ($tl_offset === $offset + 1) {
+				#if (!in_array($i, [1])) ay($i, $tl, $rule['input']);
+			
+				if (!isset($rule['input'])) {
+					$rule['input'] = [];
+				}
+				
+				$input = [
+					'selector' => trim($tl)
+				];
+				
+				
+				
+				$rule['input'][] = $input;
+			} else {
+				throw new \InvalidArgumentException('Invalid rule format.');
+			}
+			
+			if ($tl_offset !== $offset) {
+				$next_offset = null;
+				
+				if (isset($test[$i + 1])) {
+					$next_offset = mb_strrpos($test[$i + 1], "\t");
+		
+					$next_offset = $next_offset === false ? 0 : $next_offset + 1;
+				}
+				
+				if ($next_offset === $offset || !isset($test[$i + 1])) {
+					if (isset($rule['rule']['name'], $rule['input'])) {
+						$test_arr[] = $rule;
+					} else {
+						throw new \InvalidArgumentException('Rule without input selector.');
+					}
+				}
+			}
+		}
+		
+		return $test_arr;
 	}
 	
-	public function test () {
+	public function test ($test_str) {
 		$failed = [];
 	
-		$test = $this->parseTest();
+		$test = $this->parseTest($test_str);
 		
 		foreach ($test as $rule) {
 			$rule_name = $rule['rule']['name'];
@@ -42,6 +96,8 @@ class Vlad {
 			if (strpos($rule['rule']['name'], '/') === false) {
 				$rule_name = 'ay\vlad\rule\\' . $rule_name;
 			}
+			
+			#ay($rule_name);
 			
 			if (!class_exists($rule_name)) {
 				throw new \Exception('Rule cannot be found.');
@@ -57,14 +113,10 @@ class Vlad {
 				$path = $this->getPath($input['selector']);
 				$value = $this->getValue($path);
 				
-				#$input = new Input($this->input, $input['selector']);
-				#ay( $path, $value, $input->getValue(), $input->getSelector(), $input->getPath() );
-				
 				$rule_instance = new $rule_name( $value );
 				
 				if (!$rule_instance->isValid()) {
 					$failed[$input['selector']] = [
-						// @todo pattern matching 'selector' => $input['selector'],
 						'name' => $input['selector'],
 						'rule' => $rule['rule']['name'],
 						'message' => $rule_instance->getMessage()
