@@ -9,7 +9,7 @@ abstract class Rule {
 		$this->value = $value;
 	}
 	
-	abstract public function isValid();
+	abstract public function isValid ();
 	
-	abstract public function getMessage();
+	abstract public function getMessage ();
 }

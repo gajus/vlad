@@ -13,41 +13,38 @@ class Vlad {
 		$this->input = $input;
 	}
 	
-	private function parseTest ($test_str) {
-		// Prototype implementation.
-		
-		// Remove the whitespace lines
-		$test = array_values(array_filter(explode(PHP_EOL, $test_str), function ($e) {
+	private function parseTest ($test_script) {
+		// Remove empty lines.
+		$test_script = array_values(array_filter(explode(PHP_EOL, $test_script), function ($e) {
 			return trim($e);
 		}));
 		
-		if (empty($test)) {
-			throw new \InvalidArgumentException('Test has no rules.');
+		if (empty($test_script)) {
+			throw new \InvalidArgumentException('Test script has no rules.');
 		}
 		
-		// Number of tabs in the first line set offset.
-		// It is assumed that tab does not occur in the line beyond indentation.
+		// Number of tabs in the first non-empty line set the indentation_offset.
+		// It is assumed that tab does not occur in the line beyond the initial indentation.
+		$indentation_offset = mb_strrpos($test_script[0], "\t");
+		$indentation_offset = $indentation_offset === false ? 0 : $indentation_offset + 1;
 		
-		$offset = mb_strrpos($test[0], "\t");
+		$parsed_test = [];
 		
-		$offset = $offset === false ? 0 : $offset + 1;
-		
-		$test_arr = [];
-		
-		foreach ($test as $i => $tl) {
-			$tl_offset = mb_strrpos($tl, "\t");
+		foreach ($test_script as $ts) {
+			$offset = mb_strrpos($ts, "\t");
+			$offset = $offset === false ? 0 : $offset + 1;
 			
-			$tl_offset = $tl_offset === false ? 0 : $tl_offset + 1;
+			ay($offset);
 			
-			if ($tl_offset === $offset) {
+			
+			
+			if ($tl_offset === $indentation_offset) {
 				$rule = [
 					'rule' => [
 						'name' => trim($tl)
 					]
 				];		
-			} else if ($tl_offset === $offset + 1) {
-				#if (!in_array($i, [1])) ay($i, $tl, $rule['input']);
-			
+			} else if ($tl_offset === $indentation_offset + 1) {
 				if (!isset($rule['input'])) {
 					$rule['input'] = [];
 				}
@@ -63,7 +60,7 @@ class Vlad {
 				throw new \InvalidArgumentException('Invalid rule format.');
 			}
 			
-			if ($tl_offset !== $offset) {
+			if ($tl_offset !== $indentation_offset) {
 				$next_offset = null;
 				
 				if (isset($test[$i + 1])) {
@@ -74,7 +71,7 @@ class Vlad {
 				
 				if ($next_offset === $offset || !isset($test[$i + 1])) {
 					if (isset($rule['rule']['name'], $rule['input'])) {
-						$test_arr[] = $rule;
+						$parsed_test[] = $rule;
 					} else {
 						throw new \InvalidArgumentException('Rule without input selector.');
 					}
@@ -82,7 +79,7 @@ class Vlad {
 			}
 		}
 		
-		return $test_arr;
+		return $parsed_test;
 	}
 	
 	public function test ($test_str) {
@@ -96,8 +93,6 @@ class Vlad {
 			if (strpos($rule['rule']['name'], '/') === false) {
 				$rule_name = 'ay\vlad\rule\\' . $rule_name;
 			}
-			
-			#ay($rule_name);
 			
 			if (!class_exists($rule_name)) {
 				throw new \Exception('Rule cannot be found.');
