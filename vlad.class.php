@@ -118,7 +118,7 @@ class Vlad {
 					$path = $this->getPath($input['selector']);
 					$value = $this->getValue($path);
 					
-					$rule_instance = new $rule_class_name( $value );
+					$rule_instance = new $rule_class_name($value, $rule['options']);
 					
 					if (!$rule_instance->isValid()) {
 						$failed_test[$input['selector']] = [

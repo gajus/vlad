@@ -2,14 +2,14 @@
 namespace ay\vlad\rule;
 
 class String extends \ay\vlad\Rule {
-	public function isValid () {
-		return is_string($this->value);
-	}
-	
-	public function getMessage () {
-		return [
-			'name' => 'invalid_type',
-			'message' => 'The input is not a string.'
+	protected
+		$messages = [
+			'invalid_type' => '{vlad.name} must be a string.'
 		];
+	
+	protected function validate () {
+		if (is_string($this->value)) {
+			$this->error_name = 'invalid_type';
+		}
 	}
 }

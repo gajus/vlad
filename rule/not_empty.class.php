@@ -2,14 +2,14 @@
 namespace ay\vlad\rule;
 
 class Not_Empty extends \ay\vlad\Rule {
-	public function isValid () {
-		return strlen($this->value);
-	}
-	
-	public function getMessage () {
-		return [
-			'name' => 'is_empty',
-			'message' => 'Value is required and can\'t be empty.'
+	protected
+		$messages = [
+			'is_empty' => '{vlad.name} is required and can\'t be empty.'
 		];
+	
+	protected function validate () {
+		if (!strlen($this->value)) {
+			$this->error_name = 'is_empty';
+		}
 	}
 }

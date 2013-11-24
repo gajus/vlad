@@ -2,14 +2,14 @@
 namespace ay\vlad\rule;
 
 class Email extends \ay\vlad\Rule {
-	public function isValid () {
-		return filter_var($this->value, FILTER_VALIDATE_EMAIL);
-	}
-	
-	public function getMessage () {
-		return [
-			'name' => 'invalid_format',
-			'message' => 'The input is not a valid email address.'
+	protected
+		$messages = [
+			'invalid_format' => '{vlad.name} must be a valid email address.'
 		];
+	
+	protected function validate () {
+		if (!filter_var($this->value, FILTER_VALIDATE_EMAIL)) {
+			$this->error_name = 'invalid_format';
+		}
 	}
 }

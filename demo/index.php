@@ -23,19 +23,39 @@ $vlad = new \ay\vlad\Vlad($input);
 
 $outcome = $vlad->test('
 	not_empty
+		user[alt1_email]
+	length min=0
+		user[name][first_name]
+		user[name][last_name]
+		user[email]
+');
+
+ay( $outcome );
+
+/*
+not_empty
 	string
+	length min=10
 		user[name][first_name]
 		user[name][last_name]
 		user[email]
 	email
 		user[email]
-	not_empty mute
+	not_empty
 	email
 		user[alt1_email]
 		user[alt2_email]
-');
 
-ay( $outcome );
+required
+    username
+    email
+    password
+unique table=user
+    username
+unique table=user
+    email
+length min=7
+    password*/
 
 /*not_empty
 	string
