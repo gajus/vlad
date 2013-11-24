@@ -7,8 +7,8 @@ spl_autoload_extensions('.class.php');
 $input = [
 	'user' => [
 		'name' => [
-			'first_name' => 'a',
-			'last_name' => 'b'
+			'first_name' => 'foo',
+			'last_name' => 'barbarbarbarbarbarbar'
 		],
 		'email' => 'foo@bar.ltd',
 		'alt1_email' => '',
@@ -23,11 +23,20 @@ $vlad = new \ay\vlad\Vlad($input);
 
 $outcome = $vlad->test('
 	not_empty
-		user[alt1_email]
-	length min=0
+	string
 		user[name][first_name]
-		user[name][last_name]
 		user[email]
+		user[alt1_email]
+		user[alt2_email]
+	length min=5
+		user[name][first_name]
+	length max=10
+		user[name][last_name]
+	email
+		user[email]
+		user[alt1_email]
+		user[alt2_email]
+		
 ');
 
 ay( $outcome );

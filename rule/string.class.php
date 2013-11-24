@@ -4,7 +4,7 @@ namespace ay\vlad\rule;
 class String extends \ay\vlad\Rule {
 	protected
 		$messages = [
-			'invalid_type' => '{vlad.name} must be a string.'
+			'invalid_type' => '{vlad.input.name} must be a string.'
 		];
 	
 	protected function validate () {

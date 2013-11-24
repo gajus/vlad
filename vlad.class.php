@@ -61,7 +61,7 @@ class Vlad {
 				];
 				
 				if (isset($input_line[1])) {
-					$input['options'] = $this->parseAttributes($input_line[1]);
+					$input['options'] = $this->parseOptions($input_line[1]);
 				}
 				
 				$test['input'][] = $input;
@@ -122,8 +122,11 @@ class Vlad {
 					
 					if (!$rule_instance->isValid()) {
 						$failed_test[$input['selector']] = [
-							'name' => $input['selector'],
-							'value' => $value,
+							'input' => [
+								'name' => $input['selector'],
+								'value' => $value,
+								'options' => $input['options']
+							],
 							'rule' => $rule,
 							'message' => $rule_instance->getMessage()
 						];
