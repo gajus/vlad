@@ -10,7 +10,7 @@ class Translator {
 	}
 
 	/**
-	 *
+	 * 
 	 */
 	final public function test (array $test_output, array $dictionary = []) {
 		$final_dictionary = [];

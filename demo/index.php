@@ -7,20 +7,20 @@ spl_autoload_extensions('.class.php');
 $input = [
 	'user' => [
 		'name' => [
-			'first_name' => 'foo',
-			'last_name' => 'barbarbarbarbarbarbar'
+			'first_name' => 'Gajus',
+			'last_name' => 'Kuizinas'
 		],
-		'email' => 'foo@bar.ltd',
-		'alt1_email' => '',
-		'alt2_email' => 'test',
-		'birthdate' => '1991-01-23'
+		'email' => 'gajus@kuizinas.ltd',
+		'alt1_email' => '', // This will trigger 'required' rule.
+		'alt2_email' => 'invalid_email', // This will trigger 'email' rule.
+		'birthdate' => '1989-01-10'
 	]
 ];
 
 $vlad = new \ay\vlad\Vlad($input);
 
 $test = $vlad->test('
-	not_empty
+	required
 	string
 		user[name][first_name]
 		user[email]
