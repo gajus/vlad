@@ -150,7 +150,7 @@ class Vlad {
 				}
 			}
 		}
-		
+
 		return $this->translator->test(array_values($failed_test_script), $dictionary);
 	}
 	

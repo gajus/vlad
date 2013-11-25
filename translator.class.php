@@ -2,16 +2,36 @@
 namespace ay\vlad;
 
 class Translator {
-	public function test (array $test_output, array $dictionary = []) {
+	protected
+		$dictionary = [];
+	
+	public function __construct (array $dictionary = []) {
+		$this->dictionary = $dictionary;
+	}
+
+	/**
+	 *
+	 */
+	final public function test (array $test_output, array $dictionary = []) {
+		$final_dictionary = [];
+		
+		foreach (['translated', 'name', 'custom'] as $group) {
+			$final_dictionary[$group] = isset($this->dictionary[$group]) ? $this->dictionary[$group] : [];
+			
+			if (isset($dictionary[$group])) {
+				$final_dictionary[$group] = array_merge($final_dictionary[$group], $dictionary[$group]);
+			}
+		}
+		
 		foreach ($test_output as &$to) {
 			if (isset($dictionary['custom'][$to['rule']['name'] . '.' . $to['message']['name'] . ' ' . $to['input']['name']])) {
-				$to['message']['message'] = $dictionary['custom'][$to['rule']['name'] . '.' . $to['message']['name'] . ' ' . $to['input']['name']];
+				$to['message']['message'] = $final_dictionary['custom'][$to['rule']['name'] . '.' . $to['message']['name'] . ' ' . $to['input']['name']];
 			} else if (isset($dictionary['translated'][$to['rule']['name'] . '.' . $to['message']['name']])) {
-				$to['message']['message'] = $dictionary['translated'][$to['rule']['name'] . '.' . $to['message']['name']];
+				$to['message']['message'] = $final_dictionary['translated'][$to['rule']['name'] . '.' . $to['message']['name']];
 			}
 			
-			if (isset($dictionary['name'][$to['input']['name']])) {
-				$to['input']['name'] = 'Test'; # $dictionary['name'][$to['input']['name']];
+			if (isset($final_dictionary['name'][$to['input']['name']])) {
+				$to['input']['name'] = 'Test';
 			}
 			
 			$to['message']['message'] = $this->replacePlaceholders($to);
@@ -22,7 +42,7 @@ class Translator {
 		return $test_output;
 	}
 	
-	final protected function replacePlaceholders ($to) {
+	final private function replacePlaceholders ($to) {
 		$message = $to['message']['message'];
 		
 		unset($to['message']['message']);
@@ -45,7 +65,7 @@ class Translator {
 			}
 		}
 		
-		// In case this would evolvo and require more than 3 levels, then preg_replace_callback should be used instead.
+		// In case there is a requirement for more than 3 levels, then use preg_replace_callback instead.
 		
 		return str_replace(array_keys($placeholders), array_values($placeholders), $message);
 	}

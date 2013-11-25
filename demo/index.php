@@ -17,8 +17,6 @@ $input = [
 	]
 ];
 
-header('Content-Type: text/plain');
-
 $vlad = new \ay\vlad\Vlad($input);
 
 $test = $vlad->test('
@@ -36,20 +34,13 @@ $test = $vlad->test('
 		user[email]
 		user[alt1_email]
 		user[alt2_email]
-', [
-	'translated' => [
-		'not_empty.is_empty' => 'test'
-	],
-	'name' => [
-		'user[alt1_email]' => 'Alt. Email Address #1'
-	],
-	'custom' => [
-		'length.max user[name][last_name]' => 'Whoa! Your username is too long'
-	],
-]);
+');
 
 ay( $test );
 
+/**
+ * Used for testing only.
+ */
 function ay () {
 	if (ob_get_level()) {
 		ob_clean();
