@@ -3,14 +3,19 @@ namespace ay\vlad;
 
 class Vlad {
 	private
-		$input;
+		$input,
+		$translator;
 
-	public function __construct (array $input = null) {
+	public function __construct (array $input = null, Translator $translator = null) {
 		if ($input === null) {
 			$input = $_POST;
 		}
 		
 		$this->input = $input;
+		
+		if ($translator === null) {
+			$this->translator = new Translator();
+		}
 	}
 	
 	private function parseTest ($test_script) {
@@ -89,7 +94,7 @@ class Vlad {
 		return $parsed_test;
 	}
 	
-	public function test ($test_script) {
+	public function test ($test_script, array $dictionary = []) {
 		$failed_test_script = [];
 	
 		$test_script = $this->parseTest($test_script);
@@ -121,6 +126,10 @@ class Vlad {
 					$rule_instance = new $rule_class_name($value, $rule['options']);
 					
 					if (!$rule_instance->isValid()) {
+						if (!isset($input['options']['name'])) {
+							$input['options']['name'] = $this->deriveName($input['selector']);
+						}
+					
 						$failed_test[$input['selector']] = [
 							'input' => [
 								'name' => $input['selector'],
@@ -142,7 +151,14 @@ class Vlad {
 			}
 		}
 		
-		return array_values($failed_test_script);
+		return $this->translator->test(array_values($failed_test_script), $dictionary);
+	}
+	
+	private function deriveName ($selector) {
+		$path = $this->getPath($selector);
+		$name = ucwords(implode(' ', explode('_', implode('_', $path)))); // ['baz', 'foo_bar'] => Bar Foo Bar
+		
+		return $name;
 	}
 	
 	private function getPath ($selector) {

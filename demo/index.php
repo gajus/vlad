@@ -21,7 +21,7 @@ header('Content-Type: text/plain');
 
 $vlad = new \ay\vlad\Vlad($input);
 
-$outcome = $vlad->test('
+$test = $vlad->test('
 	not_empty
 	string
 		user[name][first_name]
@@ -36,45 +36,19 @@ $outcome = $vlad->test('
 		user[email]
 		user[alt1_email]
 		user[alt2_email]
-		
-');
+', [
+	'translated' => [
+		'not_empty.is_empty' => 'test'
+	],
+	'name' => [
+		'user[alt1_email]' => 'Alt. Email Address #1'
+	],
+	'custom' => [
+		'length.max user[name][last_name]' => 'Whoa! Your username is too long'
+	],
+]);
 
-ay( $outcome );
-
-/*
-not_empty
-	string
-	length min=10
-		user[name][first_name]
-		user[name][last_name]
-		user[email]
-	email
-		user[email]
-	not_empty
-	email
-		user[alt1_email]
-		user[alt2_email]
-
-required
-    username
-    email
-    password
-unique table=user
-    username
-unique table=user
-    email
-length min=7
-    password*/
-
-/*not_empty
-	string
-		
-	email
-		user[email]*/
-
-
-// @todo Pass parameters to rule
-// @todo Pass options to input
+ay( $test );
 
 function ay () {
 	if (ob_get_level()) {

@@ -8,9 +8,9 @@ class Length extends \ay\vlad\Rule {
 			'max' => null
 		],
 		$messages = [
-			'min' => '{vlad.input.name} must be at least {vlad.option.min} characters long.',
-			'max' => '{vlad.input.name} must be at most {vlad.option.min} characters long.',
-			'between' => '{vlad.input.name} must be between {vlad.option.min} and {vlad.option.max} characters long.',
+			'min' => '{vlad.input.options.name} must be at least {vlad.option.min} characters long.',
+			'max' => '{vlad.input.options.name} must be at most {vlad.option.min} characters long.',
+			'between' => '{vlad.input.options.name} must be between {vlad.option.min} and {vlad.option.max} characters long.',
 		];
 
 	protected function validate () {
