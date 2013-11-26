@@ -1,0 +1,172 @@
+html,
+body,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+body {
+  font: 14px/20px proxima-nova, 'Helvetica Neue';
+  background: #F5F5F5;
+}
+h1,
+h2,
+h3 {
+  font-weight: normal;
+  margin: 0;
+}
+h1 {
+  font-size: 30px;
+  line-height: 60px;
+  letter-spacing: 1px;
+}
+h2 {
+  font-size: 20px;
+  line-height: 20px;
+  margin: 40px;
+  background: #F4D03F;
+  padding: 20px;
+  text-transform: uppercase;
+  width: 1060px;
+}
+p {
+  margin: 10px 0;
+}
+.text {
+  margin: 20px;
+}
+.text p {
+  margin: 10px 0 0 0;
+}
+.text p:first-child {
+  margin: 0;
+}
+#vlad {
+  height: 60px;
+  position: fixed;
+  z-index: 9;
+  width: 450px;
+  top: 0;
+  right: 0;
+  background: #F4D03F;
+}
+#vlad h1 {
+  padding: 0 20px;
+}
+#vlad .github {
+  display: block;
+  background: #f5f5f5 url('../images/GitHub-Mark-32px.png') no-repeat 20px 50%;
+  line-height: 60px;
+  padding: 0 20px 0 72px;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#vlad .github:hover {
+  background-color: #F4D03F;
+}
+#vlad .index {
+  display: block;
+  background: #fff;
+  padding: 10px 20px 20px 20px;
+  font: normal 14px/20px Georgia, 'Times New Roman', sans-serif;
+}
+#vlad .index li {
+  margin: 10px 0 0 0;
+  list-style: inside decimal;
+}
+#vlad .index a {
+  color: #C0392B;
+}
+#examples {
+  width: 1100px;
+  margin: 0 40px 40px 40px;
+  overflow: hidden;
+}
+.example {
+  padding: 40px 0 0 0;
+}
+.example h3 {
+  font: normal 20px/30px Georgia, 'Times New Roman', sans-serif;
+  margin: 15px 20px 20px 20px;
+}
+.example h3 a {
+  text-decoration: none;
+  color: #000;
+}
+.example .description {
+  width: 200px;
+  float: left;
+}
+.example .body {
+  margin: 0 0 0 200px;
+  background: #fff;
+  overflow: hidden;
+}
+.example .tab {
+  background: #f0f;
+  overflow: hidden;
+}
+.example .tab.code pre,
+.example .tab.markup pre,
+.example .tab.code code,
+.example .tab.markup code {
+  margin: 0;
+  padding: 0;
+}
+.example .tab.code pre,
+.example .tab.markup pre {
+  display: block;
+  padding: 20px;
+  line-height: 20px;
+  background: #fff;
+}
+.example .tab.code {
+  background: #F4D03F;
+}
+.example .tab.demo {
+  background: #C0392B;
+  /*
+			
+			pre,
+			code { background: #FAFAFA; padding: 5px; }
+			
+			pre { display: block; padding: 10px; background: #00BA84; color: #fff; }
+			
+			hr {
+				margin: 20px 0; border: 1px solid #ccc; width: 298px;
+			}
+			
+			dl {
+				display: block; background: #fff; padding: 20px; width: 260px;
+				
+				dt { font-weight: 500; float: left; width: 100px; }
+			}*/
+
+}
+.example .tab.demo pre.var-dump {
+  background: #00BA84;
+  color: #fff;
+  padding: 20px;
+  margin: 0;
+  display: block;
+}
+.example .tab.demo ul {
+  overflow: hidden;
+  margin: 20px;
+}
+.example .tab.demo ul li {
+  list-style: inside disc;
+}
+.example .tab.demo .body {
+  background: #F5F5F5;
+}
+.example .tab.markup {
+  background: #e74c3c;
+}
+.example:first-child {
+  padding: 60px 0 0 0;
+}

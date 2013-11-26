@@ -13,25 +13,26 @@ class Translator {
 	 * 
 	 */
 	final public function test (array $test_output, array $dictionary = []) {
-		$final_dictionary = [];
+		$this->validateDictionary($this->dictionary);
+		$this->validateDictionary($dictionary);
 		
-		foreach (['translated', 'name', 'custom'] as $group) {
-			$final_dictionary[$group] = isset($this->dictionary[$group]) ? $this->dictionary[$group] : [];
-			
-			if (isset($dictionary[$group])) {
-				$final_dictionary[$group] = array_merge($final_dictionary[$group], $dictionary[$group]);
+		foreach (['translated', 'name', 'custom'] as $dictionary_name) {
+			if (!isset($dictionary[$dictionary_name])) {
+				$dictionary[$dictionary_name] = [];
 			}
+		
+			$dictionary[$dictionary_name] = isset($this->dictionary[$dictionary_name]) ? array_merge($this->dictionary[$dictionary_name], $dictionary[$dictionary_name]) : $dictionary[$dictionary_name];
 		}
 		
 		foreach ($test_output as &$to) {
 			if (isset($dictionary['custom'][$to['rule']['name'] . '.' . $to['message']['name'] . ' ' . $to['input']['name']])) {
-				$to['message']['message'] = $final_dictionary['custom'][$to['rule']['name'] . '.' . $to['message']['name'] . ' ' . $to['input']['name']];
+				$to['message']['message'] = $dictionary['custom'][$to['rule']['name'] . '.' . $to['message']['name'] . ' ' . $to['input']['name']];
 			} else if (isset($dictionary['translated'][$to['rule']['name'] . '.' . $to['message']['name']])) {
-				$to['message']['message'] = $final_dictionary['translated'][$to['rule']['name'] . '.' . $to['message']['name']];
+				$to['message']['message'] = $dictionary['translated'][$to['rule']['name'] . '.' . $to['message']['name']];
 			}
 			
-			if (isset($final_dictionary['name'][$to['input']['name']])) {
-				$to['input']['name'] = 'Test';
+			if (isset($dictionary['name'][$to['input']['name']])) {
+				$to['input']['options']['name'] = $dictionary['name'][$to['input']['name']];
 			}
 			
 			$to['message']['message'] = $this->replacePlaceholders($to);
@@ -68,5 +69,31 @@ class Translator {
 		// In case there is a requirement for more than 3 levels, then use preg_replace_callback instead.
 		
 		return str_replace(array_keys($placeholders), array_values($placeholders), $message);
+	}
+	
+	final private function validateDictionary (array $dictionary) {
+		$unknown_properties = array_diff(array_keys($dictionary), ['translated', 'name', 'custom']);
+		
+		if ($unknown_properties) {
+			throw new \InvalidArgumentException('Dictionary has unknown properties: "' . implode('", "', $unknown_properties) . '".');
+		}
+		
+		if (isset($dictionary['translated'])) {
+			foreach ($dictionary['translated'] as $name) {
+				
+			}
+		}
+		
+		if (isset($dictionary['name'])) {
+			foreach ($dictionary['name'] as $name) {
+				
+			}
+		}
+		
+		if (isset($dictionary['custom'])) {
+			foreach ($dictionary['custom'] as $name) {
+				
+			}
+		}
 	}
 }

@@ -7,15 +7,8 @@ class Vlad {
 		$translator;
 
 	public function __construct (array $input = null, Translator $translator = null) {
-		if ($input === null) {
-			$input = $_POST;
-		}
-		
-		$this->input = $input;
-		
-		if ($translator === null) {
-			$this->translator = new Translator();
-		}
+		$this->input = $input === null ? $_POST : $input;
+		$this->translator = $translator === null ? new Translator(): $translator;
 	}
 	
 	private function parseTest ($test_script) {
@@ -100,12 +93,11 @@ class Vlad {
 		$test_script = $this->parseTest($test_script);
 		
 		foreach ($test_script as $test) {
-			$failed_test = [];
-			
 			foreach ($test['rule'] as $rule) {
+				#$failed_test = [];
 				$rule_class_name = $rule['name'];
 				
-				if (strpos($rule['name'], '/') === false) {
+				if (strpos($rule['name'], '\\') === false) {
 					$rule_class_name = 'ay\vlad\rule\\' . $rule['name'];
 				}
 				
@@ -116,9 +108,14 @@ class Vlad {
 				}
 				
 				foreach ($test['input'] as $input) {
-					if (isset($failed_test_script[$input['selector']]) || isset($failed_test[$input['selector']])) {
+					#if ($rule['name'] !== 'required') {
+					#	die(var_dump( $rule, $input,  ));
+					#}
+					
+					if (isset($failed_test_script[$input['selector']])) { //  || isset($failed_test[$input['selector']])
 						continue;
 					}
+					
 				
 					$path = $this->getPath($input['selector']);
 					$value = $this->getValue($path);
@@ -130,7 +127,7 @@ class Vlad {
 							$input['options']['name'] = $this->deriveName($input['selector']);
 						}
 					
-						$failed_test[$input['selector']] = [
+						$failed_test_script[$input['selector']] = [
 							'input' => [
 								'name' => $input['selector'],
 								'value' => $value,
@@ -141,15 +138,17 @@ class Vlad {
 						];
 					}
 				}
-			}
-			
-			// Before merging test results with the test script results, remove input that did not pass "mute" rules.
-			foreach ($failed_test as $input_name => $result) {
-				if (!array_key_exists('mute', $result['rule']['options'])) {
-					$failed_test_script[$input_name] = $result;
-				}
+				
+				// Before merging test results with the test script results, remove input that did not pass "mute" rules.
+				#foreach ($failed_test as $input_name => $result) {
+				#	if (!array_key_exists('mute', $result['rule']['options'])) {
+				#		$failed_test_script[$input_name] = $result;
+				#	}
+				#}
 			}
 		}
+		
+		
 
 		return $this->translator->test(array_values($failed_test_script), $dictionary);
 	}

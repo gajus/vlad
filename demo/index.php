@@ -4,39 +4,63 @@ set_include_path( __DIR__ . '/../../../' );
 spl_autoload_register();
 spl_autoload_extensions('.class.php');
 
-$input = [
-	'user' => [
-		'name' => [
-			'first_name' => 'Gajus',
-			'last_name' => 'Kuizinas'
-		],
-		'email' => 'gajus@kuizinas.ltd',
-		'alt1_email' => '', // This will trigger 'required' rule.
-		'alt2_email' => 'invalid_email', // This will trigger 'email' rule.
-		'birthdate' => '1989-01-10'
-	]
-];
+session_start();
 
-$vlad = new \ay\vlad\Vlad($input);
 
-$test = $vlad->test('
-	required
-	string
-		user[name][first_name]
-		user[email]
-		user[alt1_email]
-		user[alt2_email]
-	length min=5
-		user[name][first_name]
-	length max=10
-		user[name][last_name]
-	email
-		user[email]
-		user[alt1_email]
-		user[alt2_email]
-');
+$example = function ($name, $label) {
+	ob_start();
+	require __DIR__ . '/examples/' . $name . '.php';
+	$output = ob_get_clean();
+	?>
+	<div class="example" id="example-<?=str_replace('/', '__', $name)?>">
+		<div class="tab code">
+			<div class="description">
+				<h3><a href="#example-<?=str_replace('/', '__', $name)?>"><?=$label?></a></h3>
+			</div>
+		
+			<div class="body">
+				<pre><code class="language-php"><?=htmlspecialchars(file_get_contents(__DIR__ . '/examples/' . $name . '.php'))?></code></pre>
+			</div>
+		</div>
+		<?php if ($output):?>
+		<div class="tab demo">
+			<div class="description"></div>
+		
+			<div class="body">
+				<?=$output?>
+			</div>
+		</div>
+		<?php endif;?>
+	</div>
+	<?php
+};
 
-ay( $test );
+ob_start();
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="static/js/jquery-1.10.2.min.js"></script>
+	<script src="static/js/frontend.js"></script>
+	
+	<link href="static/js/prism/prism.css" rel="stylesheet">
+	<link href="static/css/frontend.css" rel="stylesheet">
+</head>
+<body>
+	<div id="examples">
+		<?php /*<?=$example('hello/syntax', 'Syntax')?>
+		<?=$example('hello/error_output', 'Error Output')?>
+		<?=$example('hello/selector', 'Selector')?>
+		<?=$example('hello/multilingual', 'Multilingual')?>
+		<?=$example('hello/multilingual_2', 'Multilingual #2')?>*/?>
+		<?=$example('hello/custom_rule', 'Custom Rule')?>
+	</div>
+	
+	<script src="static/js/prism/prism.js"></script>
+</body>
+</html>
+<?php
+echo ob_get_clean();
 
 /**
  * Used for testing only.
