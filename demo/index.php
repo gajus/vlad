@@ -6,7 +6,6 @@ spl_autoload_extensions('.class.php');
 
 session_start();
 
-
 $example = function ($name, $label) {
 	ob_start();
 	require __DIR__ . '/examples/' . $name . '.php';
@@ -45,14 +44,21 @@ ob_start();
 	
 	<link href="static/js/prism/prism.css" rel="stylesheet">
 	<link href="static/css/frontend.css" rel="stylesheet">
+	
+	<title>Vlad – Input validation</title>
 </head>
 <body>
+	<div id="about">
+		<h1>Vlad</h1>
+		<h2>Input validation – <a href="https://github.com/gajus/vlad" target="_blank">https://github.com/gajus/vlad</a></h2>
+	</div>
+
 	<div id="examples">
-		<?php /*<?=$example('hello/syntax', 'Syntax')?>
+		<?=$example('hello/syntax', 'Syntax')?>
 		<?=$example('hello/error_output', 'Error Output')?>
 		<?=$example('hello/selector', 'Selector')?>
 		<?=$example('hello/multilingual', 'Multilingual')?>
-		<?=$example('hello/multilingual_2', 'Multilingual #2')?>*/?>
+		<?=$example('hello/multilingual_2', 'Multilingual #2')?>
 		<?=$example('hello/custom_rule', 'Custom Rule')?>
 	</div>
 	

@@ -18,20 +18,11 @@ h3 {
   font-weight: normal;
   margin: 0;
 }
-h1 {
-  font-size: 30px;
-  line-height: 60px;
-  letter-spacing: 1px;
+/*h1 {
+	font-size: 30px; line-height: 60px; letter-spacing: 1px;
 }
-h2 {
-  font-size: 20px;
-  line-height: 20px;
-  margin: 40px;
-  background: #F4D03F;
-  padding: 20px;
-  text-transform: uppercase;
-  width: 1060px;
-}
+
+h2 { font-size: 20px; line-height: 20px; margin: 40px; background: #F4D03F; padding: 20px; text-transform: uppercase; width: 1060px; }*/
 p {
   margin: 10px 0;
 }
@@ -44,19 +35,25 @@ p {
 .text p:first-child {
   margin: 0;
 }
-#vlad {
-  height: 60px;
-  position: fixed;
-  z-index: 9;
-  width: 450px;
-  top: 0;
-  right: 0;
-  background: #F4D03F;
+#about {
+  background: #fff;
+  color: #000;
+  overflow: hidden;
 }
-#vlad h1 {
-  padding: 0 20px;
+#about a {
+  color: #551A8B;
 }
-#vlad .github {
+#about h1 {
+  font-size: 30px;
+  line-height: 30px;
+  margin: 20px;
+}
+#about h2 {
+  font: 20px;
+  line-height: 20px;
+  margin: 20px;
+}
+#about .github {
   display: block;
   background: #f5f5f5 url('../images/GitHub-Mark-32px.png') no-repeat 20px 50%;
   line-height: 60px;
@@ -65,20 +62,20 @@ p {
   text-decoration: none;
   cursor: pointer;
 }
-#vlad .github:hover {
+#about .github:hover {
   background-color: #F4D03F;
 }
-#vlad .index {
+#about .index {
   display: block;
   background: #fff;
   padding: 10px 20px 20px 20px;
   font: normal 14px/20px Georgia, 'Times New Roman', sans-serif;
 }
-#vlad .index li {
+#about .index li {
   margin: 10px 0 0 0;
   list-style: inside decimal;
 }
-#vlad .index a {
+#about .index a {
   color: #C0392B;
 }
 #examples {
@@ -129,23 +126,6 @@ p {
 }
 .example .tab.demo {
   background: #C0392B;
-  /*
-			
-			pre,
-			code { background: #FAFAFA; padding: 5px; }
-			
-			pre { display: block; padding: 10px; background: #00BA84; color: #fff; }
-			
-			hr {
-				margin: 20px 0; border: 1px solid #ccc; width: 298px;
-			}
-			
-			dl {
-				display: block; background: #fff; padding: 20px; width: 260px;
-				
-				dt { font-weight: 500; float: left; width: 100px; }
-			}*/
-
 }
 .example .tab.demo pre.var-dump {
   background: #00BA84;
@@ -163,9 +143,6 @@ p {
 }
 .example .tab.demo .body {
   background: #F5F5F5;
-}
-.example .tab.markup {
-  background: #e74c3c;
 }
 .example:first-child {
   padding: 60px 0 0 0;
