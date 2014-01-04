@@ -55,11 +55,11 @@ ob_start();
 
 	<div id="examples">
 		<?=$example('hello/syntax', 'Syntax')?>
-		<?=$example('hello/error_output', 'Error Output')?>
+		<?php /*<?=$example('hello/error_output', 'Error Output')?>
 		<?=$example('hello/selector', 'Selector')?>
 		<?=$example('hello/multilingual', 'Multilingual')?>
 		<?=$example('hello/multilingual_2', 'Multilingual #2')?>
-		<?=$example('hello/custom_rule', 'Custom Rule')?>
+		<?=$example('hello/custom_rule', 'Custom Rule')?>*/?>
 	</div>
 	
 	<script src="static/js/prism/prism.js"></script>

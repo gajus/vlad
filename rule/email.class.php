@@ -7,9 +7,9 @@ class Email extends \ay\vlad\Rule {
 			'invalid_format' => '{vlad.input.options.name} must be a valid email address.'
 		];
 	
-	protected function validate () {
-		if (!filter_var($this->value, FILTER_VALIDATE_EMAIL)) {
-			$this->error_name = 'invalid_format';
+	protected function validate ($input) {
+		if (!filter_var($input, FILTER_VALIDATE_EMAIL)) {
+			return 'invalid_format';
 		}
 	}
 }
