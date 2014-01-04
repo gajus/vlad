@@ -4,61 +4,64 @@ namespace ay\vlad;
 class Test {
 	private
 		$translator,
-		$selector_rules = [];
+		$test = [];
 
 	final public function __construct (Translator $translator = null) {
 		$this->translator = $translator === null ? new Translator(): $translator;
 	}
 
-	public function addRule ($selector, \ay\vlad\Rule $rule) {
-		if (!isset($this->selector_rules[$selector])) {
-			$this->selector_rules[$selector] = [];
+	/**
+	 * Rule $type determines how to progress the Test in case of a failure:
+	 * – 'soft' will progress to the next Rule.
+	 * – 'hard' (default) will exclude the selector from the rest of the Test.
+	 * – 'break' will interrupt the Test.
+	 *
+	 * @param string $processing_type soft|hard|break
+	 */
+	public function addRule ($selector, \ay\vlad\Rule $rule, $processing_type = 'hard') {
+		if (!isset($this->test[$selector])) {
+			$this->test[$selector] = [];
 		}
 
-		$this->selector_rules[$selector][] = $rule;
+		$this->test[$selector][] = [
+			'rocessing_type' => $processing_type,
+			'rule' => $rule
+		];
 	}
 
-	public function input (array $input) {
+	public function input (array $input_source = null) {
+		if ($input_source === null) {
+			$input_source = $_POST;
+		}
+
 		$result = new Result($this->translator);
 
-		foreach ($this->selector_rules as $selector => $rules) {
-			$selector_path = $this->getPath($selector);
-			$selector_value = $this->getValue($selector_path, $input);
+		foreach ($this->test as $selector => $rules) {
+			$input = new Input($selector, $input_source);
+
+			ay( $input );
 
 			foreach ($rules as $rule) {
 
-				$result->add($selector, $selector_value, $rule);
 
-				#ay( $selector, $selector_value, $rule );
 
-				//$test_outcome = $rule->validate($selector_value);
-				//$result->addRule($selector, $test_outcome);
-				//ay($selector, $rule);
+
+				$error = $rule['rule']->input($input);
+
+				$result->addOutcome($selector, $value, $rule['rule'], $rule['rocessing_type'], $error);
+
+				if ($error) {
+					if ($rule['rocessing_type'] === 'hard') {
+						break;
+					} else if ($rule['rocessing_type'] === 'break') {
+						break(2);
+					}
+				}
 			}
 		}
 
 		return $result;
 	}
 
-	private function getPath ($selector) {
-		return explode('[', str_replace(']', '', $selector));
-	}
 	
-	private function getValue (array $path, array $input) {
-		// @todo regex (use http_build_str to flatten data array and recursive array walk to get rid of the long values)
-		
-		$value = $input;
-		
-		foreach ($path as $name) {
-			if (array_key_exists($name, $value)) {
-				$value = $value[$name];
-			} else {
-				$value = null;
-				
-				break;
-			}
-		}
-		
-		return $value;
-	}
 }

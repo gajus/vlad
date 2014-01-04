@@ -2,52 +2,34 @@
 
 $test_input = ['input_name1' => 'foo', 'input_name2' => 'bar'];
 
-//Vlad
-//	Test
-//		Task
-//			Result
+//Vlad is a convenience wrapper for Test, used to build a Test from an array. Vlad carries a Translator instance that will be used for the derived tests.
+//	Test is a collection of input selectors and Rules.
+//		(?) Input carries input name/value/label
+//		Rule is used to validate the input.
+//			Result is produced by a Test for a given $input.
+// Translator carries translations for Rules, Input labels, and specific Input Rules.
 
-$translator = new \ay\vlad\Translator();
-
-$vlad = new \ay\vlad\Vlad($translator);
+$vlad = new \ay\vlad\Vlad();
 
 $test = $vlad->test([
 	[
 		['input_name1', 'input_name2', 'input_name3'],
-		['email']
+		['soft:', 'email']
 	]
 ]);
 
-ay($test);
-
 $result = $test->input($test_input);
 
-$result->getFailed();
+ay( $result->getFailed() );
 
 
 
 /*
-// Sample input
-$input = [
-	'first_name' => 'Gajus',
-	'email' => 'foo@bar.tld'
-];
-
-// Vlad is not a sanitization tool. There is rarely a case when you should sanitize user input during validation (see http://anuary.com/55/why-input-sanitization-is-evil and http://phpsecurity.readthedocs.org/en/latest/Input-Validation.html#never-attempt-to-fix-input).
+// Vlad is not a sanitization tool. There is rarely a case when you should sanitize user input (see http://anuary.com/55/why-input-sanitization-is-evil and http://phpsecurity.readthedocs.org/en/latest/Input-Validation.html#never-attempt-to-fix-input).
 
 $vlad = new \ay\vlad\Vlad($input);
-$test = $vlad->test(['input_name1'], ['not_empty', 'is_string']); // soft, hard, break
+$test = $vlad->test(['input_name1'], ['not_empty', 'is_string']);
 
-
-Contrary to most input validation implementations, Vlad is assigning input to rule chain, rather than rule chain to input, e.g.
-
-Instead of:
-
-input_name => [rule1, rule2, rule3]
-
-You have a version of:
-
-[rule1, rule2, rule3] => [input_name1, input_name2]
 ?>
 <pre class="var-dump">
 <?php var_dump($test);?>

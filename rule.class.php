@@ -16,7 +16,11 @@ abstract class Rule {
 		$this->options = $options;
 	}
 
-	final public function test ($input) {
+	final function getOptions () {
+		return $this->options;
+	}
+
+	final public function input ($input) {
 		$error_name = $this->validate($input);
 
 		if ($error_name) {
