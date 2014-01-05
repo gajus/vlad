@@ -18,18 +18,11 @@ $test = $vlad->test([
 	]
 ]);
 
-$result = $test->input($test_input);
-
-ay( $result->getFailed() );
-
+$result = $test->assess($test_input);
 
 
 /*
-// Vlad is not a sanitization tool. There is rarely a case when you should sanitize user input (see http://anuary.com/55/why-input-sanitization-is-evil and http://phpsecurity.readthedocs.org/en/latest/Input-Validation.html#never-attempt-to-fix-input).
-
-$vlad = new \ay\vlad\Vlad($input);
-$test = $vlad->test(['input_name1'], ['not_empty', 'is_string']);
-
+ay( $result->getFailed() );
 ?>
 <pre class="var-dump">
 <?php var_dump($test);?>

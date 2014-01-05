@@ -5,10 +5,28 @@ class Vlad {
 	private
 		$translator;
 
+	/**
+	 * Unless overwritten down the chain this Translator will be
+	 * used to construct all the Tests.
+	 *
+	 * @param Translator $translator
+	 */
 	final public function __construct (Translator $translator = null) {
-		$this->translator = $translator === null ? new Translator(): $translator;
+		$this->translator = $translator === null ? new Translator() : $translator;
 	}
 	
+	/**
+	 * Build a test suite.
+	 *
+	 * @param array $script Test rules defined in a format [ [ ['selector1', 'selector2'], ['rule1', 'rule2', 'rule3'] ] ].
+	 * The first array indicates a script containing batches of selector and rule arrays. For every selector, each rule
+	 * from withint the batch is applied. Rule array accepts names of the classes.
+	 *
+	 * You can change the rule processing type (see \ay\vlad\Ad::Rule) by injecting either of the valid type properties
+	 * followed by a collomun into the rules array, e.g. ['soft:', 'rule1', 'hard:', 'rule2', 'rule3', 'break:', 'rule4'].
+	 *
+	 * You can pass properties to the rules by assigning an array, e.g. ['rule1', 'rule2' => ['min' => 10, 'max' => 20]].
+	 */
 	public function test (array $script) {
 		$test = new Test($this->translator);
 
@@ -34,19 +52,17 @@ class Vlad {
 						continue;
 					}
 
-					$rule_class_name = $rule_name;
-			
 					if (strpos($rule_name, '\\') === false) {
-						$rule_class_name = 'ay\vlad\rule\\' . $rule_name;
+						$rule_name = 'ay\vlad\rule\\' . $rule_name;
 					}
 					
-					if (!class_exists($rule_class_name)) {
+					if (!class_exists($rule_name)) {
 						throw new \Exception('Rule cannot be found.');
-					} else if (!is_subclass_of($rule_class_name, 'ay\vlad\Rule')) {
+					} else if (!is_subclass_of($rule_name, 'ay\vlad\Rule')) {
 						throw new \Exception('Rule must extend ay\vlad\Rule.');
 					}
 
-					$test->addRule($selector, new $rule_class_name, $processing_type);
+					$test->addRule($selector, new $rule_name, $processing_type);
 				}
 			}
 		}

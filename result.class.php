@@ -3,40 +3,39 @@ namespace ay\vlad;
 
 class Result {
 	private
-		$translator,
+		$test,
 		$result = [];
 
-	final public function __construct (Translator $translator) {
-		$this->translator = $translator;
+	final public function __construct (Test $test, $input, Translator $translator) {
+		$this->assess($test, $input, $translator);
 	}
 
-	public function addOutcome ($selector, $value, \ay\vlad\Rule $rule, $processing_type, array $error = null) {
-		$rule_name = mb_strtolower(get_class($rule));
+	private function assess (Test $test, $input, Translator $translator) {
+		$script = $test->getScript();
 
-		$outcome = [
-			'input' => [
-				'selector' => $selector,
-				'label' => $this->translator->getInputName($selector),
-				'value' => $value
-			],
-			'rule' => [
-				'name' => $rule_name,
-				'options' => $rule->getOptions(),
-				'processing_type' => $processing_type
-			]
-		];
+		foreach ($script as $selector => $batch) {
+			$subject = new Subject($selector, $input, $translator);
 
-		if ($error) {
-			$this->translator->getRuleMessage($rule_name, $error['name'], $outcome);
+			foreach ($batch as $operation) {
+				$assessment = new Assessment($subject, $operation['rule'], $translator);
+
+				$this->result[] = $assessment;
+				
+				if ($error) {
+					if ($operation['processing_type'] === 'hard') {
+						break;
+					} else if ($operation['processing_type'] === 'break') {
+						break(2);
+					}
+				}
+			}
 		}
 
-		$outcome['error'] = $error;
-
-		$this->result[] = $outcome;
+		ay($this->result);
 	}
 
 	public function getFailed () {
-		ay($this->result);
+
 	}
 
 	public function getPassed () {
@@ -44,6 +43,6 @@ class Result {
 	}
 
 	public function getAll () {
-		
+
 	}
 }

@@ -6,57 +6,44 @@ Input validation library:
 * extendable
 * multilingual
 
+Vlad is not a sanitization tool. There is rarely a case when you should sanitize user input (see http://anuary.com/55/why-input-sanitization-is-evil and http://phpsecurity.readthedocs.org/en/latest/Input-Validation.html#never-attempt-to-fix-input).
+
 Full documentation and usage examples are available at: https://dev.anuary.com/740cfb7d-6ed3-5904-aa5c-7a7f80ed2faf/vendor/ay/vlad/demo/.
 
 ## Syntax
 
-Vlad is using custom syntax to define input rules, e.g.
-
-```
-rule1
-	input[name]
-rule2
-rule3 parameter1=value1
-	input[name]
-rule3 parameter1=value1 parameter2=value2
-	input[foo1]
-	input[foo2]
-```
-
-In practise:
-
 ```php
 // Dummy $input
 $input = [
-	'user' => [
-		'name' => [
-			'first_name' => 'Gajus',
-			'last_name' => 'Kuizinas'
-		],
-		'email' => 'gajus@kuizinas.ltd',
-		'alt1_email' => '', // This will trigger 'required' rule.
-		'alt2_email' => 'invalid_email', // This will trigger 'email' rule.
-		'birthdate' => '1989-01-10'
-	]
+  'user' => [
+    'name' => [
+      'first_name' => 'Gajus',
+      'last_name' => 'Kuizinas'
+    ],
+    'email' => 'gajus@kuizinas.ltd',
+    'alt1_email' => '', // This will trigger 'required' rule.
+    'alt2_email' => 'invalid_email', // This will trigger 'email' rule.
+    'birthdate' => '1989-01-10'
+  ]
 ];
 
 $vlad = new \ay\vlad\Vlad($input);
 
 $test = $vlad->test('
-	required
-	string
-		user[name][first_name]
-		user[email]
-		user[alt1_email]
-		user[alt2_email]
-	length min=5
-		user[name][first_name]
-	length max=10
-		user[name][last_name]
-	email
-		user[email]
-		user[alt1_email]
-		user[alt2_email]
+  required
+  string
+    user[name][first_name]
+    user[email]
+    user[alt1_email]
+    user[alt2_email]
+  length min=5
+    user[name][first_name]
+  length max=10
+    user[name][last_name]
+  email
+    user[email]
+    user[alt1_email]
+    user[alt2_email]
 ');
 ```
 

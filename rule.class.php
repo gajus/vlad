@@ -16,28 +16,25 @@ abstract class Rule {
 		$this->options = $options;
 	}
 
-	final function getOptions () {
+	final public function getOptions () {
 		return $this->options;
 	}
 
-	final public function input ($input) {
+	/*final public function assess ($input) {
 		$error_name = $this->validate($input);
 
 		if ($error_name) {
-			return $this->getMessage($error_name);
+			return new Error($error_name, $this->getMessage($error_name));
 		}
-	}
+	}*/
 	
-	final protected function getMessage ($error_name) {
+	final public function getMessage ($error_name) {
 		if (!isset($this->messages[$error_name])) {
 			throw new \Exception('Undefined error message "' . $error_name . '".');
 		}
 		
-		return [
-			'name' => $error_name,
-			'message' => $this->messages[$error_name]
-		];
+		return $this->messages[$error_name];
 	}
 	
-	abstract protected function validate ($input);
+	abstract public function validate ($input);
 }
