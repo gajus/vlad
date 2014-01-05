@@ -10,7 +10,7 @@ li {
 }
 body {
   font: 14px/20px proxima-nova, 'Helvetica Neue';
-  background: #F5F5F5;
+  background: #eee;
 }
 h1,
 h2,
@@ -18,11 +18,6 @@ h3 {
   font-weight: normal;
   margin: 0;
 }
-/*h1 {
-	font-size: 30px; line-height: 60px; letter-spacing: 1px;
-}
-
-h2 { font-size: 20px; line-height: 20px; margin: 40px; background: #F4D03F; padding: 20px; text-transform: uppercase; width: 1060px; }*/
 p {
   margin: 10px 0;
 }
@@ -35,52 +30,53 @@ p {
 .text p:first-child {
   margin: 0;
 }
-#about {
+#sidebar {
+  background: #343131;
+  color: #fff;
+  overflow: hidden;
+  width: 300px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+#sidebar .nav {
+  display: block;
+  margin: 40px 0;
+  padding: 0;
+  background: #E3E3E3;
+  color: #808080;
+  border-right: 1px solid #C9C9C9;
+}
+#sidebar .nav li {
+  padding: 10px;
+  cursor: pointer;
+}
+#sidebar .nav li:hover {
+  background: #D6D6D6;
+}
+#sidebar .nav li.active {
   background: #fff;
   color: #000;
-  overflow: hidden;
+  font-weight: 500;
 }
-#about a {
-  color: #551A8B;
-}
-#about h1 {
+#sidebar h1 {
   font-size: 30px;
   line-height: 30px;
   margin: 20px;
 }
-#about h2 {
-  font: 20px;
+#sidebar h2 {
+  font-size: 18px;
   line-height: 20px;
   margin: 20px;
 }
-#about .github {
-  display: block;
-  background: #f5f5f5 url('../images/GitHub-Mark-32px.png') no-repeat 20px 50%;
-  line-height: 60px;
-  padding: 0 20px 0 72px;
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-#about .github:hover {
-  background-color: #F4D03F;
-}
-#about .index {
-  display: block;
-  background: #fff;
-  padding: 10px 20px 20px 20px;
-  font: normal 14px/20px Georgia, 'Times New Roman', sans-serif;
-}
-#about .index li {
-  margin: 10px 0 0 0;
-  list-style: inside decimal;
-}
-#about .index a {
-  color: #C0392B;
+#sidebar a {
+  color: #F4D03F;
 }
 #examples {
   width: 1100px;
-  margin: 0 40px 40px 40px;
+  margin: 0 40px 40px 340px;
+  padding: 0 40px 0 0;
   overflow: hidden;
 }
 .example {
@@ -107,15 +103,13 @@ p {
   background: #f0f;
   overflow: hidden;
 }
-.example .tab.code pre,
-.example .tab.markup pre,
-.example .tab.code code,
-.example .tab.markup code {
+.example .tab pre,
+.example .tab code {
   margin: 0;
   padding: 0;
+  white-space: pre-wrap;
 }
-.example .tab.code pre,
-.example .tab.markup pre {
+.example .tab pre {
   display: block;
   padding: 20px;
   line-height: 20px;
@@ -125,25 +119,6 @@ p {
   background: #F4D03F;
 }
 .example .tab.demo {
-  background: #C0392B;
-}
-.example .tab.demo pre.var-dump {
-  background: #00BA84;
-  color: #fff;
-  padding: 20px;
-  margin: 0;
-  display: block;
-}
-.example .tab.demo ul {
-  overflow: hidden;
-  margin: 20px;
-}
-.example .tab.demo ul li {
-  list-style: inside disc;
-}
-.example .tab.demo .body {
-  background: #F5F5F5;
-}
-.example:first-child {
-  padding: 60px 0 0 0;
+  background: #F4D03F;
+  border-top: 1px solid #C0392B;
 }

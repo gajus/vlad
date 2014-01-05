@@ -7,8 +7,8 @@ class Required extends \ay\vlad\Rule {
 			'is_null' => '{vlad.subject.name} is required.'
 		];
 	
-	public function validate () {
-		if (is_null($this->value)) {
+	public function validate ($input) {
+		if (is_null($input)) {
 			return 'is_null';
 		}
 	}

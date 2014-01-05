@@ -18,7 +18,7 @@ $example = function ($name, $label) {
 			</div>
 		
 			<div class="body">
-				<pre><code class="language-php"><?=htmlspecialchars(file_get_contents(__DIR__ . '/examples/' . $name . '.php'))?></code></pre>
+				<pre><code class="language-php"><?=str_replace("\t", '    ', htmlspecialchars(file_get_contents(__DIR__ . '/examples/' . $name . '.php')))?></code></pre>
 			</div>
 		</div>
 		<?php if ($output):?>
@@ -41,28 +41,44 @@ ob_start();
 <head>
 	<script src="static/js/jquery-1.10.2.min.js"></script>
 	<script src="static/js/frontend.js"></script>
+	<script src="static/js/highlight/highlight.pack.js"></script>
 	
-	<link href="static/js/prism/prism.css" rel="stylesheet">
+	<script>
+	hljs.initHighlightingOnLoad();
+	</script>
+
 	<link href="static/css/frontend.css" rel="stylesheet">
-	
+	<link href="static/js/highlight/styles/default.css" rel="stylesheet">
+
 	<title>Vlad – Input validation</title>
 </head>
 <body>
-	<div id="about">
+	<div id="sidebar">
 		<h1>Vlad</h1>
-		<h2>Input validation – <a href="https://github.com/gajus/vlad" target="_blank">https://github.com/gajus/vlad</a></h2>
+		<h2>Input validation – <br><a href="https://github.com/gajus/vlad" target="_blank">https://github.com/gajus/vlad</a></h2>
+
+		<ol class="nav">
+			<li>Syntax</li>
+			<li>Syntax #2</li>
+			<li>Selector</li>
+			<li>Multilingual</li>
+			<li>Custom Rule</li>
+		</ol>
 	</div>
 
 	<div id="examples">
-		<?=$example('hello/syntax', 'Syntax')?>
-		<?php /*<?=$example('hello/error_output', 'Error Output')?>
-		<?=$example('hello/selector', 'Selector')?>
-		<?=$example('hello/multilingual', 'Multilingual')?>
-		<?=$example('hello/multilingual_2', 'Multilingual #2')?>
-		<?=$example('hello/custom_rule', 'Custom Rule')?>*/?>
+		<?=$example('syntax', 'Syntax')?>
+		<?=$example('syntax_2', 'Syntax #2')?>
+		<?=$example('selector', 'Selector')?>
+		<?=$example('multilingual', 'Multilingual')?>
+		<?=$example('custom_rule', 'Custom Rule')?>
+
+		<?php /*
+		<?=$example('error_output', 'Error Output')?>
+		<?=$example('multilingual', 'Multilingual')?>
+		<?=$example('multilingual_2', 'Multilingual #2')?>
+		*/?>
 	</div>
-	
-	<script src="static/js/prism/prism.js"></script>
 </body>
 </html>
 <?php

@@ -5,17 +5,11 @@ li { margin: 0; padding: 0; }
 
 li { list-style: none; }
 
-body { font: 14px/20px proxima-nova, 'Helvetica Neue'; background: #F5F5F5; }
+body { font: 14px/20px proxima-nova, 'Helvetica Neue'; background: #eee; }
 
 h1,
 h2,
 h3 { font-weight: normal; margin: 0; }
-
-/*h1 {
-	font-size: 30px; line-height: 60px; letter-spacing: 1px;
-}
-
-h2 { font-size: 20px; line-height: 20px; margin: 40px; background: #F4D03F; padding: 20px; text-transform: uppercase; width: 1060px; }*/
 
 p {
 	margin: 10px 0;
@@ -31,31 +25,30 @@ p {
 	}
 }
 
-#about {
-	background: #fff; color: #000; overflow: hidden;
+#sidebar {
+	background: #343131; color: #fff; overflow: hidden; width: 300px; position: fixed; left: 0; top: 0; bottom: 0;
 	
-	a { color: #551A8B; }
-	
+
+	.nav {
+		display: block; margin: 40px 0; padding: 0; background: #E3E3E3; color: #808080; border-right: 1px solid #C9C9C9;
+
+		li {
+			padding: 10px; cursor: pointer;
+
+			&:hover { background: #D6D6D6; }
+
+			&.active { background: #fff; color: #000; font-weight: 500; }
+		}
+	}
+
 	h1 { font-size: 30px; line-height: 30px; margin: 20px; }
-	h2 { font: 20px; line-height: 20px; margin: 20px; }
-	
-	.github {
-		display: block; background: #F5F5F5 url('../images/GitHub-Mark-32px.png') no-repeat 20px 50%; line-height: 60px; padding: 0 20px 0 72px; color: #000; text-decoration: none; cursor: pointer;
-		
-		&:hover { background-color: #F4D03F; }
-	}
-	
-	.index {
-		display: block; background: #fff; padding: 10px 20px 20px 20px; font: normal 14px/20px Georgia, 'Times New Roman', sans-serif;
-		
-		li { margin: 10px 0 0 0; list-style: inside decimal; }
-		
-		a { color: #C0392B; }
-	}
+	h2 { font-size: 18px; line-height: 20px; margin: 20px; }
+
+	a { color: #F4D03F; }
 }
 
 #examples {
-	width: 1100px; margin: 0 40px 40px 40px; overflow: hidden;
+	width: 1100px; margin: 0 40px 40px 340px; padding: 0 40px 0 0; overflow: hidden;
 }
 
 .example {
@@ -76,35 +69,17 @@ p {
 	.tab {
 		background: #f0f; overflow: hidden;
 		
+		pre,
+		code { margin: 0; padding: 0; white-space: pre-wrap; }
 		
-		&.code,
-		&.markup {
-			pre,
-			code { margin: 0; padding: 0; }
-			
-			pre { display: block; padding: 20px; line-height: 20px; background: #fff; }
-		}
+		pre { display: block; padding: 20px; line-height: 20px; background: #fff; }
 		
 		&.code {
 			background: #F4D03F;	
 		}
 		
 		&.demo {
-			background: #C0392B;
-			
-			pre.var-dump {
-				background: #00BA84; color: #fff; padding: 20px; margin: 0; display: block;
-			}
-			
-			ul {
-				overflow: hidden; margin: 20px;
-				
-				li { list-style: inside disc; }
-			}
-			
-			.body { background: #F5F5F5; }
+			background: #F4D03F; border-top: 1px solid #C0392B;
 		}
 	}
-	
-	&:first-child { padding: 60px 0 0 0; }
 }

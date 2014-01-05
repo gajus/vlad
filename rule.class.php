@@ -13,7 +13,7 @@ abstract class Rule {
 			throw new \BadMethodCallException('Unrecognised options: ' . implode(', ', array_keys($unrecognised_options)) . '.');
 		}
 		
-		$this->options = $options;
+		$this->options = $options + $this->options;
 	}
 
 	final public function getOptions () {

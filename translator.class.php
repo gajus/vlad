@@ -5,18 +5,38 @@ class Translator {
 	private
 		$dictionary = [
 			'selector' => [
-				// Replace 'vladfoo' to Vlad Foo.
+				// Give 'vladfoo' selector 'Vlad Foo' name.
 				'vladfoo' => 'Vlad Foo'
 			],
 			'rule_error' => [
 				// Replace the default email invalid_format error message.
-				'ay\vlad\email.vladfoo' => '{vlad.input.name} must be a valid email address.'
+				'ay\vlad\rule\email.invalid_format' => '{vlad.subject.name} must be a valid email address.'
 			],
 			'rule_error_selector' => [
 				// Replace the default email invalid_format error message for a specific selector.
-				'ay\vlad\email.invalid_format vladfoo' => 'Oops. Email address does not seem to be valid.'
+				'ay\vlad\rule\email.invalid_format vladfoo' => 'Oops. Email address does not seem to be valid.'
 			]
 		];
+
+	final public function __construct (array $dictionary = []) {
+		$this->populate($dictionary);
+	}
+
+	final private function populate (array $dictionary) {
+		if (array_diff(array_keys($dictionary), ['selector', 'rule_error', 'rule_error_selector'])) {
+			throw new \BadMethodCallException('$dictionary must be an array containing at least one sub-array defining "selector", "rule_error" or "rule_error_selector".');
+		}
+
+		foreach ($dictionary as $type => $translations) {
+			foreach ($translations as $t) {
+				if (!is_string($t)) {
+					throw new \BadMethodCallException('Individual translations must be a string.');
+				}
+			}
+		}
+
+		$this->dictionary = $dictionary;
+	}
 
 	/**
 	 * The selector not is retrieved either from the $dictionary,

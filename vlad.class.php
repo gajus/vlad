@@ -38,8 +38,14 @@ class Vlad {
 			foreach ($batch[0] as $selector) {
 				$processing_type = 'hard';
 
-				foreach ($batch[1] as $rule_name) {
-					// @todo $rule will be an array when options are passed.
+				foreach ($batch[1] as $context1 => $context2) {
+					if (is_int($context1)) {
+						$rule_name = $context2;
+						$options = [];
+					} else {
+						$rule_name = $context1;
+						$options = $context2;
+					}
 
 					if (!is_string($rule_name)) {
 						// @todo Allow passing instance of the rule.
@@ -62,7 +68,7 @@ class Vlad {
 						throw new \Exception('Rule must extend ay\vlad\Rule.');
 					}
 
-					$test->addRule($selector, new $rule_name, $processing_type);
+					$test->addRule($selector, new $rule_name($options), $processing_type);
 				}
 			}
 		}

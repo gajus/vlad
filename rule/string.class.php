@@ -7,8 +7,8 @@ class String extends \ay\vlad\Rule {
 			'invalid_type' => '{vlad.subject.name} must be a string.'
 		];
 	
-	public function validate () {
-		if (!is_string($this->value)) {
+	public function validate ($input) {
+		if (!is_string($input)) {
 			return 'invalid_type';
 		}
 	}
