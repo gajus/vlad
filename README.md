@@ -6,110 +6,64 @@ Input validation library:
 * extendable
 * multilingual
 
-Vlad is not a sanitization tool. There is rarely a case when you should sanitize user input (see http://anuary.com/55/why-input-sanitization-is-evil and http://phpsecurity.readthedocs.org/en/latest/Input-Validation.html#never-attempt-to-fix-input).
+[Documentation and usage examples](https://dev.anuary.com/740cfb7d-6ed3-5904-aa5c-7a7f80ed2faf/vendor/ay/vlad/demo/).
 
-Documentation and usage examples are available at: http://anuary.com/vlad/.
-
-## Syntax
+## Introductory Syntax
 
 ```php
-// Dummy $input
-$input = [
-  'user' => [
-    'name' => [
-      'first_name' => 'Gajus',
-      'last_name' => 'Kuizinas'
-    ],
-    'email' => 'gajus@kuizinas.ltd',
-    'alt1_email' => '', // This will trigger 'required' rule.
-    'alt2_email' => 'invalid_email', // This will trigger 'email' rule.
-    'birthdate' => '1989-01-10'
-  ]
+<?php
+$dummy_input = [
+  'foo' => 'me@foo.tld',
+  'bar' => 'invalidemail',
+  'baz' => '',
 ];
 
-$vlad = new \ay\vlad\Vlad($input);
+$vlad = new \ay\vlad\Vlad();
 
-$test = $vlad->test('
-  required
-  string
-    user[name][first_name]
-    user[email]
-    user[alt1_email]
-    user[alt2_email]
-  length min=5
-    user[name][first_name]
-  length max=10
-    user[name][last_name]
-  email
-    user[email]
-    user[alt1_email]
-    user[alt2_email]
-');
+$test = $vlad->test([
+  [
+    ['foo', 'bar', 'baz'], // Selectors
+    ['not_empty', 'email'] // Rules
+  ],
+  [
+    ['qux'],
+    ['required']
+  ]
+]);
+
+// The above method creates an instance of a Test.
+// Each selector (e.g. foo, bar, baz) is assigned all of the rules
+// from the same group, e.g. selector 'foo' is assigned rules 'not_empty' and 'email'.
+
+$result = $test->assess($dummy_input);
+
+var_dump($result->getFailed());
 ```
 
-The above `test` call will generate the following output:
+The above `var_dump` call will generate the following output:
 
 ```
-array(2) {
-  [0]=>
-  array(3) {
-    ["input"]=>
-    array(3) {
-      ["name"]=>
-      string(16) "user[alt1_email]"
-      ["value"]=>
-      string(0) ""
-      ["options"]=>
-      array(1) {
-        ["name"]=>
-        string(15) "User Alt1 Email"
-      }
-    }
-    ["rule"]=>
-    array(2) {
-      ["name"]=>
-      string(8) "required"
-      ["options"]=>
-      array(0) {
-      }
-    }
+array(3) {
+  [3]=>
+  array(2) {
+    ["selector"]=>
+    string(3) "bar"
     ["message"]=>
-    array(2) {
-      ["name"]=>
-      string(8) "is_empty"
-      ["message"]=>
-      string(32) "User Alt1 Email cannot be empty."
-    }
+    string(34) "Bar must be a valid email address."
   }
-  [1]=>
-  array(3) {
-    ["input"]=>
-    array(3) {
-      ["name"]=>
-      string(16) "user[alt2_email]"
-      ["value"]=>
-      string(13) "invalid_email"
-      ["options"]=>
-      array(1) {
-        ["name"]=>
-        string(15) "User Alt2 Email"
-      }
-    }
-    ["rule"]=>
-    array(2) {
-      ["name"]=>
-      string(5) "email"
-      ["options"]=>
-      array(0) {
-      }
-    }
+  [4]=>
+  array(2) {
+    ["selector"]=>
+    string(3) "baz"
     ["message"]=>
-    array(2) {
-      ["name"]=>
-      string(14) "invalid_format"
-      ["message"]=>
-      string(46) "User Alt2 Email must be a valid email address."
-    }
+    string(23) "Baz is cannot be empty."
+  }
+  [5]=>
+  array(2) {
+    ["selector"]=>
+    string(3) "qux"
+    ["message"]=>
+    string(16) "Qux is required."
   }
 }
 ```
