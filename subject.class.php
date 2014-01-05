@@ -10,7 +10,7 @@ class Subject {
 	public function __construct ($selector, array $input, Translator $translator) {
 		$this->selector = $selector;
 		
-		// @todo regex (use http_build_str to flatten data array and recursive array walk to get rid of the long values)
+		// @todo regex (use http_build_str to flatten data array and recursive array walk to get rid of the long values).
 		
 		$this->value = $input;
 		

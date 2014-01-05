@@ -8,7 +8,7 @@ Input validation library:
 
 Vlad is not a sanitization tool. There is rarely a case when you should sanitize user input (see http://anuary.com/55/why-input-sanitization-is-evil and http://phpsecurity.readthedocs.org/en/latest/Input-Validation.html#never-attempt-to-fix-input).
 
-Full documentation and usage examples are available at: https://dev.anuary.com/740cfb7d-6ed3-5904-aa5c-7a7f80ed2faf/vendor/ay/vlad/demo/.
+Documentation and usage examples are available at: http://anuary.com/vlad/.
 
 ## Syntax
 

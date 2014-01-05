@@ -45,6 +45,6 @@ class Test {
 			$input = $_POST;
 		}
 
-		$result = new Result($this, $input, $this->translator);
+		return new Result($this, $input, $this->translator);
 	}
 }

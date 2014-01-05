@@ -43,17 +43,36 @@ class Translator {
 	 * @param Rule $rule
 	 * @param Subject $subject
 	 */
-	public function getErrorMessage (Error $error, Rule $rule, Subject $subject) {
-		$rule_error = mb_strtolower( get_class($rule) ) . '.' . $error->getName();
+	public function getErrorMessage ($error_name, Rule $rule, Subject $subject) {
+		$rule_error = mb_strtolower( get_class($rule) ) . '.' . $error_name;
 		$rule_error_selector = $rule_error . ' ' . $subject->getSelector();
 
+		// Enforce check presense of the error message in the original Rule.
+		$message = $rule->getMessage($error_name);
+
 		if (isset($this->dictionary['rule_error_selector'][$rule_error_selector])) {
-			return $this->dictionary['rule_error_selector'][$rule_error_selector];
+			$message = $this->dictionary['rule_error_selector'][$rule_error_selector];
 		} else if (isset($this->dictionary['rule_error'][$rule_error])) {
-			return $this->dictionary['rule_error'][$rule_error];
+			$message = $this->dictionary['rule_error'][$rule_error];
 		}
 
-		return $error->getMessage();
+		$message = preg_replace_callback('/\{vlad\.([a-z\.]+)}/i', function ($e) use ($subject, $rule) { // \.(?:a-z\.)+\}
+			$path = explode('.', $e[1]);
+
+			if ($path[0] === 'subject' && $path[1] === 'name') {
+				return $subject->getName();
+			} else if ($path[0] === 'rule' && $path[1] === 'options') {
+				$options = $rule->getOptions();
+
+				if (isset($path[2]) && isset($options[$path[2]]) && is_scalar($options[$path[2]])) {
+					return $options[$path[2]];
+				}
+			}
+
+			throw new Exception('Unknown variable ' . $e[0] . '.');
+		}, $message);
+
+		return $message;
 	}
 
 	/**

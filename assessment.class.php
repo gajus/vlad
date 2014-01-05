@@ -14,18 +14,8 @@ class Assessment {
 		$error_name = $rule->validate($subject->getValue());
 
 		if ($error_name) {
-			ay($error_name);
-
-
-			$this->error = new Error($subject, $rule, $translator);
+			$this->error = $translator->getErrorMessage($error_name, $rule, $subject);
 		}
-
-
-		/*$this->error = $rule->assess($subject->getValue(), $translator);
-
-		if ($this->error) {
-			$this->error = $translator->getErrorMessage($this->error, $rule, $subject);
-		}*/
 	}
 
 	public function getSubject () {
@@ -36,7 +26,7 @@ class Assessment {
 		return $this->rule;
 	}
 
-	public function getError() {
-		return $ther->error;
+	public function getError () {
+		return $this->error;
 	}
 }

@@ -20,14 +20,6 @@ abstract class Rule {
 		return $this->options;
 	}
 
-	/*final public function assess ($input) {
-		$error_name = $this->validate($input);
-
-		if ($error_name) {
-			return new Error($error_name, $this->getMessage($error_name));
-		}
-	}*/
-	
 	final public function getMessage ($error_name) {
 		if (!isset($this->messages[$error_name])) {
 			throw new \Exception('Undefined error message "' . $error_name . '".');

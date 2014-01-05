@@ -20,11 +20,7 @@ $test = $vlad->test([
 
 $result = $test->assess($test_input);
 
-
-/*
-ay( $result->getFailed() );
 ?>
 <pre class="var-dump">
-<?php var_dump($test);?>
+<?php var_dump($result->getFailed());?>
 </pre>
-*/

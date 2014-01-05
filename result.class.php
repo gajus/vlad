@@ -21,7 +21,7 @@ class Result {
 
 				$this->result[] = $assessment;
 				
-				if ($error) {
+				if ($assessment->getError()) {
 					if ($operation['processing_type'] === 'hard') {
 						break;
 					} else if ($operation['processing_type'] === 'break') {
@@ -30,19 +30,21 @@ class Result {
 				}
 			}
 		}
-
-		ay($this->result);
 	}
 
 	public function getFailed () {
-
+		return array_filter($this->result, function ($r) {
+			return $r->getError();
+		});
 	}
 
 	public function getPassed () {
-
+		return array_filter($this->result, function ($r) {
+			return !$r->getError();
+		});
 	}
 
 	public function getAll () {
-
+		return $this->result;
 	}
 }
