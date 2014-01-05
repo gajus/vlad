@@ -4,13 +4,12 @@ namespace ay\vlad\rule;
 class Required extends \ay\vlad\Rule {
 	protected
 		$messages = [
-			'is_null' => '{vlad.input.options.name} is required.',
-			#'is_empty' => '{vlad.input.options.name} cannot be empty.'
+			'is_null' => '{vlad.subject.name} is required.'
 		];
 	
-	protected function validate () {
+	public function validate () {
 		if (is_null($this->value)) {
-			$this->error_name = 'is_null';
+			return 'is_null';
 		}
 	}
 }

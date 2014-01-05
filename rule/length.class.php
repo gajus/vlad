@@ -8,12 +8,12 @@ class Length extends \ay\vlad\Rule {
 			'max' => null
 		],
 		$messages = [
-			'min' => '{vlad.input.options.name} must be at least {vlad.rule.options.min} characters long.',
-			'max' => '{vlad.input.options.name} must be at most {vlad.rule.options.max} characters long.',
-			'between' => '{vlad.input.options.name} must be between {vlad.rule.options.min} and {vlad.rule.options.max} characters long.',
+			'min' => '{vlad.subject.name} must be at least {vlad.rule.options.min} characters long.',
+			'max' => '{vlad.subject.name} must be at most {vlad.rule.options.max} characters long.',
+			'between' => '{vlad.subject.name} must be between {vlad.rule.options.min} and {vlad.rule.options.max} characters long.',
 		];
 
-	protected function validate () {
+	public function validate () {
 		if (!is_string($this->value)) {
 			throw new \InvalidArgumentException('Value is expected to be string. "' . gettype($this->value) . '" given instead.');
 		}
@@ -35,11 +35,11 @@ class Length extends \ay\vlad\Rule {
 		}
 		
 		if (isset($this->options['min'], $this->options['max']) && (mb_strlen($this->value) < $this->options['min'] || mb_strlen($this->value) > $this->options['max'])) {
-			$this->error_name = 'between';
+			return 'between';
 		} else if (isset($this->options['min']) && mb_strlen($this->value) < $this->options['min']) {
-			$this->error_name = 'min';
+			return 'min';
 		} else if (isset($this->options['max']) && mb_strlen($this->value) > $this->options['max']) {
-			$this->error_name = 'max';
+			return 'max';
 		}
 	}
 }
