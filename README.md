@@ -1,10 +1,8 @@
 # Vlad
 
-Input validation library:
+Vlad is input validation library designed to use succinct syntax with extendable validation rules and multilingual support.
 
-* succinct
-* extendable
-* multilingual
+Vlad is not input sanitization library.
 
 [Documentation](http://anuary.com/vlad/) and [Usage Examples](http://anuary.com/vlad/) are written using code examples with inline documentation.
 

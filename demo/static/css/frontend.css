@@ -40,6 +40,9 @@ p {
   top: 0;
   bottom: 0;
 }
+#sidebar iframe {
+  margin: 0 20px;
+}
 #sidebar .nav {
   display: block;
   margin: 40px 0;
@@ -72,6 +75,26 @@ p {
 }
 #sidebar a {
   color: #F4D03F;
+}
+#header {
+  background: #fff;
+  margin: 0 0 0 300px;
+  overflow: hidden;
+}
+#header > .aux {
+  overflow: hidden;
+  width: 1100px;
+  background: #eee;
+  margin: 40px;
+}
+#header .text {
+  margin: 20px;
+}
+#header .text p {
+  margin: 10px 0 0 0;
+}
+#header .text > :first-child {
+  margin: 0;
 }
 #examples {
   width: 1100px;

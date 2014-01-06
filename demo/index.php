@@ -57,6 +57,8 @@ ob_start();
 		<h1>Vlad</h1>
 		<h2>Input validation – <br><a href="https://github.com/gajus/vlad" target="_blank">https://github.com/gajus/vlad</a></h2>
 
+		<iframe src="http://ghbtns.com/github-btn.html?user=gajus&repo=vlad&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+
 		<ol class="nav">
 			<li>Syntax</li>
 			<li>Syntax #2</li>
@@ -64,6 +66,15 @@ ob_start();
 			<li>Multilingual</li>
 			<li>Custom Rule</li>
 		</ol>
+	</div>
+
+	<div id="header">
+		<div class="aux">
+			<div class="text">
+				<p>Vlad is input validation library designed to use succinct syntax with extendable validation rules and multilingual support.</p>
+				<p>Vlad is not input sanitization library.</p>
+			</div>
+		</div>
 	</div>
 
 	<div id="examples">
