@@ -6,7 +6,7 @@ Input validation library:
 * extendable
 * multilingual
 
-[Documentation and usage examples](https://dev.anuary.com/740cfb7d-6ed3-5904-aa5c-7a7f80ed2faf/vendor/ay/vlad/demo/).
+[Documentation](http://anuary.com/vlad/) and [Usage Examples](http://anuary.com/vlad/) are written using code examples with inline documentation.
 
 ## Introductory Syntax
 
