@@ -1,8 +1,19 @@
 <?php
 namespace ay\vlad;
 
+/**
+ * Translator instance is passed to Result instance
+ * and is used to translate individual error messages
+ * and give names to the selectors.
+ */
 class Translator {	
 	private
+		/**
+		 * Dictionary carries all of the translations. By default, $dictionary
+		 * is populated by the constructor upon initiating the Translator.
+		 * 
+		 * @var array
+		 */
 		$dictionary = [
 			'selector' => [
 				// Give 'vladfoo' selector 'Vlad Foo' name.
@@ -22,6 +33,12 @@ class Translator {
 		$this->populate($dictionary);
 	}
 
+	/**
+	 * Validate array to ensure compatible dictionary
+	 * structure and overwrite the internal $dictionary.
+	 *
+	 * @return void
+	 */
 	final private function populate (array $dictionary) {
 		if (array_diff(array_keys($dictionary), ['selector', 'rule_error', 'rule_error_selector'])) {
 			throw new \BadMethodCallException('$dictionary must be an array containing at least one sub-array defining "selector", "rule_error" or "rule_error_selector".');
@@ -39,29 +56,24 @@ class Translator {
 	}
 
 	/**
-	 * The selector not is retrieved either from the $dictionary,
-	 * or derived from the $selector itself.
+	 * Retrieve selector name from the $dictionary.
 	 *
-	 * @see Translator::deriveSelectorName()
+	 * @return string|void
 	 */
 	public function getSelectorName ($selector) {
 		if (isset($this->dictionary['selector'][$selector])) {
 			return $this->dictionary['selector'][$selector];
 		}
-
-		return $this->deriveSelectorName($this->parseSelectorPath($selector));
 	}
 
 	/**
-	 * The error message is retrieved from the $dictionary.
-	 * 'rule_error' is the most generic translation of the rule
-	 * error. The latter is used either to replace the default error
-	 * message system-wise or for i18l purposes.
-	 * 'rule_error_selector' is selector specific rule error message.
+	 * Retrieve error message from the $dictionary or use the default Rule error message.
+	 * Replace variables in the resulting error message.
 	 *
 	 * @param Error $error
 	 * @param Rule $rule
 	 * @param Subject $subject
+	 * @return string
 	 */
 	public function getErrorMessage ($error_name, Rule $rule, Subject $subject) {
 		$rule_error = mb_strtolower( get_class($rule) ) . '.' . $error_name;
@@ -95,17 +107,5 @@ class Translator {
 		return $message;
 	}
 
-	/**
-	 * @param string $selector foo_bar[baz][qux] => ['foo_bar', 'baz', 'qux'].
-	 */
-	private function parseSelectorPath ($selector) {
-		return explode('[', str_replace(']', '', $selector));
-	}
-
-	/**
-	 * @param array $selector_path ['baz', 'foo_bar'] => Bar Foo Bar.
-	 */
-	private function deriveSelectorName (array $selector_path) {
-		return ucwords(implode(' ', explode('_', implode('_', $selector_path))));
-	}
+	
 }

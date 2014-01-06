@@ -1,9 +1,22 @@
 <?php
 namespace ay\vlad;
 
+/**
+ * Test instance is carrying selectors and rules.
+ * Test case be used to assess input, which will produce Result.
+ */
 class Test {
 	private
+		/**
+		 * @var Translator
+		 */
 		$translator,
+		/**
+		 * Carries test script, which defines selectors, rules and rule processing type.
+		 *
+		 * @see Test::addRule
+		 * @var array
+		 */
 		$script = [];
 
 	final public function __construct (Translator $translator = null) {
@@ -11,12 +24,11 @@ class Test {
 	}
 
 	/**
-	 * Rule $type determines how to progress the Test in case of a failure:
-	 * – 'soft' will record an error and progress to the next Rule.
-	 * – 'hard' (default) will record an error and exclude the selector from the rest of the Test.
-	 * – 'break' will record an error and interrupt the Test.
-	 *
+	 * Add a Rule with assigned selector and processing type to the Test script.
+	 * 
+	 * @see Result::assess()
 	 * @param string $processing_type soft|hard|break
+	 * @return Test
 	 */
 	public function addRule ($selector, \ay\vlad\Rule $rule, $processing_type = 'hard') {
 		if (!isset($this->test[$selector])) {
@@ -31,6 +43,8 @@ class Test {
 			'processing_type' => $processing_type,
 			'rule' => $rule
 		];
+
+		return $this;
 	}
 
 	public function getScript () {
@@ -38,7 +52,10 @@ class Test {
 	}
 
 	/**
-	 * @param array $input The input to run the test against.
+	 * Instantiate Result instance using the test script and user input.
+	 *
+	 * @param array $input The input to run the test against. If null, defaults to $_POST.
+	 * @return Result
 	 */
 	public function assess (array $input = null) {
 		if ($input === null) {

@@ -1,15 +1,30 @@
 <?php
 namespace ay\vlad;
 
+/**
+ * Assess the Test script against the input. The resulting object
+ * instance is used to retrieve outcome of all Test cases.
+ */
 class Result {
 	private
 		$result = [];
 
-	final public function __construct (Test $test, $input, Translator $translator) {
+	final public function __construct (Test $test, array $input, Translator $translator) {
 		$this->assess($test, $input, $translator);
 	}
 
-	private function assess (Test $test, $input, Translator $translator) {
+	/**
+	 * Assess the Test script against the used input.
+	 *
+	 * processing_type determines how to progress the Test in case of a failure:
+	 * – 'soft' will record an error and progress to the next Rule.
+	 * – 'hard' (default) will record an error and exclude the selector from the rest of the Test.
+	 * – 'break' will record an error and interrupt the Test.
+	 *
+	 * @see Test::addRule()
+	 * @return void
+	 */
+	final private function assess (Test $test, array $input, Translator $translator) {
 		$script = $test->getScript();
 
 		foreach ($script as $selector => $batch) {
@@ -31,6 +46,12 @@ class Result {
 		}
 	}
 
+	/**
+	 * Return array of failed Assessments.
+	 *
+	 * @param string $format
+	 * @return array
+	 */
 	public function getFailed ($format = 'default') {
 		$result = array_filter($this->result, function ($r) {
 			return $r->getError();
@@ -41,6 +62,12 @@ class Result {
 		return $result;
 	}
 
+	/**
+	 * Return array of passed Assessments.
+	 *
+	 * @param string $format
+	 * @return array
+	 */
 	public function getPassed ($format = 'default') {
 		return array_filter($this->result, function ($r) {
 			return !$r->getError();
@@ -51,10 +78,21 @@ class Result {
 		return $result;
 	}
 
+	/**
+	 * Return array of all Assessments.
+	 *
+	 * @param string $format
+	 * @return array
+	 */
 	public function getAll () {
 		return $this->format($this->result, $format);
 	}
 
+	/**
+	 * @param array $result
+	 * @param string $format default|debug
+	 * @return array
+	 */
 	private function format ($result, $format = 'default') {
 		if ($format === 'debug') {
 			return $result;

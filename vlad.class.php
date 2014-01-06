@@ -1,6 +1,11 @@
 <?php
 namespace ay\vlad;
 
+/**
+ * Vlad is a convenience wrapper used to build Tests.
+ * Vlad instance carries that Translator instance that
+ * will be passed to all of the derived Test cases.
+ */
 class Vlad {
 	private
 		$translator;
