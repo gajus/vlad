@@ -22,13 +22,22 @@ class Result {
 	 * – 'break' will record an error and interrupt the Test.
 	 *
 	 * @see Test::addValidator()
+	 * @param array $input
 	 * @return void
 	 */
 	final private function assess (Test $test, array $input, Translator $translator) {
 		$script = $test->getScript();
 
+		$selectors_with_hard_failure = [];
+
+		$input = new Input($input, $translator);
+
 		foreach ($script as $selector => $batch) {
-			$subject = new Subject($selector, $input, $translator);
+			if (in_array($selector, $selectors_with_hard_failure)) {
+				continue;
+			}
+
+			$subject = $input->getSubject(new Selector($selector));
 
 			foreach ($batch as $operation) {
 				$assessment = new Assessment($subject, $operation['validator'], $translator);
@@ -37,6 +46,8 @@ class Result {
 				
 				if ($assessment->getError()) {
 					if ($operation['failure_scenario'] === 'hard') {
+						$selectors_with_hard_failure[] = $selector;
+
 						break;
 					} else if ($operation['failure_scenario'] === 'break') {
 						break(2);

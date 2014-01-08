@@ -81,12 +81,15 @@ class Translator {
 	/**
 	 * Retrieve selector name from the $dictionary.
 	 *
-	 * @return string|void
+	 * @return string
 	 */
-	public function getSelectorName ($selector) {
-		if (isset($this->dictionary['selector'][$selector])) {
-			return $this->dictionary['selector'][$selector];
+	public function getSelectorName (Selector $selector) {
+		if (isset($this->dictionary['selector'][$selector->getSelector()])) {
+			return $this->dictionary['selector'][$selector->getSelector()];
 		}
+
+		// Convert array selector representation (['baz', 'foo_bar']) to English friendly representation (Bar Foo Bar).
+		return ucwords(implode(' ', explode('_', implode('_', $selector->getpath()))));
 	}
 
 	/**
@@ -100,7 +103,7 @@ class Translator {
 	 */
 	public function getErrorMessage ($error_name, Validator $validator, Subject $subject) {
 		$validator_error = mb_strtolower( get_class($validator) ) . '.' . $error_name;
-		$validator_error_selector = $validator_error . ' ' . $subject->getSelector();
+		$validator_error_selector = $validator_error . ' ' . $subject->getSelector()->getSelector();
 
 		// Enforce check presense of the error message in the original Validator.
 		$message = $validator->getMessage($error_name);
