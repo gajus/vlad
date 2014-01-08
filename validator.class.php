@@ -1,7 +1,7 @@
 <?php
 namespace ay\vlad;
 
-abstract class Rule {
+abstract class Validator {
 	protected
 		$options = [],
 		$messages = [];

@@ -80,7 +80,7 @@ class Subject {
 	/**
 	 * Return value retrieved from $input using the $selector.
 	 * If no value is found, null is returned.
-	 * This value is used by the {@link Rule::validate()}.
+	 * This value is used by the {@link Validator::validate()}.
 	 *
 	 * @todo Have a flag indicating whether the value is a genuine null value or selector path did not resolve to anything.
 	 * @return mixed

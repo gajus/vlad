@@ -2,7 +2,7 @@
 namespace ay\vlad;
 
 /**
- * Test instance is carrying selectors and rules.
+ * Test instance is carrying selectors and validators.
  * Test case be used to assess input, which will produce Result.
  */
 class Test {
@@ -12,9 +12,9 @@ class Test {
 		 */
 		$translator,
 		/**
-		 * Carries test script, which defines selectors, rules and rule processing type.
+		 * Carries test script, which defines selectors, validators and validator processing type.
 		 *
-		 * @see Test::addRule
+		 * @see Test::addValidator
 		 * @var array
 		 */
 		$script = [];
@@ -24,24 +24,24 @@ class Test {
 	}
 
 	/**
-	 * Add a Rule with assigned selector and processing type to the Test script.
+	 * Add a Validator with assigned selector and processing type to the Test script.
 	 * 
 	 * @see Result::assess()
-	 * @param string $processing_type soft|hard|break
+	 * @param string $failure_scenario soft|hard|break
 	 * @return Test
 	 */
-	public function addRule ($selector, \ay\vlad\Rule $rule, $processing_type = 'hard') {
+	public function addValidator ($selector, \ay\vlad\Validator $validator, $failure_scenario = 'hard') {
 		if (!isset($this->test[$selector])) {
 			$this->test[$selector] = [];
 		}
 
-		if (!in_array($processing_type, ['soft', 'hard', 'break'])) {
-			throw new \BadMethodCallException('Rule $processing_type must be soft, hard or break.');
+		if (!in_array($failure_scenario, ['soft', 'hard', 'break'])) {
+			throw new \BadMethodCallException('Validator $failure_scenario must be soft, hard or break.');
 		}
 
 		$this->script[$selector][] = [
-			'processing_type' => $processing_type,
-			'rule' => $rule
+			'failure_scenario' => $failure_scenario,
+			'validator' => $validator
 		];
 
 		return $this;

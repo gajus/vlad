@@ -4,17 +4,17 @@ namespace ay\vlad;
 class Assessment {
 	private
 		$subject,
-		$rule,
+		$validator,
 		$error;
 
-	public function __construct (Subject $subject, Rule $rule, Translator $translator) {
+	public function __construct (Subject $subject, Validator $validator, Translator $translator) {
 		$this->subject = $subject;
-		$this->rule = $rule;
+		$this->validator = $validator;
 
-		$error_name = $rule->validate($subject->getValue());
+		$error_name = $validator->validate($subject->getValue());
 
 		if ($error_name) {
-			$this->error = $translator->getErrorMessage($error_name, $rule, $subject);
+			$this->error = $translator->getErrorMessage($error_name, $validator, $subject);
 		}
 	}
 
@@ -22,8 +22,8 @@ class Assessment {
 		return $this->subject;
 	}
 
-	public function getRule () {
-		return $this->rule;
+	public function getValidator () {
+		return $this->validator;
 	}
 
 	public function getError () {

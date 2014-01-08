@@ -16,12 +16,12 @@ class Result {
 	/**
 	 * Assess the Test script against the used input.
 	 *
-	 * processing_type determines how to progress the Test in case of a failure:
-	 * – 'soft' will record an error and progress to the next Rule.
+	 * failure_scenario determines how to progress the Test in case of a failure:
+	 * – 'soft' will record an error and progress to the next Validator.
 	 * – 'hard' (default) will record an error and exclude the selector from the rest of the Test.
 	 * – 'break' will record an error and interrupt the Test.
 	 *
-	 * @see Test::addRule()
+	 * @see Test::addValidator()
 	 * @return void
 	 */
 	final private function assess (Test $test, array $input, Translator $translator) {
@@ -31,14 +31,14 @@ class Result {
 			$subject = new Subject($selector, $input, $translator);
 
 			foreach ($batch as $operation) {
-				$assessment = new Assessment($subject, $operation['rule'], $translator);
+				$assessment = new Assessment($subject, $operation['validator'], $translator);
 
 				$this->result[] = $assessment;
 				
 				if ($assessment->getError()) {
-					if ($operation['processing_type'] === 'hard') {
+					if ($operation['failure_scenario'] === 'hard') {
 						break;
-					} else if ($operation['processing_type'] === 'break') {
+					} else if ($operation['failure_scenario'] === 'break') {
 						break(2);
 					}
 				}
