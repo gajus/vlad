@@ -6,16 +6,22 @@ namespace ay\vlad;
  */
 class Subject {
 	private
+		$input,
 		$selector,
 		$name,
 		$value,
 		$found;
 
-	public function __construct (Selector $selector, $name, $value, $found) {
+	public function __construct (Input $input, Selector $selector, $name, $value, $found) {
+		$this->input = $input;
 		$this->selector = $selector;
 		$this->name = $name;
 		$this->value = $value;
 		$this->found = $found;
+	}
+
+	public function getInput () {
+		return $this->input;
 	}
 
 	/**

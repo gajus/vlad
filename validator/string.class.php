@@ -10,8 +10,12 @@ class String extends \ay\vlad\Validator {
 			]
 		];
 	
-	public function validate ($input) {
-		if (!is_string($input)) {
+	public function validate (\ay\vlad\Subject $subject) {
+		if (!$subject->isFound()) {
+			throw new \Exception('Validator cannot be used with undefined input.');
+		}
+
+		if (!is_string($subject->getValue())) {
 			return 'invalid_type';
 		}
 	}

@@ -12,7 +12,7 @@ class Test {
 		 */
 		$translator,
 		/**
-		 * Carries test script, which defines selectors, validators and validator processing type.
+		 * 
 		 *
 		 * @see Test::addValidator
 		 * @var array
@@ -43,7 +43,7 @@ class Test {
 			'failure_scenario' => $failure_scenario,
 			'validator' => $validator
 		];
-
+		
 		return $this;
 	}
 
@@ -61,7 +61,7 @@ class Test {
 		if ($input === null) {
 			$input = $_POST;
 		}
-
+		
 		return new Result($this, $input, $this->translator);
 	}
 }

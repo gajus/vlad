@@ -10,7 +10,7 @@ $vlad = new \ay\vlad\Vlad();
 $test = $vlad->test([
 	[
 		['foo', 'bar', 'baz'], // Selectors
-		['not_empty','email'] // Validators
+		['not_empty', 'email'] // Validators
 	],
 	[
 		['qux'],

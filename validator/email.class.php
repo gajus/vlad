@@ -10,12 +10,18 @@ class Email extends \ay\vlad\Validator {
 			]
 		];
 	
-	public function validate ($input) {
-		if (!is_string($input)) {
-			throw new \InvalidArgumentException('$input is expected to be string. "' . gettype($input) . '" given instead.');
+	public function validate (\ay\vlad\Subject $subject) {
+		if (!$subject->isFound()) {
+			throw new \Exception('Validator cannot be used with undefined input.');
 		}
 
-		if (!filter_var($input, FILTER_VALIDATE_EMAIL)) {
+		$value = $subject->getValue();
+
+		if (!is_string($value)) {
+			throw new \InvalidArgumentException('$input is expected to be string. "' . gettype($value) . '" given instead.');
+		}
+
+		if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
 			return 'invalid_format';
 		}
 	}

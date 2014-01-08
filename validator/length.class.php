@@ -22,9 +22,15 @@ class Length extends \ay\vlad\Validator {
 			],
 		];
 
-	public function validate ($input) {
-		if (!is_string($input)) {
-			throw new \InvalidArgumentException('$input is expected to be string. "' . gettype($input) . '" given instead.');
+	public function validate (\ay\vlad\Subject $subject) {
+		if (!$subject->isFound()) {
+			throw new \Exception('Validator cannot be used with undefined input.');
+		}
+
+		$value = $subject->getValue();
+
+		if (!is_string($value)) {
+			throw new \InvalidArgumentException('Value is expected to be string. "' . gettype($value) . '" given instead.');
 		}
 
 		if (!isset($this->options['min']) && !isset($this->options['max'])) {
@@ -43,11 +49,11 @@ class Length extends \ay\vlad\Validator {
 			throw new \InvalidArgumentException('"min" option cannot be greater than "max".');
 		}
 		
-		if (isset($this->options['min'], $this->options['max']) && (mb_strlen($input) < $this->options['min'] || mb_strlen($input) > $this->options['max'])) {
+		if (isset($this->options['min'], $this->options['max']) && (mb_strlen($value) < $this->options['min'] || mb_strlen($value) > $this->options['max'])) {
 			return 'between';
-		} else if (isset($this->options['min']) && mb_strlen($input) < $this->options['min']) {
+		} else if (isset($this->options['min']) && mb_strlen($value) < $this->options['min']) {
 			return 'min';
-		} else if (isset($this->options['max']) && mb_strlen($input) > $this->options['max']) {
+		} else if (isset($this->options['max']) && mb_strlen($value) > $this->options['max']) {
 			return 'max';
 		}
 	}

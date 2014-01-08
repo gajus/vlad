@@ -39,5 +39,5 @@ abstract class Validator {
 		return $this->messages[$error_name];
 	}
 	
-	abstract public function validate ($input);
+	abstract public function validate (Subject $subject);
 }

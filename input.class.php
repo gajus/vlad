@@ -32,7 +32,7 @@ class Input {
 			}
 		}
 
-		$subject = new Subject($selector, $this->translator->getSelectorName($selector), $value, $found);
+		$subject = new Subject($this, $selector, $this->translator->getSelectorName($selector), $value, $found);
 
 		$this->subject_index[$selector->getSelector()] = $subject;
 

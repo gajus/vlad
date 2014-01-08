@@ -11,7 +11,7 @@ class Assessment {
 		$this->subject = $subject;
 		$this->validator = $validator;
 
-		$error_name = $validator->validate($subject->getValue());
+		$error_name = $validator->validate($subject);
 
 		if ($error_name) {
 			$this->error = $translator->getErrorMessage($error_name, $validator, $subject);
