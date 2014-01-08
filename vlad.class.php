@@ -2,9 +2,12 @@
 namespace ay\vlad;
 
 /**
- * Vlad is a convenience wrapper used to build Tests.
- * Vlad instance carries that Translator instance that
- * will be passed to all of the derived Test cases.
+ * Vlad is a convenience wrapper used to build Tests. Vlad instance carries a Translator instance that will be passed to
+ * all of the derived Test cases.
+ *
+ * @link https://github.com/gajus/vlad for the canonical source repository
+ * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
+ * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Vlad {
 	private
@@ -23,57 +26,69 @@ class Vlad {
 	/**
 	 * Build a test suite.
 	 *
-	 * @param array $script Test rules defined in a format [ [ ['selector1', 'selector2'], ['rule1', 'rule2', 'rule3'] ] ].
-	 * The first array indicates a script containing batches of selector and rule arrays. For every selector, each rule
-	 * from withint the batch is applied. Rule array accepts names of the classes.
+	 * @param array $script Test validators defined in a format [ [ ['selector1', 'selector2'], ['validator1', 'validator2', 'validator3'] ] ].
+	 * The first array indicates a script containing batches of selector and validator arrays. For every selector, each validator
+	 * from withint the batch is applied. Validator array accepts names of the classes.
 	 *
-	 * You can change the rule processing type (see \ay\vlad\Ad::Rule) by injecting either of the valid type properties
-	 * followed by a collomun into the rules array, e.g. ['soft:', 'rule1', 'hard:', 'rule2', 'rule3', 'break:', 'rule4'].
+	 * You can change the validator processing type (see \ay\vlad\Test::Validator) by injecting either of the valid type properties
+	 * followed by a collomun into the validators array, e.g. ['soft:', 'validator1', 'hard:', 'validator2', 'validator3', 'break:', 'validator4'].
 	 *
-	 * You can pass properties to the rules by assigning an array, e.g. ['rule1', 'rule2' => ['min' => 10, 'max' => 20]].
+	 * You can pass properties to the validators by assigning an array, e.g. ['validator1', 'validator2' => ['min' => 10, 'max' => 20]].
 	 */
 	public function test (array $script) {
 		$test = new Test($this->translator);
 
 		foreach ($script as $batch) {
 			if ($batch[0] != array_unique($batch[0])) {
-				throw new \BadMethodCallException('Rule selectors must be unique.');
+				throw new \InvalidArgumentException('Validator selectors must be unique.');
 			}
 
 			foreach ($batch[0] as $selector) {
-				$processing_type = 'hard';
+				$failure_scenario = 'hard';
 
-				foreach ($batch[1] as $context1 => $context2) {
-					if (is_int($context1)) {
-						$rule_name = $context2;
-						$options = [];
+				foreach ($batch[1] as $context) {
+					if (is_array($context)) {
+						if (empty($context)) {
+							throw new \InvalidArgumentException('Empty array in the validator chain.');
+						}
+
+						if (!isset($context[0])) {
+							// This is options array, e.g. ['fail' => 'break']
+							if (array_diff(array_keys($context), ['fail'])) {
+								\ay($context);
+
+								throw new \InvalidArgumentException('Unknown options in the validator chain: ' . implode(', ', $context) . '.');
+							}
+
+							$failure_scenario = $context['fail'];
+
+							continue;
+						} else {
+							// This is a Validator with options.
+							$validator_name = array_shift($context);
+							$options = $context;
+						}
 					} else {
-						$rule_name = $context1;
-						$options = $context2;
+						$validator_name = $context;
+						$options = [];
 					}
 
-					if (!is_string($rule_name)) {
-						// @todo Allow passing instance of the rule.
-						throw new \Exception('Rule must be a string.');
+					if (!is_string($validator_name)) {
+						// @todo Allow passing instance of the validator.
+						throw new \Exception('Validator must be a string.');
 					}
 
-					if (in_array($rule_name, ['soft:', 'hard:', 'break:'])) {
-						$processing_type = substr($rule_name, 0, -1);
-
-						continue;
-					}
-
-					if (strpos($rule_name, '\\') === false) {
-						$rule_name = 'ay\vlad\rule\\' . $rule_name;
+					if (strpos($validator_name, '\\') === false) {
+						$validator_name = 'ay\vlad\validator\\' . $validator_name;
 					}
 					
-					if (!class_exists($rule_name)) {
-						throw new \Exception('Rule cannot be found.');
-					} else if (!is_subclass_of($rule_name, 'ay\vlad\Rule')) {
-						throw new \Exception('Rule must extend ay\vlad\Rule.');
+					if (!class_exists($validator_name)) {
+						throw new \Exception('Validator cannot be found.');
+					} else if (!is_subclass_of($validator_name, 'ay\vlad\Validator')) {
+						throw new \Exception('Validator must extend ay\vlad\Validator.');
 					}
 
-					$test->addRule($selector, new $rule_name($options), $processing_type);
+					$test->addValidator($selector, new $validator_name($options), $failure_scenario);
 				}
 			}
 		}
