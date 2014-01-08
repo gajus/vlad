@@ -11,16 +11,16 @@ $test = $vlad->test([
 	[
 		['foo', 'bar', 'baz'],
 		[
-			'break:',
-			// Apart from Rules, this array is used to define Rule processing options. These are:
-			// * 'soft' will record an error and progress to the next Rule.
-			// * 'hard' (default) will record an error and exclude the selector from the rest of the Test.
-			// * 'break' will record an error and interrupt the Test.
+			['fail' => 'break'],
+			// Define Validator failure scenario:
+			// * 'soft' record an error and progress to the next Validator.
+			// * 'hard' (default) record an error and exclude the selector from the rest of the Test.
+			// * 'break' record an error and interrupt the Test.
 			'required',
 			'not_empty',
-			'hard:', // Reset to default Rule processing type.
+			['fail' => 'hard'], // Reset default Validator failure scenario.
 			'email',
-			'length' => ['max' => 10] // Pass options to the Rule constructor. Individual Rule options can be read from the respective Rule classes.
+			['length', 'max' => 10] // Length Validator with constructor options.
 		]
 	]
 ]);

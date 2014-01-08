@@ -64,14 +64,14 @@ ob_start();
 			<li>Syntax #2</li>
 			<li>Selector</li>
 			<li>Multilingual</li>
-			<li>Custom Rule</li>
+			<li>Custom Validator</li>
 		</ol>
 	</div>
 
 	<div id="header">
 		<div class="aux">
 			<div class="text">
-				<p>Vlad is input validation library designed to use succinct syntax with extendable validation rules and multilingual support.</p>
+				<p>Vlad is input validation library designed to use succinct syntax with extendable validation validators and multilingual support.</p>
 				<p>Vlad is not input sanitization library.</p>
 			</div>
 		</div>
@@ -82,13 +82,8 @@ ob_start();
 		<?=$example('syntax_2', 'Syntax #2')?>
 		<?=$example('selector', 'Selector')?>
 		<?=$example('multilingual', 'Multilingual')?>
-		<?=$example('custom_rule', 'Custom Rule')?>
-
-		<?php /*
-		<?=$example('error_output', 'Error Output')?>
-		<?=$example('multilingual', 'Multilingual')?>
-		<?=$example('multilingual_2', 'Multilingual #2')?>
-		*/?>
+		<?php /*<?=$example('validators', 'Custom Validator')?>*/?>
+		<?=$example('custom_validator', 'Custom Validator')?>
 	</div>
 </body>
 </html>
