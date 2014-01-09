@@ -80,7 +80,7 @@ ob_start();
 	<div id="examples">
 		<?=$example('syntax', 'Syntax')?>
 		<?=$example('options', 'Options & Parameters')?>
-		<?=$example('validators', 'Validator')?>
+		<?=$example('validators', 'Validators')?>
 		<?=$example('multilingual', 'Multilingual')?>
 		<?=$example('custom_validator', 'Custom Validator')?>
 	</div>
