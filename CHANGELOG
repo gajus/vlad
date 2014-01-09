@@ -1,3 +1,5 @@
 0.0.0 / 2014-01-09
 
 * Starting change log.
+* Added failure scenario “silent”.
+* Removed \ay\vlad\Result::getPassed() and \ay\vlad\Result::getAll(). \ay\vlad\Result::getFailed() and \ay\vlad\Result::filter() merged into one.

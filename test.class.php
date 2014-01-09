@@ -35,7 +35,7 @@ class Test {
 			$this->test[$selector] = [];
 		}
 
-		if (!in_array($failure_scenario, ['soft', 'hard', 'break'])) {
+		if (!in_array($failure_scenario, ['silent', 'soft', 'hard', 'break'])) {
 			throw new \BadMethodCallException('Validator $failure_scenario must be soft, hard or break.');
 		}
 
