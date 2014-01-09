@@ -4,15 +4,15 @@ namespace ay\vlad\validator;
 class Required extends \ay\vlad\Validator {
 	protected
 		$messages = [
-			'no_match' => [
-				'{vlad.subject.name} is required.',
-				'The input is required.'
+			'not_present' => [
+				'{vlad.subject.name} is not present.',
+				'The input is not present.'
 			]
 		];
 	
 	public function validate (\ay\vlad\Subject $subject) {
 		if (!$subject->isFound()) {
-			return 'no_match';
+			return 'not_present';
 		}
 	}
 }

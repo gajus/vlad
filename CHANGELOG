@@ -3,3 +3,6 @@
 * Starting change log.
 * Added failure scenario “silent”.
 * Removed \ay\vlad\Result::getPassed() and \ay\vlad\Result::getAll(). \ay\vlad\Result::getFailed() and \ay\vlad\Result::filter() merged into one.
+* Added "Equal" validator: value must be present and must be equal to the supplied value.
+* Added "Match" validator: value must be present and must be equal to the value resolved using another selector.
+* Input::getSubject() is now expecting string selector representation instead of Selector instance.

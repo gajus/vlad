@@ -5,6 +5,7 @@ class Input {
 	private
 		$input,
 		$translator,
+		$selector_index = [],
 		$subject_index = [];
 
 	public function __construct (array $input, Translator $translator) {
@@ -12,7 +13,17 @@ class Input {
 		$this->translator = $translator;
 	}
 
-	public function getSubject (Selector $selector) {
+	public function getSubject ($selector) {
+		if (!is_string($selector)) {
+			throw new \InvalidArgumentException('Selector must be a string.');
+		}
+
+		if (isset($selector_index[$selector])) {
+			$selector = $selector_index[$selector];
+		} else {
+			$selector = $selector_index[$selector] = new Selector($selector);
+		}
+
 		if (isset($this->subject_index[$selector->getSelector()])) {
 			return $this->subject_index[$selector->getSelector()];
 		}

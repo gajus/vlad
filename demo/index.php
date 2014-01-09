@@ -61,8 +61,8 @@ ob_start();
 
 		<ol class="nav">
 			<li>Syntax</li>
-			<li>Syntax #2</li>
-			<li>Selector</li>
+			<li>Options & Parameters</li>
+			<li>Validators</li>
 			<li>Multilingual</li>
 			<li>Custom Validator</li>
 		</ol>
@@ -79,10 +79,9 @@ ob_start();
 
 	<div id="examples">
 		<?=$example('syntax', 'Syntax')?>
-		<?=$example('syntax_2', 'Syntax #2')?>
-		<?=$example('selector', 'Selector')?>
+		<?=$example('options', 'Options & Parameters')?>
+		<?=$example('validators', 'Validator')?>
 		<?=$example('multilingual', 'Multilingual')?>
-		<?php /*<?=$example('validators', 'Custom Validator')?>*/?>
 		<?=$example('custom_validator', 'Custom Validator')?>
 	</div>
 </body>

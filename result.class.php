@@ -38,7 +38,7 @@ class Result {
 				continue;
 			}
 
-			$subject = $input->getSubject(new Selector($selector));
+			$subject = $input->getSubject($selector);
 
 			foreach ($batch as $operation) {
 				$assessment = new Assessment($subject, $operation['validator'], $translator);

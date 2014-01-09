@@ -3,6 +3,12 @@ $input = [
 	'foo' => 'me@foo.tld',
 	'bar' => 'invalidemail',
 	'baz' => '',
+	'location' => [
+		'coordinates' => [
+			'lat' => '54.687156',
+			'lng' => '25.279651'
+		]
+	]
 ];
 
 $vlad = new \ay\vlad\Vlad();
@@ -15,6 +21,10 @@ $test = $vlad->test([
 	[
 		['qux'],
 		['required']
+	],
+	[
+		['location[coordinates][lat]', 'location[coordinates][lng]'], // Selector can refer to multidimensional values.
+		['not_empty']
 	]
 ]);
 
@@ -23,5 +33,11 @@ $test = $vlad->test([
 // from the same group, e.g. selector 'foo' is assigned validators 'not_empty' and 'email'.
 
 $result = $test->assess($input);
+?>
+<pre><code><?php var_dump($result->getFailed());?></code></pre>
+?>
+<?php
+// Test instance can be reused with new input.
+$result = $test->assess(['foo' => 'Oops.']);
 ?>
 <pre><code><?php var_dump($result->getFailed());?></code></pre>

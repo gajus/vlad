@@ -29,31 +29,37 @@ class Length extends \ay\vlad\Validator {
 
 		$value = $subject->getValue();
 
+		$options = $this->getOptions();
+		
 		if (!is_string($value)) {
 			throw new \InvalidArgumentException('Value is expected to be string. "' . gettype($value) . '" given instead.');
 		}
 
-		if (!isset($this->options['min']) && !isset($this->options['max'])) {
+		if (!isset($options['min']) && !isset($options['max'])) {
 			throw new \BadMethodCallException('"min" and/or "max" option is required.');
 		}
 		
-		if (isset($this->options['min']) && !is_numeric($this->options['min'])) {
+		if (isset($options['min']) && !is_numeric($options['min'])) {
 			throw new \InvalidArgumentException('"min" option must be numeric.');
 		}
 		
-		if (isset($this->options['max']) && !is_numeric($this->options['max'])) {
+		if (isset($options['max']) && !is_numeric($options['max'])) {
 			throw new \InvalidArgumentException('"max" option must be numeric.');
 		}
 		
-		if (isset($this->options['min'], $this->options['max']) && $this->options['min'] > $this->options['max']) {
+		if (isset($options['min'], $options['max']) && $options['min'] > $options['max']) {
 			throw new \InvalidArgumentException('"min" option cannot be greater than "max".');
 		}
+
+		#if ($value != 'invalidemail' && $options != ['max' => 10, 'min' => null]) {
+		#	ay( $value, $options );
+		#}
 		
-		if (isset($this->options['min'], $this->options['max']) && (mb_strlen($value) < $this->options['min'] || mb_strlen($value) > $this->options['max'])) {
+		if (isset($options['min'], $options['max']) && (mb_strlen($value) < $options['min'] || mb_strlen($value) > $options['max'])) {
 			return 'between';
-		} else if (isset($this->options['min']) && mb_strlen($value) < $this->options['min']) {
+		} else if (isset($options['min']) && mb_strlen($value) < $options['min']) {
 			return 'min';
-		} else if (isset($this->options['max']) && mb_strlen($value) > $this->options['max']) {
+		} else if (isset($options['max']) && mb_strlen($value) > $options['max']) {
 			return 'max';
 		}
 	}
