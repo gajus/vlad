@@ -1,7 +1,16 @@
 <?php
 namespace ay\vlad\demo\examples;
 
-// Vlad comes with a number of pre-built validators (and you can request new ones https://github.com/gajus/vlad/issues)
+// Vlad comes with a number of pre-built validators:
+//
+// * required – ensure that input is present.
+// * not_empty – ensure that input is not empty.
+// * length – ensure that value is a string and at least or/and at most certain length.
+// * match – ensure that input matches another input.
+// * equal – ensure that input value matches a provided value.
+// * email – ensure that input is syntactically valid email address.
+// 
+// Request other validators by raising an issue https://github.com/gajus/vlad/issues.
 
 $input = [
 	'foo0' => 'Predefined value',
