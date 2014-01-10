@@ -1,8 +1,15 @@
+0.0.1 / 2014-01-10
+
+* Translation input format changed. 'validator_error' is now provided in a format ['validator\class' => ['error_name' => ['error message v1', 'error message v2']]].
+* Added "Range" validator: value must be less and/or greater that the supplied value.
+* Added "In" validator: value must be in a supplied array.
+* Added i18l/en.php, an example translation file.
+
 0.0.0 / 2014-01-09
 
 * Starting change log.
 * Added failure scenario “silent”.
 * Removed \ay\vlad\Result::getPassed() and \ay\vlad\Result::getAll(). \ay\vlad\Result::getFailed() and \ay\vlad\Result::filter() merged into one.
-* Added "Equal" validator: value must be present and must be equal to the supplied value.
-* Added "Match" validator: value must be present and must be equal to the value resolved using another selector.
+* Added "Equal" validator: value must be equal to the supplied value.
+* Added "Match" validator: value must be equal to the value resolved using another selector.
 * Input::getSubject() is now expecting string selector representation instead of Selector instance.

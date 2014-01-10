@@ -20,15 +20,17 @@ class Translator {
 				'vladfoo' => 'Vlad Foo'
 			],
 			'validator_error' => [
-				// Replace the default email invalid_format error message.
-				'ay\vlad\validator\email.invalid_format' => [
-					'{vlad.subject.name} must be a valid email address.',
-					'The input must be a valid email address.'
+				// Replace the default email validator, invalid_format error message.
+				'ay\vlad\validator\email' => [
+					'invalid_format' => [
+						'{vlad.subject.name} must be a valid email address.',
+						'The input must be a valid email address.'
+					]
 				]
 			],
 			'validator_error_selector' => [
 				// Replace the default email invalid_format error message for a specific selector.
-				'ay\vlad\validator\email.invalid_format vladfoo' => 'Oops. Email address does not seem to be valid.'
+				'ay\vlad\validator\email invalid_format vladfoo' => 'Oops. Email address does not seem to be valid.'
 			]
 		];
 
@@ -40,6 +42,7 @@ class Translator {
 	 * Validate array to ensure compatible dictionary
 	 * structure and overwrite the internal $dictionary.
 	 *
+	 * @todo Validate that all message resolve an existing validator error.
 	 * @return void
 	 */
 	final private function populate (array $dictionary) {
@@ -64,13 +67,16 @@ class Translator {
 		}
 
 		if (isset($dictionary['validator_error'])) {
-			foreach ($dictionary['validator_error'] as $translation) {
-				if (!is_array($translation)) {
-					throw new \Exception('Error message must be an array.');
-				} else if (count($translation) != 2) {
-					throw new \Exception('Error message array must be exactly two messages long.');
-				} else if (!isset($translation[0], $translation[1]) || !is_string($translation[0]) || !is_string($translation[1])) {
-					throw new \Exception('Invalid error message format.');
+			foreach ($dictionary['validator_error'] as $validator) {
+				// @todo validate that this error_name does exist in the validator.
+				foreach ($validator as $error_name => $translation) {
+					if (!is_array($translation)) {
+						throw new \Exception('Error message must be an array.');
+					} else if (count($translation) != 2) {
+						throw new \Exception('Error message array must be exactly two messages long.');
+					} else if (!isset($translation[0], $translation[1]) || !is_string($translation[0]) || !is_string($translation[1])) {
+						throw new \Exception('Invalid error message format.');
+					}
 				}
 			}
 		}
@@ -102,7 +108,7 @@ class Translator {
 	 * @return string
 	 */
 	public function getErrorMessage ($error_name, Validator $validator, Subject $subject) {
-		$validator_error = mb_strtolower( get_class($validator) ) . '.' . $error_name;
+		$validator_error = mb_strtolower( get_class($validator) ) . ' ' . $error_name;
 		$validator_error_selector = $validator_error . ' ' . $subject->getSelector()->getSelector();
 
 		// Enforce check presense of the error message in the original Validator.

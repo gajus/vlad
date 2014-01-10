@@ -6,14 +6,16 @@ $dictionary = [
 	],
 	'validator_error' => [
 		// Translate the \ay\vlad\validator\not_empty is_empty error message.
-		'ay\vlad\validator\not_empty.is_empty' => [
-			'{vlad.subject.name} laukelis negali būti paliktas tuščias.',
-			'Laukelis negali būti paliktas tuščias.'
+		'ay\vlad\validator\not_empty' => [
+			'is_empty' => [
+				'{vlad.subject.name} laukelis negali būti paliktas tuščias.',
+				'Laukelis negali būti paliktas tuščias.'
+			]
 		]
 	],
 	'validator_error_selector' => [
 		// Replace the default not_empty is_empty error message for a specific selector.
-		'ay\vlad\validator\not_empty.is_empty baz' => 'BAZ is the most important input. You absolutely cannot leave it empty.'
+		'ay\vlad\validator\not_empty is_empty baz' => 'BAZ is the most important input. You absolutely cannot leave it empty.'
 	]
 ];
 

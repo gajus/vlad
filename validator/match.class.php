@@ -8,7 +8,7 @@ class Match extends \ay\vlad\Validator {
 		],
 		$messages = [
 			'not_match' => [
-				'{vlad.subject.name} dos not match {vlad.validator.options.selector}.',
+				'{vlad.subject.name} does not match {vlad.validator.options.selector}.',
 				'Does not match "{vlad.validator.options.selector}".'
 			]
 		];

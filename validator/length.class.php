@@ -50,10 +50,6 @@ class Length extends \ay\vlad\Validator {
 		if (isset($options['min'], $options['max']) && $options['min'] > $options['max']) {
 			throw new \InvalidArgumentException('"min" option cannot be greater than "max".');
 		}
-
-		#if ($value != 'invalidemail' && $options != ['max' => 10, 'min' => null]) {
-		#	ay( $value, $options );
-		#}
 		
 		if (isset($options['min'], $options['max']) && (mb_strlen($value) < $options['min'] || mb_strlen($value) > $options['max'])) {
 			return 'between';

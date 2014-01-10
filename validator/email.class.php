@@ -4,7 +4,7 @@ namespace ay\vlad\validator;
 class Email extends \ay\vlad\Validator {
 	protected
 		$messages = [
-			'invalid_format' => [
+			'invalid_syntax' => [
 				'{vlad.subject.name} is not a valid email address.',
 				'The input is not a valid email address.'
 			]
@@ -22,7 +22,7 @@ class Email extends \ay\vlad\Validator {
 		}
 
 		if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-			return 'invalid_format';
+			return 'invalid_syntax';
 		}
 	}
 }

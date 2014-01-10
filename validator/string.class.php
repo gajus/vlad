@@ -4,9 +4,9 @@ namespace ay\vlad\validator;
 class String extends \ay\vlad\Validator {
 	protected
 		$messages = [
-			'invalid_type' => [
-				'{vlad.subject.name} must be a string.',
-				'The input must be a string.'
+			'not_string' => [
+				'{vlad.subject.name} is not a string.',
+				'The input is not a string.'
 			]
 		];
 	
@@ -16,7 +16,7 @@ class String extends \ay\vlad\Validator {
 		}
 
 		if (!is_string($subject->getValue())) {
-			return 'invalid_type';
+			return 'not_string';
 		}
 	}
 }

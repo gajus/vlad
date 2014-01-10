@@ -5,8 +5,8 @@ class Not_Empty extends \ay\vlad\Validator {
 	protected
 		$messages = [
 			'is_empty' => [
-				'{vlad.subject.name} cannot be empty.',
-				'The input cannot be empty.'
+				'{vlad.subject.name} is empty.',
+				'The input is empty.'
 			]
 		];
 	
