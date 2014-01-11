@@ -1,6 +1,7 @@
 0.0.2 / 2014-01-11
 
 * Validator $options separated into $default_options and $instance_options. Restricted direct access to the $options array.
+* Added "Regex" validator: value must match against provided pattern.
 
 0.0.1 / 2014-01-10
 

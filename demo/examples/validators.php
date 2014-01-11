@@ -10,6 +10,7 @@ namespace ay\vlad\demo\examples;
 // * match – ensure that input matches another input.
 // * not_empty – ensure that input is not empty.
 // * range – ensure that value is less, greater or in a defined range.
+// * regex – ensure that value matches the supplied pattern.
 // * required – ensure that input is present.
 // * string – ensure that input is present.
 // 
@@ -40,6 +41,9 @@ $input = [
 
 	'garply0' => 10,
 	'garply1' => 100,
+
+	'waldo0' => '123',
+	'waldo1' => '123a'
 ];
 
 $vlad = new \ay\vlad\Vlad();
@@ -94,6 +98,12 @@ $test = $vlad->test([
 		['garply0', 'garply1'],
 		[
 			['range', 'max_inclusive' => 15]
+		]
+	],
+	[
+		['waldo0', 'waldo1'],
+		[
+			['regex', 'pattern' => '/^[0-9]*$/']
 		]
 	]
 ]);

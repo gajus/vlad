@@ -1,0 +1,38 @@
+<?php
+namespace ay\vlad\validator;
+
+class Regex extends \ay\vlad\Validator {
+	protected
+		$default_options = [
+			'pattern' => null
+		],
+		$messages = [
+			'no_match' => [
+				'{vlad.subject.name} does not match against pattern "{vlad.validator.options.pattern}".',
+				'The input does not match against pattern "{vlad.validator.options.pattern}".'
+			]
+		];
+
+	public function validate (\ay\vlad\Subject $subject) {
+		if (!$subject->isFound()) {
+			throw new \Exception('Validator cannot be used with undefined input.');
+		}
+
+		$value = $subject->getValue();
+
+		$options = $this->getOptions();
+		
+		if (!isset($options['pattern'])) {
+			throw new \InvalidArgumentException('"pattern" property is required.');
+		}
+
+		$match = preg_match($options['pattern'], $value);
+
+		if ($match === false) {
+			throw new \InvalidArgumentException('Pattern "' . $options['pattern'] . '" failed (' . array_flip(get_defined_constants(true)['pcre'])[preg_last_error()] . ') against the supplied input "' . $value . '".');
+		} else if ($match === 0) {
+			return 'no_match';
+		}
+	}
+}
+

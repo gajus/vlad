@@ -67,6 +67,12 @@ return [
 				'The input is not equal or less than {vlad.validator.options.max_inclusive}'
 			]
 		],
+		'ay\vlad\validator\regex' => [
+			'no_match' => [
+				'{vlad.subject.name} does not match against pattern "{vlad.validator.options.pattern}".',
+				'The input does not match against pattern "{vlad.validator.options.pattern}".'
+			]
+		]
 		'ay\vlad\validator\required' => [
 			'not_present' => [
 				'{vlad.subject.name} is not present.',
