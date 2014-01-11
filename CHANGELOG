@@ -1,3 +1,7 @@
+0.0.2 / 2014-01-11
+
+* Validator $options separated into $default_options and $instance_options. Restricted direct access to the $options array.
+
 0.0.1 / 2014-01-10
 
 * Translation input format changed. 'validator_error' is now provided in a format ['validator\class' => ['error_name' => ['error message v1', 'error message v2']]].
