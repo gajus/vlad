@@ -6,7 +6,7 @@ namespace ay\vlad\demo\examples;
 class My_Custom_Validator extends \ay\vlad\Validator {
 	protected
 		// If the Validator accepts any options, the placeholder for each option must be predefined.
-		$options = [
+		$default_options = [
 			'alt' => null
 		],
 		$messages = [
