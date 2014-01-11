@@ -1,8 +1,7 @@
 <?php
-set_include_path( __DIR__ . '/../../../' );
+set_include_path( __DIR__ . '/../src/' );
 
 spl_autoload_register();
-spl_autoload_extensions('.class.php');
 
 session_start();
 
