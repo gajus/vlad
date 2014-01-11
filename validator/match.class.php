@@ -3,7 +3,7 @@ namespace ay\vlad\validator;
 
 class Match extends \ay\vlad\Validator {
 	protected
-		$options = [
+		$default_options = [
 			'selector' => null
 		],
 		$messages = [

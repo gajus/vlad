@@ -3,7 +3,7 @@ namespace ay\vlad\validator;
 
 class Length extends \ay\vlad\Validator {
 	protected
-		$options = [
+		$default_options = [
 			'min' => null,
 			'max' => null
 		],

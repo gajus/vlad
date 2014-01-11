@@ -3,7 +3,7 @@ namespace ay\vlad\validator;
 
 class In extends \ay\vlad\Validator {
 	protected
-		$options = [
+		$default_options = [
 			'haystack' => null
 		],
 		$messages = [

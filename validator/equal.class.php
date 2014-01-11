@@ -3,7 +3,7 @@ namespace ay\vlad\validator;
 
 class Equal extends \ay\vlad\Validator {
 	protected
-		$options = [
+		$default_options = [
 			'to' => null
 		],
 		$messages = [

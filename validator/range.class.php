@@ -3,7 +3,7 @@ namespace ay\vlad\validator;
 
 class Range extends \ay\vlad\Validator {
 	protected
-		$options = [
+		$default_options = [
 			'min_exclusive' => null,
 			'min_inclusive' => null,
 			'max_exclusive' => null,
