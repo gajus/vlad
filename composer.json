@@ -1,0 +1,6 @@
+{
+	"name": "gajus/vlad",
+	"require": {
+		"php": ">=5.5"
+	}
+}
