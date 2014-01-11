@@ -23,13 +23,15 @@ class My_Custom_Validator extends \ay\vlad\Validator {
 	public function validate (\ay\vlad\Subject $subject) {
 		$value = $subject->getValue();
 
-		if ($this->options['alt'] && $this->options['alt'] == $value) {
+		$options = $this->getOptions();
+
+		if ($options['alt'] && $options['alt'] == $value) {
 			return;
 		}
 
 		if ($value != 1) {
 			// Failing a validator must return name of the error. This error name must exist in the $messages array.
-			if ($this->options['alt']) {
+			if ($options['alt']) {
 				return 'custom_error_name_alt';
 			}
 
