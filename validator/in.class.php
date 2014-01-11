@@ -9,7 +9,16 @@ namespace ay\vlad\validator;
 class In extends \ay\vlad\Validator {
 	protected
 		$default_options = [
-			'haystack' => null
+			'haystack' => null,
+			'strict' => true,
+			/**
+			 * This option is relavent only with strict option true and input type string.
+			 * Performers quasi-strict comparison: haystack members are casted to string to avoid 'abc' == 0 false/positive
+			 * that would otherwise occur using non-strict comparison, but '123' input will match 123 haystact member.
+			 *
+			 * @param boolean
+			 */
+			'c14n' => true
 		],
 		$messages = [
 			'not_in' => [
@@ -32,10 +41,24 @@ class In extends \ay\vlad\Validator {
 		}
 
 		if (!isset($options['haystack'])) {
-			throw new \BadMethodCallException('"haystack" option is.');
+			throw new \BadMethodCallException('"haystack" option is required.');
+		} else if (!is_array($options['haystack'])) {
+			throw new \InvalidArgumentException('"haystack" option must be an array.');
+		} else if (array_filter($options['haystack'], 'is_array')) {
+			throw new \InvalidArgumentException('"haystack" option must be a single dimension array.');
 		}
 
-		if (!in_array($value, $options['haystack'])) {
+		if (!is_bool($options['strict'])) {
+			throw new \InvalidArgumentException('Invalid option "strict" type. Expecting boolean.');
+		}
+
+		if (is_string($value) && $options['strict'] && $options['c14n']) {
+			$haystack = array_map('strval', $options['haystack']);
+
+			if (!in_array($value, $haystack, true)) {
+				return 'not_in';
+			}
+		} else if (!in_array($value, $options['haystack'], $options['strict'])) {
 			return 'not_in';
 		}
 	}
