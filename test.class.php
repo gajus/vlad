@@ -1,5 +1,5 @@
 <?php
-namespace ay\vlad;
+namespace gajus\vlad;
 
 /**
  * Test instance is carrying selectors and validators.
@@ -34,7 +34,7 @@ class Test {
 	 * @param string $failure_scenario soft|hard|break
 	 * @return Test
 	 */
-	public function addValidator ($selector, \ay\vlad\Validator $validator, $failure_scenario = 'hard') {
+	public function addValidator ($selector, \gajus\vlad\Validator $validator, $failure_scenario = 'hard') {
 		if (!isset($this->test[$selector])) {
 			$this->test[$selector] = [];
 		}

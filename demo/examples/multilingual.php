@@ -5,8 +5,8 @@ $dictionary = [
 		'foo' => 'FOO'
 	],
 	'validator_error' => [
-		// Translate the \ay\vlad\validator\not_empty is_empty error message.
-		'ay\vlad\validator\not_empty' => [
+		// Translate the \gajus\vlad\validator\not_empty is_empty error message.
+		'gajus\vlad\validator\not_empty' => [
 			'is_empty' => [
 				'{vlad.subject.name} laukelis negali būti paliktas tuščias.',
 				'Laukelis negali būti paliktas tuščias.'
@@ -15,13 +15,13 @@ $dictionary = [
 	],
 	'validator_error_selector' => [
 		// Replace the default not_empty is_empty error message for a specific selector.
-		'ay\vlad\validator\not_empty is_empty baz' => 'BAZ is the most important input. You absolutely cannot leave it empty.'
+		'gajus\vlad\validator\not_empty is_empty baz' => 'BAZ is the most important input. You absolutely cannot leave it empty.'
 	]
 ];
 
-$translator = new \ay\vlad\Translator($dictionary);
+$translator = new \gajus\vlad\Translator($dictionary);
 
-$vlad = new \ay\vlad\Vlad($translator);
+$vlad = new \gajus\vlad\Vlad($translator);
 
 $_POST = [
 	'bar' => '',

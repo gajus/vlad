@@ -1,5 +1,5 @@
 <?php
-namespace ay\vlad;
+namespace gajus\vlad;
 
 /**
  * Vlad is a convenience wrapper used to build Tests. Vlad instance carries a Translator instance that will be passed to
@@ -30,7 +30,7 @@ class Vlad {
 	 * The first array indicates a script containing batches of selector and validator arrays. For every selector, each validator
 	 * from withint the batch is applied. Validator array accepts names of the classes.
 	 *
-	 * You can change the validator processing type (see \ay\vlad\Test::Validator) by injecting either of the valid type properties
+	 * You can change the validator processing type (see \gajus\vlad\Test::Validator) by injecting either of the valid type properties
 	 * followed by a collomun into the validators array, e.g. ['soft:', 'validator1', 'hard:', 'validator2', 'validator3', 'break:', 'validator4'].
 	 *
 	 * You can pass properties to the validators by assigning an array, e.g. ['validator1', 'validator2' => ['min' => 10, 'max' => 20]].
@@ -79,13 +79,13 @@ class Vlad {
 					}
 
 					if (strpos($validator_name, '\\') === false) {
-						$validator_name = 'ay\vlad\validator\\' . $validator_name;
+						$validator_name = 'gajus\vlad\validator\\' . $validator_name;
 					}
 					
 					if (!class_exists($validator_name)) {
 						throw new \Exception('Validator cannot be found.');
-					} else if (!is_subclass_of($validator_name, 'ay\vlad\Validator')) {
-						throw new \Exception('Validator must extend ay\vlad\Validator.');
+					} else if (!is_subclass_of($validator_name, 'gajus\vlad\Validator')) {
+						throw new \Exception('Validator must extend gajus\vlad\Validator.');
 					}
 
 					$test->addValidator($selector, new $validator_name($options), $failure_scenario);

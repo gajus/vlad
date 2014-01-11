@@ -11,7 +11,7 @@ $input = [
 	]
 ];
 
-$vlad = new \ay\vlad\Vlad();
+$vlad = new \gajus\vlad\Vlad();
 
 $test = $vlad->test([
 	[

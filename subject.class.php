@@ -1,5 +1,5 @@
 <?php
-namespace ay\vlad;
+namespace gajus\vlad;
 
 /**
  * Subject represents the result of a selector lookup in the provided input.

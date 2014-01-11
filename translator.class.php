@@ -1,5 +1,5 @@
 <?php
-namespace ay\vlad;
+namespace gajus\vlad;
 
 /**
  * Translator instance is passed to Result instance and is used to translate individual error messages
@@ -24,7 +24,7 @@ class Translator {
 			],
 			'validator_error' => [
 				// Replace the default email validator, invalid_format error message.
-				'ay\vlad\validator\email' => [
+				'gajus\vlad\validator\email' => [
 					'invalid_format' => [
 						'{vlad.subject.name} must be a valid email address.',
 						'The input must be a valid email address.'
@@ -33,7 +33,7 @@ class Translator {
 			],
 			'validator_error_selector' => [
 				// Replace the default email invalid_format error message for a specific selector.
-				'ay\vlad\validator\email invalid_format vladfoo' => 'Oops. Email address does not seem to be valid.'
+				'gajus\vlad\validator\email invalid_format vladfoo' => 'Oops. Email address does not seem to be valid.'
 			]
 		];
 

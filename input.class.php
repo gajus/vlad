@@ -1,5 +1,5 @@
 <?php
-namespace ay\vlad;
+namespace gajus\vlad;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository

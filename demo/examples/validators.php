@@ -1,5 +1,5 @@
 <?php
-namespace ay\vlad\demo\examples;
+namespace gajus\vlad\demo\examples;
 
 // Vlad comes with a number of pre-built validators:
 //
@@ -46,7 +46,7 @@ $input = [
 	'waldo1' => '123a'
 ];
 
-$vlad = new \ay\vlad\Vlad();
+$vlad = new \gajus\vlad\Vlad();
 
 $test = $vlad->test([
 	[

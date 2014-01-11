@@ -1,12 +1,12 @@
 <?php
-namespace ay\vlad\validator;
+namespace gajus\vlad\validator;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository
  * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
-class Not_Empty extends \ay\vlad\Validator {
+class Not_Empty extends \gajus\vlad\Validator {
 	protected
 		$messages = [
 			'is_empty' => [
@@ -15,7 +15,7 @@ class Not_Empty extends \ay\vlad\Validator {
 			]
 		];
 	
-	public function validate (\ay\vlad\Subject $subject) {
+	public function validate (\gajus\vlad\Subject $subject) {
 		$value = $subject->getValue();
 
 		if (!is_null($value) && !is_string($value) && !is_int($value) && !is_float($value) && !is_bool($value) && !is_array($value) && !is_object($value)) {

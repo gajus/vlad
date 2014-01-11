@@ -1,9 +1,9 @@
 <?php
-namespace ay\vlad\demo\examples;
+namespace gajus\vlad\demo\examples;
 
-// Defining custom validators requires to extend \ay\vlad\Validator. The custom Validator must be namespaced.
+// Defining custom validators requires to extend \gajus\vlad\Validator. The custom Validator must be namespaced.
 
-class My_Custom_Validator extends \ay\vlad\Validator {
+class My_Custom_Validator extends \gajus\vlad\Validator {
 	protected
 		// If the Validator accepts any options, the placeholder for each option must be predefined.
 		$default_options = [
@@ -20,7 +20,7 @@ class My_Custom_Validator extends \ay\vlad\Validator {
 			]
 		];
 	
-	public function validate (\ay\vlad\Subject $subject) {
+	public function validate (\gajus\vlad\Subject $subject) {
 		$value = $subject->getValue();
 
 		$options = $this->getOptions();
@@ -46,17 +46,17 @@ $input = [
 	'baz' => 2
 ];
 
-$vlad = new \ay\vlad\Vlad();
+$vlad = new \gajus\vlad\Vlad();
 
 $test = $vlad->test([
 	[
 		['foo', 'bar'],
-		['ay\vlad\demo\examples\My_Custom_Validator']
+		['gajus\vlad\demo\examples\My_Custom_Validator']
 	],
 	[
 		['baz'],
 		[
-			['ay\vlad\demo\examples\My_Custom_Validator', 'alt' => '2']
+			['gajus\vlad\demo\examples\My_Custom_Validator', 'alt' => '2']
 		]
 	]
 ]);

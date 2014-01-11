@@ -3,6 +3,8 @@
 * Validator $options separated into $default_options and $instance_options. Restricted direct access to the $options array.
 * Added "Regex" validator: value must match against provided pattern.
 * Added "strict" and "c14n" options to In validator.
+* Added composer.json.
+* Changed namespace from ay\ to gajus\ to match the Github repository.
 
 0.0.1 / 2014-01-10
 
