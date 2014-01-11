@@ -10,7 +10,7 @@
 			"name": "Gajus Kuizinas",
 			"email": "gk@anuary.com"
 		}
-	]
+	],
 	"require": {
 		"php": ">=5.5"
 	},
