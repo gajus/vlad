@@ -1,6 +1,22 @@
 {
 	"name": "gajus/vlad",
+	"description": "Input validation library.",
+	"keywords": ["input", "form", "validation"],
+	"homepage": "https://github.com/gajus/vlad",
+	"type": "library",
+	"license": "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Gajus Kuizinas",
+			"email": "gk@anuary.com"
+		}
+	]
 	"require": {
 		"php": ">=5.5"
+	},
+	"autoload": {
+		"psr-4": {
+			"Gajus": "src/"
+		}
 	}
 }
