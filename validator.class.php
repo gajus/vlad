@@ -2,28 +2,31 @@
 namespace ay\vlad;
 
 abstract class Validator {
+	private
+		$instance_options = [];
+	
 	protected
-		$options = [],
+		$default_options = [],
 		$messages = [];
 	
 	/**
 	 * @throws BadMethodCallException if either of the $options argument properties do not already exist in the instance $options array.
 	 */
 	final public function __construct (array $options = []) {
-		$unrecognised_options = \array_diff_key($options, $this->options);
+		$unrecognised_options = \array_diff_key($options, $this->default_options);
 		
 		if ($unrecognised_options) {
 			throw new \BadMethodCallException('Unrecognised options: ' . implode(', ', array_keys($unrecognised_options)) . '.');
 		}
 		
-		$this->options = $options + $this->options;
+		$this->instance_options = $options + $this->default_options;
 	}
 
 	/**
 	 * @return array
 	 */
 	final public function getOptions () {
-		return $this->options;
+		return $this->instance_options;
 	}
 
 	/**
