@@ -1,3 +1,8 @@
+0.0.3 / 2014-01-12
+
+* Added Validator::getMessages() method.
+* Test is using newly introduced Validator::asses() method. Contrary to Validator::validate(), asses method returns instance of Error, which allows internal validator chaining (e.g. Email validator could use Host validator).
+
 0.0.2 / 2014-01-11
 
 * Validator $options separated into $default_options and $instance_options. Restricted direct access to the $options array.

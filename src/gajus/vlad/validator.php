@@ -46,6 +46,31 @@ abstract class Validator {
 		
 		return $this->messages[$error_name];
 	}
+
+	/**
+	 * Return all possible error messages. This is used by the Translator to test the translator input array.
+	 *
+	 * @return array
+	 */
+	final public function getMessages () {
+		return $this->messages;
+	}
+
+	final public function assess (Subject $subject) {
+		$error = $this->validate($subject);
+
+		if (!$error) {
+			return;
+		}
+
+		if (is_string($error)) {
+			return new Error($this, $subject, $error);
+		} else if (is_object($error) && $error instanceof Error) {
+			return $error;
+		}
+
+		throw new \Exception('Unexpected validation output.');
+	}
 	
-	abstract public function validate (Subject $subject);
+	abstract protected function validate (Subject $subject);
 }

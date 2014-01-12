@@ -51,12 +51,23 @@ class Test {
 		return $this;
 	}
 
+	/**
+	 * The exported test script is used for integration with the client-side validation.
+	 *
+	 * @return array
+	 */
 	public function getScript () {
 		return $this->script;
 	}
 
 	/**
-	 * Instantiate Result instance using the test script and user input.
+	 * Asses the test script against user input.
+	 *
+	 * "failure_scenario" determines how to progress the Test in case of a failure:
+	 * - 'silent' exclude input from the current validator chain.
+	 * – 'soft' record an error and progress to the next Validator.
+	 * – 'hard' (default) record an error and exclude the selector from the rest of the Test.
+	 * – 'break' record an error and interrupt the Test.
 	 *
 	 * @param array $input The input to run the test against. If null, defaults to $_POST.
 	 * @return Result
@@ -65,7 +76,43 @@ class Test {
 		if ($input === null) {
 			$input = $_POST;
 		}
+
+		$input = new Input($input, $this->translator);
 		
-		return new Result($this, $input, $this->translator);
+		$script = $this->getScript();
+
+		$result = [];
+
+		$selectors_with_hard_failure = [];
+
+		foreach ($script as $selector => $batch) {
+			if (in_array($selector, $selectors_with_hard_failure)) {
+				continue;
+			}
+
+			$subject = $input->getSubject($selector);
+
+			foreach ($batch as $operation) {
+				$error = $operation['validator']->assess($subject);
+
+				if ($error) {
+					if ($operation['failure_scenario'] === 'silent') {
+						break;
+					}
+					
+					$result[] = $error;
+
+					if ($operation['failure_scenario'] === 'hard') {
+						$selectors_with_hard_failure[] = $selector;
+
+						break;
+					} else if ($operation['failure_scenario'] === 'break') {
+						break(2);
+					}
+				}
+			}
+		}
+
+		return new Result($result, $this->translator);
 	}
 }

@@ -6,21 +6,16 @@ namespace gajus\vlad;
  * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
-class Assessment {
+class Error {
 	private
-		$subject,
 		$validator,
-		$error;
+		$subject,
+		$error_name;
 
-	public function __construct (Subject $subject, Validator $validator, Translator $translator) {
-		$this->subject = $subject;
+	public function __construct (Validator $validator, Subject $subject, $error_name) {
 		$this->validator = $validator;
-
-		$error_name = $validator->validate($subject);
-
-		if ($error_name) {
-			$this->error = $translator->getErrorMessage($error_name, $validator, $subject);
-		}
+		$this->subject = $subject;
+		$this->error_name = $error_name;
 	}
 
 	public function getSubject () {
@@ -31,7 +26,11 @@ class Assessment {
 		return $this->validator;
 	}
 
-	public function getError () {
-		return $this->error;
+	public function getErrorName () {
+		return $this->error_name;
+	}
+
+	public function getErrorMessage () {
+		return $this->validator->getErrorMessage($this->error_name);
 	}
 }
