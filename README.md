@@ -1,5 +1,4 @@
-Vlad
-====
+# Vlad
 
 Vlad is input validation library. 
 
@@ -30,64 +29,18 @@ Translator allows to overwrite default error messages, input specific error mess
 
 **This library is in active development. Code critique, suggestions and flagging issues is much appreciated. However, I do not advise to use it. Instead, please watch/star the library and I will update you when first stable release is ready.**
 
+## Documentation
+
 [Documentation](http://anuary.com/vlad/) and [Usage Examples](http://anuary.com/vlad/) are written using code examples with inline documentation.
 
-## Introductory Syntax
+## Todo
 
-```php
-<?php
-$dummy_input = [
-  'foo' => 'me@foo.tld',
-  'bar' => 'invalidemail',
-  'baz' => '',
-];
-
-$vlad = new \ay\vlad\Vlad();
-
-$test = $vlad->test([
-  [
-    ['foo', 'bar', 'baz'], // Selectors
-    ['not_empty', 'email'] // Rules
-  ],
-  [
-    ['qux'],
-    ['required']
-  ]
-]);
-
-// The above method creates an instance of a Test.
-// Each selector (e.g. foo, bar, baz) is assigned all of the rules
-// from the same group, e.g. selector 'foo' is assigned rules 'not_empty' and 'email'.
-
-$result = $test->assess($dummy_input);
-
-var_dump($result->getFailed());
-```
-
-The above `var_dump` call will generate the following output:
-
-```
-array(3) {
-  [3]=>
-  array(2) {
-    ["selector"]=>
-    string(3) "bar"
-    ["message"]=>
-    string(34) "Bar must be a valid email address."
-  }
-  [4]=>
-  array(2) {
-    ["selector"]=>
-    string(3) "baz"
-    ["message"]=>
-    string(23) "Baz is cannot be empty."
-  }
-  [5]=>
-  array(2) {
-    ["selector"]=>
-    string(3) "qux"
-    ["message"]=>
-    string(16) "Qux is required."
-  }
-}
-```
+* Credit card validator.
+* Get the input back from Test/Result that matches at least one rule (and passes that rule?).
+* Add Allow adding custom error message to the Result for input or non-input (e.g. duplicate value). This error would then be passed to the hasErrors array.
+* Add URL validator. This should consider that URL does not necessarily include protocol and that those that do include, e.g. ftp:// might not necessarily be expected URLs.
+* Make it more easy to test $regex = new \ay\vlad\validator\Regex(['pattern' => '/test/']); The problem is that Validator requires Subject instance, which creates a chain of dependencies. Simple input should be preferred. However, this introduces “challenge” (OCD) of controlling the is_found/not_found value. Alternatively, a second validation interface could be introduced that disregards the isFound method altogether. However, then Validator should have an option whether value is required or not.
+* Validate the translations file. Now that a translation array is loaded, only the syntax is validated, but not whether the translation file resolves to the known error_names from the validator.
+* Improve email validator. Zend validator includes useful additions (MX check, host name validator, etc) https://github.com/zendframework/zf2/blob/master/library/Zend/Validator/EmailAddress.php.
+* Validator should return Error object. This will allow validator to use another validator internally to validate the input, e.g. email validator could first use host validator.
+* http://www.php-fig.org/
