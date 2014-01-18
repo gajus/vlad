@@ -10,6 +10,7 @@ namespace gajus\vlad;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Vlad {
+
 	private
 		$translator;
 
@@ -43,7 +44,7 @@ class Vlad {
 				throw new \InvalidArgumentException('Validator selectors must be unique.');
 			}
 
-			foreach ($batch[0] as $selector) {
+			foreach ($batch[0] as $i => $selector) {
 				$failure_scenario = 'hard';
 
 				foreach ($batch[1] as $context) {
@@ -55,8 +56,6 @@ class Vlad {
 						if (!isset($context[0])) {
 							// This is options array, e.g. ['fail' => 'break']
 							if (array_diff(array_keys($context), ['fail'])) {
-								\ay($context);
-
 								throw new \InvalidArgumentException('Unknown options in the validator chain: ' . implode(', ', $context) . '.');
 							}
 
@@ -88,7 +87,7 @@ class Vlad {
 						throw new \Exception('Validator must extend gajus\vlad\Validator.');
 					}
 
-					$test->addValidator($selector, new $validator_name($options), $failure_scenario);
+					$test->addValidator($selector, new $validator_name($options), $failure_scenario, $i);
 				}
 			}
 		}

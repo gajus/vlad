@@ -3,7 +3,7 @@ namespace gajus\vlad;
 
 /**
  * Test instance is carrying selectors and validators.
- * Test case be used to assess input, which will produce Result.
+ * Test case be used to assess input, which will produce gajus\vlad\Result.
  *
  * @link https://github.com/gajus/vlad for the canonical source repository
  * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
@@ -21,7 +21,7 @@ class Test {
 		 * @see Test::addValidator
 		 * @var array
 		 */
-		$script = [];
+		$test = [];
 
 	final public function __construct (Translator $translator = null) {
 		$this->translator = $translator === null ? new Translator(): $translator;
@@ -30,20 +30,22 @@ class Test {
 	/**
 	 * Add a Validator with assigned selector and processing type to the Test script.
 	 * 
-	 * @see Result::assess()
-	 * @param string $failure_scenario soft|hard|break
+	 * @param string $selector
+	 * @param gajus\vlad\Validator $validator
+	 * @param string $failure_scenario
+	 * @param int $batch_number
 	 * @return Test
 	 */
-	public function addValidator ($selector, \gajus\vlad\Validator $validator, $failure_scenario = 'hard') {
-		if (!isset($this->test[$selector])) {
-			$this->test[$selector] = [];
+	public function addValidator ($selector, \gajus\vlad\Validator $validator, $failure_scenario = 'hard', $batch_number = 0) {
+		if (!isset($this->test[$selector][$batch_number])) {
+			$this->test[$selector][$batch_number] = [];
 		}
 
 		if (!in_array($failure_scenario, ['silent', 'soft', 'hard', 'break'])) {
 			throw new \BadMethodCallException('Validator $failure_scenario must be soft, hard or break.');
 		}
 
-		$this->script[$selector][] = [
+		$this->test[$selector][$batch_number][] = [
 			'failure_scenario' => $failure_scenario,
 			'validator' => $validator
 		];
@@ -57,7 +59,7 @@ class Test {
 	 * @return array
 	 */
 	public function getScript () {
-		return $this->script;
+		return $this->test;
 	}
 
 	/**
@@ -85,29 +87,26 @@ class Test {
 
 		$selectors_with_hard_failure = [];
 
-		foreach ($script as $selector => $batch) {
-			if (in_array($selector, $selectors_with_hard_failure)) {
-				continue;
-			}
-
+		foreach ($script as $selector => $test) {
+			
 			$subject = $input->getSubject($selector);
 
-			foreach ($batch as $operation) {
-				$error = $operation['validator']->assess($subject);
+			foreach ($test as $script) {
+				foreach ($script as $operation) {
+					$error = $operation['validator']->assess($subject);
 
-				if ($error) {
-					if ($operation['failure_scenario'] === 'silent') {
-						break;
-					}
-					
-					$result[] = $error;
+					if ($error) {
+						if ($operation['failure_scenario'] === 'silent') {
+							break;
+						}
+						
+						$result[] = $error;
 
-					if ($operation['failure_scenario'] === 'hard') {
-						$selectors_with_hard_failure[] = $selector;
-
-						break;
-					} else if ($operation['failure_scenario'] === 'break') {
-						break(2);
+						if ($operation['failure_scenario'] === 'hard') {
+							break(2);
+						} else if ($operation['failure_scenario'] === 'break') {
+							break(3);
+						}
 					}
 				}
 			}
