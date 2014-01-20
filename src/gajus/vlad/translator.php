@@ -45,39 +45,61 @@ class Translator {
 		if (isset($dictionary['selector'])) {
 			foreach ($dictionary['selector'] as $message) {
 				if (!is_string($message)) {
-					throw new \InvalidArgumentException('Selector translation must be a string.');
+					throw new \InvalidArgumentException('"selector" translation must be a string.');
 				}
 			}
 		}
 
 		if (isset($dictionary['validator_error_selector'])) {
-			foreach ($dictionary['validator_error_selector'] as $message) {
-				if (!is_string($message)) {
-					throw new \InvalidArgumentException('Selector specific validation translation must be a string.');
+			foreach ($dictionary['validator_error_selector'] as $validator_error_selector => $message) {
+				$validator_error_selector = explode(' ', $validator_error_selector);
+
+				if (count($validator_error_selector) != 3) {
+					throw new \InvalidArgumentException('"validator_error_selector" translation query must break into exactly 3 parts (validator, error, selector).');
 				}
 
-				// check if validator and message exists
+				if (!class_exists($validator_error_selector[0])) {
+					throw new \InvalidArgumentException('Validator in the "validator_error_selector" dictionary does not exist.');
+				} else if (!is_subclass_of($validator_error_selector[0], 'gajus\vlad\Validator')) {
+					throw new \InvalidArgumentException('Validator in the "validator_error_selector" dictionary does not extend gajus\vlad\Validator.');
+				}
+
+				if (!isset($validator_error_selector[0]::getMessages()[$validator_error_selector[1]])) {
+					throw new \InvalidArgumentException('Error in the "validator_error_selector" translation does not refer to a known error.');
+				}
+
+				if (!is_string($message)) {
+					throw new \InvalidArgumentException('"validator_error_selector" error translation must be a string.');
+				}
 			}
 		}
 
 		if (isset($dictionary['validator_error'])) {
 			foreach ($dictionary['validator_error'] as $validator_name => $errors) {
+				if (!class_exists($validator_name)) {
+					throw new \InvalidArgumentException('Validator in the "validator_error" dictionary does not exist.');
+				} else if (!is_subclass_of($validator_name, 'gajus\vlad\Validator')) {
+					throw new \InvalidArgumentException('Validator in the "validator_error" dictionary does not extend gajus\vlad\Validator.');
+				}
+
 				if (!is_array($errors)) {
-					throw new \InvalidArgumentException('Validator error must include an array of validators, containing an array of errors, containing an array of messages.');
+					throw new \InvalidArgumentException('"validator_error" entry must include an array of validators, containing an array of errors, containing an array of messages.');
 				}
 
 				foreach ($errors as $error_name => $message_collection) {
-					// @todo validate that this error_name does exist in the validator.
-
+					if (!isset($validator_name::getMessages()[$error_name])) {
+						throw new \InvalidArgumentException('Error in the "validator_error" translation does not refer to a known error.');
+					}
+					
 					if (!is_array($message_collection)) {
-						throw new \InvalidArgumentException('Validator error message must be an array containing two messages.');
+						throw new \InvalidArgumentException('"validator_error" message must be an array containing two messages.');
 					} else if (count($message_collection) != 2) {
-						throw new \InvalidArgumentException('Validator error message array must contain two messages.');
+						throw new \InvalidArgumentException('"validator_error" message array must contain two messages.');
 					}
 
 					foreach ($message_collection as $message) {
 						if (!is_string($message)) {
-							throw new \InvalidArgumentException('Individual validator error messages must be a string.');
+							throw new \InvalidArgumentException('Individual "validator_error" messages must be a string.');
 						}
 					}
 				}				
