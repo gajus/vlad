@@ -11,10 +11,11 @@ namespace gajus\vlad\demo\examples;
 // * not_empty – ensure that input is not empty.
 // * range – ensure that value is less, greater or in a defined range.
 // * regex – ensure that value matches the supplied pattern.
-// * required – ensure that input is present.
 // * string – ensure that input is present.
 // 
 // Request other validators by raising an issue https://github.com/gajus/vlad/issues.
+
+return;
 
 $input = [
 	'foo0' => 'Predefined value',
@@ -46,7 +47,7 @@ $input = [
 	'waldo1' => '123a'
 ];
 
-$vlad = new \gajus\vlad\Vlad();
+$vlad = new \gajus\vlad\Doctor();
 
 $test = $vlad->test([
 	[
@@ -54,26 +55,20 @@ $test = $vlad->test([
 		['foo0', 'foo1'],
 		[
 			// Value must be present and must be equal to the supplied value.
-			['equal', 'to' => 'Predefined value']
+			'equal' => ['to' => 'Predefined value']
 		]
 	],
 	[
 		['bar0', 'bar1'],
 		[
 			// Value must be present and must be equal to the value resolved using another selector.
-			['match', 'selector' => 'bar2']
+			'match' => ['selector' => 'bar2']
 		]
 	],
 	[
 		['baz0', 'baz1'],
 		[
 			'string'
-		]
-	],
-	[
-		['qux0', 'qux1'],
-		[
-			'required'
 		]
 	],
 	[
@@ -91,23 +86,23 @@ $test = $vlad->test([
 	[
 		['grault0', 'grault1'],
 		[
-			['length', 'max' => 15]
+			'length' => ['max' => 15]
 		]
 	],
 	[
 		['garply0', 'garply1'],
 		[
-			['range', 'max_inclusive' => 15]
+			'range' => ['max_inclusive' => 15]
 		]
 	],
 	[
 		['waldo0', 'waldo1'],
 		[
-			['regex', 'pattern' => '/^[0-9]*$/']
+			'regex' => ['pattern' => '/^[0-9]*$/']
 		]
 	]
 ]);
 
-$result = $test->assess($input);
+$assessment = $test->assess($input);
 ?>
-<pre><code><?php var_dump($result->getFailed())?></code></pre>
+<pre><code><?php var_dump($assessment)?></code></pre>

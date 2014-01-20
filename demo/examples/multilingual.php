@@ -7,7 +7,7 @@ $dictionary = [
 	'validator_error' => [
 		// Translate the \gajus\vlad\validator\not_empty is_empty error message.
 		'gajus\vlad\validator\not_empty' => [
-			'is_empty' => [
+			'empty' => [
 				'{vlad.subject.name} laukelis negali būti paliktas tuščias.',
 				'Laukelis negali būti paliktas tuščias.'
 			]
@@ -21,7 +21,7 @@ $dictionary = [
 
 $translator = new \gajus\vlad\Translator($dictionary);
 
-$vlad = new \gajus\vlad\Vlad($translator);
+$vlad = new \gajus\vlad\Doctor($translator);
 
 $_POST = [
 	'bar' => '',
@@ -36,6 +36,6 @@ $test = $vlad->test([
 	]
 ]);
 
-$result = $test->assess(); // If no $input parameter provided, assess will use $_POST.
+$assessment = $test->assess(); // If no $input parameter provided, assess will use $_POST.
 ?>
-<pre><code><?php var_dump($result->getFailed())?></code></pre>
+<pre><code><?php var_dump($assessment)?></code></pre>

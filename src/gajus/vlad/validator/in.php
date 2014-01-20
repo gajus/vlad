@@ -18,7 +18,8 @@ class In extends \gajus\vlad\Validator {
 			 *
 			 * @param boolean
 			 */
-			'c14n' => true
+			'c14n' => true,
+			'recursive' => false
 		],
 		$messages = [
 			'not_in' => [
@@ -42,12 +43,20 @@ class In extends \gajus\vlad\Validator {
 			throw new \InvalidArgumentException('Invalid option "strict" type. Expecting boolean.');
 		}
 
-		#var_dump('###', $options);
+		if ($options['recursive']) {
+			foreach ($subject->getSelector()->getPath() as $crumble) {
+				if (!isset($options['haystack'][$crumble]) || !is_array($options['haystack'][$crumble])) {
+					throw new \RuntimeException('Path does not resolve an array within the haystack.');
+				}
+
+				$options['haystack'] = $options['haystack'][$crumble];
+			}
+		}
 
 		if (is_string($value) && $options['strict'] && $options['c14n']) {
-			$haystack = array_map('strval', $options['haystack']);
+			$options['haystack'] = array_map('strval', $options['haystack']);
 
-			if (!in_array($value, $haystack, true)) {
+			if (!in_array($value, $options['haystack'], true)) {
 				return 'not_in';
 			}
 		} else if (!in_array($value, $options['haystack'], $options['strict'])) {

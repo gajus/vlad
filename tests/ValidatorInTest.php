@@ -7,7 +7,7 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 		]);
 
 		$this->assertCount(1, $test->getTestScript());
-		$this->assertSame(['haystack' => [1], 'strict' => true, 'c14n' => true], $test->getTestScript()['foo'][0]['options']);
+		$this->assertSame(['haystack' => [1], 'strict' => true, 'c14n' => true, 'recursive' => false], $test->getTestScript()['foo'][0]['options']);
 	}
 
 	/**
@@ -47,6 +47,69 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 			[1, 123],
 			['test', 123],
 			[123, '123']
+		];
+	}
+
+	/**
+	 * @dataProvider recursiveQuasiStrictInProvider
+	 */
+	public function testRecursiveQuasiStrictIn ($selector, $input) {
+		$options = [
+			'birth' => [
+				'year' => range(date('Y') - 100, date('Y'))
+			]
+		];
+
+		$test = new \gajus\vlad\Test();
+		$test->assert($selector, 'in', ['haystack' => $options, 'recursive' => true]);
+
+		$assessment = $test->assess($input);
+
+		$this->assertCount(0, $assessment);
+	}
+
+	public function recursiveQuasiStrictInProvider () {
+		return [
+			[
+				'birth[year]',
+				[
+					'birth' => [
+						'year' => date('Y')
+					]
+				]
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider recursiveQuasiStrictNotInProvider
+	 */
+	public function testRecursiveQuasiStrictNotIn ($selector, $input) {
+		$options = [
+			'birth' => [
+				'month' => range(1, 12)
+			]
+		];
+
+		$test = new \gajus\vlad\Test();
+		$test->assert($selector, 'in', ['haystack' => $options, 'recursive' => true]);
+
+		$assessment = $test->assess($input);
+
+		$this->assertCount(1, $assessment);
+		$this->assertSame('not_in', $assessment[0]->getName());
+	}
+
+	public function recursiveQuasiStrictNotInProvider () {
+		return [
+			[
+				'birth[month]',
+				[
+					'birth' => [
+						'month' => 13
+					]
+				]
+			]
 		];
 	}
 

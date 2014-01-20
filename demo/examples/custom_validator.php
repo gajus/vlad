@@ -46,7 +46,7 @@ $input = [
 	'baz' => 2
 ];
 
-$vlad = new \gajus\vlad\Vlad();
+$vlad = new \gajus\vlad\Doctor();
 
 $test = $vlad->test([
 	[
@@ -56,11 +56,11 @@ $test = $vlad->test([
 	[
 		['baz'],
 		[
-			['gajus\vlad\demo\examples\My_Custom_Validator', 'alt' => '2']
+			'gajus\vlad\demo\examples\My_Custom_Validator' => ['alt' => '2']
 		]
 	]
 ]);
 
-$result = $test->assess(); // If no $input parameter provided, assess will use $_POST.
+$assessment = $test->assess($input);
 ?>
-<pre><code><?php var_dump($result->getFailed())?></code></pre>
+<pre><code><?php var_dump($assessment)?></code></pre>
