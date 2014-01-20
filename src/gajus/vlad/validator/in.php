@@ -53,7 +53,7 @@ class In extends \gajus\vlad\Validator {
 			}
 		}
 
-		if (is_string($value) && $options['strict'] && $options['c14n']) {
+		if (is_string($value) && !array_filter($options['haystack'], 'is_array') && $options['strict'] && $options['c14n']) {
 			$options['haystack'] = array_map('strval', $options['haystack']);
 
 			if (!in_array($value, $options['haystack'], true)) {

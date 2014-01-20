@@ -18,7 +18,8 @@ $input = [
 		'month' => 1,
 		'day' => 20
 	],
-	'sex' => 'male'
+	'sex' => 'male',
+	'password' => 'mySecretPassword'
 ];
 
 $doctor = new \gajus\vlad\Doctor();
@@ -28,7 +29,7 @@ $test = $doctor->test([
 		['first_name', 'last_name', 'password'],
 		[
 			'not_empty',
-			'length' => ['max' => 10]
+			'length' => ['max' => 20]
 		]
 	],
 	[
@@ -36,7 +37,7 @@ $test = $doctor->test([
 		[
 			'not_empty',
 			'email',
-			'length' => ['max' => 10]
+			'length' => ['max' => 20]
 		]	
 	],
 	[
@@ -50,11 +51,11 @@ $test = $doctor->test([
 		['birth[year]', 'birth[month]', 'birth[day]', 'sex'],
 		[
 			'not_empty',
-			'in' => ['haystack' => $options]
+			'in' => ['haystack' => $options, 'recursive' => true]
 		]
 	]
 ]);
 
 $assessment = $test->assess($input);
 ?>
-<pre><code><?php var_dump($assessment);?></code></pre>
+<pre><code><?php var_dump(count($assessment), $assessment);?></code></pre>

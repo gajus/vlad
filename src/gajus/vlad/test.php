@@ -103,7 +103,7 @@ class Test {
 				if ($error) {
 					$result[] = $error;
 
-					break(2);
+					break;
 				}
 			}
 		}
