@@ -2,8 +2,6 @@
 namespace gajus\vlad;
 
 /**
- * Test instance is carrying selectors and validators.
- * Test case be used to assess input, which will produce gajus\vlad\Result.
  *
  * @link https://github.com/gajus/vlad for the canonical source repository
  * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
@@ -16,63 +14,76 @@ class Test {
 		 */
 		$translator,
 		/**
-		 * 
-		 *
-		 * @see Test::addValidator
+		 * @see Test::assert()
 		 * @var array
 		 */
-		$test = [];
+		$test_script = [];
 
+	/**
+	 * @param Translator $translator
+	 */
 	final public function __construct (Translator $translator = null) {
 		$this->translator = $translator === null ? new Translator(): $translator;
 	}
 
 	/**
-	 * Add a Validator with assigned selector and processing type to the Test script.
+	 * @return array
+	 */
+	public function getTestScript () {
+		$test_script = [];
+
+		foreach ($this->test_script as $selector => $validators) {
+			foreach ($validators as $validator) {
+				if (!isset($test_script[$selector])) {
+					$test_script[$selector] = [];
+				}
+
+				$test_script[$selector][] = [
+					'name' => strtolower(get_class($validator)),
+					'options' => $validator->getOptions()
+				];
+			}
+		}
+
+		return $test_script;
+	}
+
+	/**
 	 * 
 	 * @param string $selector
-	 * @param gajus\vlad\Validator $validator
-	 * @param string $failure_scenario
-	 * @param int $batch_number
+	 * @param string $validator_name
+	 * @param array $options
 	 * @return Test
 	 */
-	public function addValidator ($selector, \gajus\vlad\Validator $validator, $failure_scenario = 'hard', $batch_number = 0) {
-		if (!isset($this->test[$selector][$batch_number])) {
-			$this->test[$selector][$batch_number] = [];
+	public function assert ($selector, $validator_name, array $options = []) {
+		if (!is_string($validator_name)) {
+			throw new \InvalidArgumentException('Validator must be a string.');
 		}
 
-		if (!in_array($failure_scenario, ['silent', 'soft', 'hard', 'break'])) {
-			throw new \BadMethodCallException('Validator $failure_scenario must be soft, hard or break.');
+		if (strpos($validator_name, '\\') === false) {
+			$validator_name = 'gajus\vlad\validator\\' . $validator_name;
+		}
+		
+		if (!class_exists($validator_name)) {
+			throw new \InvalidArgumentException('Validator not found.');
+		} else if (!is_subclass_of($validator_name, 'gajus\vlad\Validator')) {
+			throw new \InvalidArgumentException('Validator must extend gajus\vlad\Validator.');
 		}
 
-		$this->test[$selector][$batch_number][] = [
-			'failure_scenario' => $failure_scenario,
-			'validator' => $validator
-		];
+		if (!isset($this->test_script[$selector])) {
+			$this->test_script[$selector] = [];
+		}
+
+		$this->test_script[$selector][] = new $validator_name ($options);
 		
 		return $this;
 	}
 
 	/**
-	 * The exported test script is used for integration with the client-side validation.
-	 *
-	 * @return array
-	 */
-	public function getScript () {
-		return $this->test;
-	}
-
-	/**
-	 * Asses the test script against user input.
-	 *
-	 * "failure_scenario" determines how to progress the Test in case of a failure:
-	 * - 'silent' exclude input from the current validator chain.
-	 * – 'soft' record an error and progress to the next Validator.
-	 * – 'hard' (default) record an error and exclude the selector from the rest of the Test.
-	 * – 'break' record an error and interrupt the Test.
+	 * Assess the test script against user input.
 	 *
 	 * @param array $input The input to run the test against. If null, defaults to $_POST.
-	 * @return Result
+	 * @return array Assessments that resulted in an error.
 	 */
 	public function assess (array $input = null) {
 		if ($input === null) {
@@ -81,37 +92,22 @@ class Test {
 
 		$input = new Input($input, $this->translator);
 		
-		$script = $this->getScript();
-
 		$result = [];
 
-		$selectors_with_hard_failure = [];
-
-		foreach ($script as $selector => $test) {
-			
+		foreach ($this->test_script as $selector => $validators) {
 			$subject = $input->getSubject($selector);
 
-			foreach ($test as $script) {
-				foreach ($script as $operation) {
-					$error = $operation['validator']->assess($subject);
+			foreach ($validators as $validator) {
+				$error = $validator->assess($subject);
 
-					if ($error) {
-						if ($operation['failure_scenario'] === 'silent') {
-							break;
-						}
-						
-						$result[] = $error;
+				if ($error) {
+					$result[] = $error;
 
-						if ($operation['failure_scenario'] === 'hard') {
-							break(2);
-						} else if ($operation['failure_scenario'] === 'break') {
-							break(3);
-						}
-					}
+					break(2);
 				}
 			}
 		}
 
-		return new Result($result, $this->translator);
+		return $result;
 	}
 }

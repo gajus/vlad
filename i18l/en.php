@@ -44,7 +44,7 @@ return [
 			]
 		],
 		'gajus\vlad\validator\not_empty' => [
-			'is_empty' => [
+			'empty' => [
 				'{vlad.subject.name} is empty.',
 				'The input is empty.'
 			]

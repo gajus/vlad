@@ -11,6 +11,7 @@ abstract class Validator {
 		$instance_options = [];
 	
 	protected
+		$requires_value = true,
 		$default_options = [],
 		$messages = [];
 	
@@ -21,10 +22,10 @@ abstract class Validator {
 		$unrecognised_options = \array_diff_key($options, $this->default_options);
 		
 		if ($unrecognised_options) {
-			throw new \BadMethodCallException('Unrecognised options: ' . implode(', ', array_keys($unrecognised_options)) . '.');
+			throw new \BadMethodCallException('Unrecognised option.');
 		}
 		
-		$this->instance_options = $options + $this->default_options;
+		$this->instance_options = $options + array_filter($this->default_options, function ($e) { return !is_null($e); });
 	}
 
 	/**
@@ -35,13 +36,12 @@ abstract class Validator {
 	}
 
 	/**
-	 * @throws Exception if $error_name is undefined in the $messages array.
 	 * @param string $error_name
 	 * @return string
 	 */
 	final public function getMessage ($error_name) {
 		if (!isset($this->messages[$error_name])) {
-			throw new \Exception('Undefined error message "' . $error_name . '".');
+			throw new \InvalidArgumentException('Undefined error message.');
 		}
 		
 		return $this->messages[$error_name];
@@ -57,6 +57,10 @@ abstract class Validator {
 	}
 
 	final public function assess (Subject $subject) {
+		if ($this->requires_value && !$subject->isFound()) {
+			throw new \RuntimeException('Validator cannot be used with undefined input.');
+		}
+
 		$error = $this->validate($subject);
 
 		if (!$error) {
@@ -64,12 +68,12 @@ abstract class Validator {
 		}
 
 		if (is_string($error)) {
-			return new Error($this, $subject, $error);
+			return new \gajus\vlad\Error($this, $subject, $error);
 		} else if (is_object($error) && $error instanceof Error) {
 			return $error;
 		}
 
-		throw new \Exception('Unexpected validation output.');
+		throw new \RuntimeException('Unexpected validation output.');
 	}
 	
 	abstract protected function validate (Subject $subject);

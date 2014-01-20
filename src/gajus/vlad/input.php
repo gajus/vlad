@@ -10,28 +10,27 @@ class Input {
 	private
 		$input,
 		$translator,
-		$selector_index = [],
 		$subject_index = [];
 
-	public function __construct (array $input, Translator $translator) {
+	public function __construct (array $input, Translator $translator = null) {
 		$this->input = $input;
+
+		if (!$translator) {
+			$translator = new \gajus\vlad\Translator();
+		}
+
 		$this->translator = $translator;
 	}
 
+	/**
+	 * @param string
+	 */
 	public function getSubject ($selector) {
-		if (!is_string($selector)) {
-			throw new \InvalidArgumentException('Selector must be a string.');
+		if (isset($this->subject_index[$selector])) {
+			return $this->subject_index[$selector];
 		}
 
-		if (isset($selector_index[$selector])) {
-			$selector = $selector_index[$selector];
-		} else {
-			$selector = $selector_index[$selector] = new Selector($selector);
-		}
-
-		if (isset($this->subject_index[$selector->getSelector()])) {
-			return $this->subject_index[$selector->getSelector()];
-		}
+		$selector = new Selector($selector);		
 
 		// Find value matching the selector in the $input.
 		$value = $this->input;
@@ -55,11 +54,7 @@ class Input {
 		return $subject;
 	}
 
-	public function getInput () {
-		// @todo return array of all input elements matching $used_selectors.
-	}
-
-	private function parseSelectorPath ($selector) {
-		return explode('[', str_replace(']', '', $selector));
-	}
+	#public function getInput () {
+	#	// @todo return array of all input elements matching $used_selectors.
+	#}
 }

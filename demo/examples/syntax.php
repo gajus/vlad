@@ -14,7 +14,7 @@ $input = [
 $vlad = new \gajus\vlad\Vlad();
 
 $test = $vlad->test([
-	[
+	[ // Test
 		['foo', 'bar', 'baz'], // Selectors
 		['not_empty', 'email'] // Validators
 	],

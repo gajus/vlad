@@ -1,3 +1,16 @@
+0.0.5 / 2014-01-20
+
+* Syntax change. Removed "failure_scenario" option. The latter was useful only to edge case scenarios and resulted in non-intuitive test scripts.
+
+0.0.4 / 2014-01-18
+
+* Added phpunit.xml
+* Integrated with travis, https://travis-ci.org/gajus/vlad
+* Integrated with coveralls, https://coveralls.io/r/gajus/vlad
+* Bug fixes.
+* \gajus\vlad\Vlad renamed to \gajus\vlad\Doctor to avoid ambiguity between package name and the class.
+* \gajus\vlad\Result class removed. Instead \gajus\vlad\Routine::assess() returns an array errors.
+
 0.0.3 / 2014-01-12
 
 * Added Validator::getMessages() method.

@@ -8,8 +8,9 @@ namespace gajus\vlad\validator;
  */
 class Not_Empty extends \gajus\vlad\Validator {
 	protected
+		$requires_value = false,
 		$messages = [
-			'is_empty' => [
+			'empty' => [
 				'{vlad.subject.name} is empty.',
 				'The input is empty.'
 			]
@@ -17,13 +18,13 @@ class Not_Empty extends \gajus\vlad\Validator {
 	
 	public function validate (\gajus\vlad\Subject $subject) {
 		$value = $subject->getValue();
-
-		if (!is_null($value) && !is_string($value) && !is_int($value) && !is_float($value) && !is_bool($value) && !is_array($value) && !is_object($value)) {
-			throw new \InvalidArgumentException('Invalid type given. String, integer, float, boolean or array expected');
+		
+		if (!is_null($value) && !is_scalar($value) && !is_array($value) && !is_object($value)) {
+			throw new \InvalidArgumentException('Value is not null, string, integer, float, boolean or array.');
 		}
 
-		if (is_null($value) || !preg_replace('/^\s+$/', '', $value)) {
-			return 'is_empty';
+		if (!preg_replace('/^\s+$/', '', $value)) {
+			return 'empty';
 		}
 	}
 }

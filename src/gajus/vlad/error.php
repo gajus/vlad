@@ -8,14 +8,23 @@ namespace gajus\vlad;
  */
 class Error {
 	private
+		/**
+		 * @var Validator
+		 */
 		$validator,
+		/**
+		 * @var Subject
+		 */
 		$subject,
-		$error_name;
+		/**
+		 * @var string
+		 */
+		$name;
 
-	public function __construct (Validator $validator, Subject $subject, $error_name) {
+	public function __construct (Validator $validator, Subject $subject, $name) {
 		$this->validator = $validator;
 		$this->subject = $subject;
-		$this->error_name = $error_name;
+		$this->name = $name;
 	}
 
 	public function getSubject () {
@@ -26,11 +35,11 @@ class Error {
 		return $this->validator;
 	}
 
-	public function getErrorName () {
-		return $this->error_name;
+	public function getName () {
+		return $this->name;
 	}
 
-	public function getErrorMessage () {
-		return $this->validator->getErrorMessage($this->error_name);
+	public function getMessage () {
+		return $this->validator->getErrorMessage($this->name);
 	}
 }

@@ -28,29 +28,21 @@ class In extends \gajus\vlad\Validator {
 		];
 
 	public function validate (\gajus\vlad\Subject $subject) {
-		if (!$subject->isFound()) {
-			throw new \Exception('Validator cannot be used with undefined input.');
-		}
-
 		$value = $subject->getValue();
 
 		$options = $this->getOptions();
 		
-		if (!is_scalar($value)) {
-			throw new \InvalidArgumentException('Value type is expected to be scalar. "' . gettype($value) . '" given instead.');
-		}
-
 		if (!isset($options['haystack'])) {
 			throw new \BadMethodCallException('"haystack" option is required.');
 		} else if (!is_array($options['haystack'])) {
 			throw new \InvalidArgumentException('"haystack" option must be an array.');
-		} else if (array_filter($options['haystack'], 'is_array')) {
-			throw new \InvalidArgumentException('"haystack" option must be a single dimension array.');
 		}
 
 		if (!is_bool($options['strict'])) {
 			throw new \InvalidArgumentException('Invalid option "strict" type. Expecting boolean.');
 		}
+
+		#var_dump('###', $options);
 
 		if (is_string($value) && $options['strict'] && $options['c14n']) {
 			$haystack = array_map('strval', $options['haystack']);

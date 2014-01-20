@@ -28,10 +28,6 @@ class Length extends \gajus\vlad\Validator {
 		];
 
 	protected function validate (\gajus\vlad\Subject $subject) {
-		if (!$subject->isFound()) {
-			throw new \Exception('Validator cannot be used with undefined input.');
-		}
-
 		$value = $subject->getValue();
 
 		$options = $this->getOptions();

@@ -16,10 +16,6 @@ class String extends \gajus\vlad\Validator {
 		];
 	
 	public function validate (\gajus\vlad\Subject $subject) {
-		if (!$subject->isFound()) {
-			throw new \Exception('Validator cannot be used with undefined input.');
-		}
-
 		if (!is_string($subject->getValue())) {
 			return 'not_string';
 		}

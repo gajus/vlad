@@ -77,11 +77,12 @@ ob_start();
 	</div>
 
 	<div id="examples">
-		<?=$example('syntax', 'Syntax')?>
+		<?=$example('syntax2', 'Syntax 2')?>
+		<?php /*<?=$example('syntax', 'Syntax')?>
 		<?=$example('options', 'Options & Parameters')?>
 		<?=$example('validators', 'Validators')?>
 		<?=$example('multilingual', 'Multilingual')?>
-		<?=$example('custom_validator', 'Custom Validator')?>
+		<?=$example('custom_validator', 'Custom Validator')?>*/ ?>
 	</div>
 </body>
 </html>

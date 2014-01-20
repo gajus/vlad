@@ -29,6 +29,14 @@ Translator allows to overwrite default error messages, input specific error mess
 
 **This library is in active development. Code critique, suggestions and flagging issues is much appreciated. However, I do not advise to use it. Instead, please watch/star the library and I will update you when first stable release is ready.**
 
+## Naming
+
+Vlad is a Doctor, he has a routine to performe tests on subjects.
+
+Each test contains assertions. You assess these assertions against input.
+
+Selector cannot appear more than once in the test. This is done intentionally
+
 ## Documentation
 
 [Documentation](http://anuary.com/vlad/) and [Usage Examples](http://anuary.com/vlad/) are written using code examples with inline documentation.

@@ -16,14 +16,10 @@ class Email extends \gajus\vlad\Validator {
 		];
 	
 	public function validate (\gajus\vlad\Subject $subject) {
-		if (!$subject->isFound()) {
-			throw new \Exception('Validator cannot be used with undefined input.');
-		}
-
 		$value = $subject->getValue();
 
-		if (!is_string($value)) {
-			throw new \InvalidArgumentException('$input is expected to be string. "' . gettype($value) . '" given instead.');
+		if (!is_scalar($value)) {
+			throw new \InvalidArgumentException('Input is expected to be a scalar value.');
 		}
 
 		if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {

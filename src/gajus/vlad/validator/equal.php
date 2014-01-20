@@ -19,10 +19,6 @@ class Equal extends \gajus\vlad\Validator {
 		];
 	
 	public function validate (\gajus\vlad\Subject $subject) {
-		if (!$subject->isFound()) {
-			throw new \Exception('Validator cannot be used with undefined input.');
-		}
-
 		// @todo Decide how to treat non-scallar values.
 
 		$options = $this->getOptions();
