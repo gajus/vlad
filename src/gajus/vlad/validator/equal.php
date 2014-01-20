@@ -17,10 +17,16 @@ class Equal extends \gajus\vlad\Validator {
 				'The input is not a equal to "{vlad.validator.options.to}".'
 			]
 		];
+
+	public function __construct (array $options = []) {
+		parent::__construct($options);
+
+		if (!isset($options['to'])) {
+			throw new \InvalidArgumentException('Missing required option.');
+		}
+	}
 	
 	public function validate (\gajus\vlad\Subject $subject) {
-		// @todo Decide how to treat non-scallar values.
-
 		$options = $this->getOptions();
 
 		$value = $subject->getValue();
