@@ -40,6 +40,6 @@ class Error {
 	}
 
 	public function getMessage () {
-		return $this->validator->getErrorMessage($this->name);
+		return $this->validator->getMessage($this->name);
 	}
 }

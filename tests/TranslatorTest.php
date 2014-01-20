@@ -181,5 +181,32 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 				]
 			]
 		);
-	}	
+	}
+
+	public function testGetSelectorTranslation () {
+		$translator = new \gajus\vlad\Translator(['selector' => ['foo' => 'Foo!']]);
+		$selector = new \gajus\vlad\Selector('foo');
+		
+		$this->assertSame('Foo!', $translator->getSelectorName($selector));
+	}
+
+	/*public function testGetErrorMessageWithSelector () {
+		$translator = new \gajus\vlad\Translator([
+			'validator_error' => [
+				'gajus\vlad\validator\email' => [
+					'invalid_syntax' => [
+						'{vlad.subject.name} must be a valid email address.',
+						'The input must be a valid email address.'
+					]
+				]
+			]
+		]);
+
+		$test = new \gajus\vlad\Test($translator);
+		$test->assert('foo', 'email');
+
+		$assessment = $test->assess(['foo' => 'invalid_email']);
+
+		$this->assertSame('', $assessment[0]->getMessage());
+	}*/
 }
