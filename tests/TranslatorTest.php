@@ -207,6 +207,6 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 
 		$assessment = $test->assess(['foo' => 'invalid_email']);
 
-		$this->assertSame(['{vlad.subject.name} must be a valid email address.', 'The input must be a valid email address.'], $assessment[0]->getMessage());
+		$this->assertSame(['Foo must be a valid email address.', 'The input must be a valid email address.'], $assessment[0]->getMessage());
 	}
 }
