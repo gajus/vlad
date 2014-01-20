@@ -6,8 +6,8 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 			'haystack' => [1]
 		]);
 
-		$this->assertCount(1, $test->getTestScript());
-		$this->assertSame(['haystack' => [1], 'strict' => true, 'c14n' => true, 'recursive' => false], $test->getTestScript()['foo'][0]['options']);
+		$this->assertCount(1, $test->getScript());
+		$this->assertSame(['haystack' => [1], 'strict' => true, 'c14n' => true, 'recursive' => false], $test->getScript()['foo'][0]['options']);
 	}
 
 	/**

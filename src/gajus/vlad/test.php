@@ -17,7 +17,7 @@ class Test {
 		 * @see Test::assert()
 		 * @var array
 		 */
-		$test_script = [];
+		$script = [];
 
 	/**
 	 * @param Translator $translator
@@ -29,23 +29,23 @@ class Test {
 	/**
 	 * @return array
 	 */
-	public function getTestScript () {
-		$test_script = [];
+	public function getScript () {
+		$script = [];
 
-		foreach ($this->test_script as $selector => $validators) {
+		foreach ($this->script as $selector => $validators) {
 			foreach ($validators as $validator) {
-				if (!isset($test_script[$selector])) {
-					$test_script[$selector] = [];
+				if (!isset($script[$selector])) {
+					$script[$selector] = [];
 				}
 
-				$test_script[$selector][] = [
+				$script[$selector][] = [
 					'name' => strtolower(get_class($validator)),
 					'options' => $validator->getOptions()
 				];
 			}
 		}
 
-		return $test_script;
+		return $script;
 	}
 
 	/**
@@ -70,11 +70,11 @@ class Test {
 			throw new \InvalidArgumentException('Validator must extend gajus\vlad\Validator.');
 		}
 
-		if (!isset($this->test_script[$selector])) {
-			$this->test_script[$selector] = [];
+		if (!isset($this->script[$selector])) {
+			$this->script[$selector] = [];
 		}
 
-		$this->test_script[$selector][] = new $validator_name ($options);
+		$this->script[$selector][] = new $validator_name ($options);
 		
 		return $this;
 	}
@@ -94,7 +94,7 @@ class Test {
 		
 		$result = [];
 
-		foreach ($this->test_script as $selector => $validators) {
+		foreach ($this->script as $selector => $validators) {
 			$subject = $input->getSubject($selector);
 
 			foreach ($validators as $validator) {

@@ -35,7 +35,7 @@ class Doctor {
 			}
 
 			if (array_intersect($routine[0], $selectors)) {
-				throw new \InvalidArgumentException('Test contains duplicate selector declarations.');
+				throw new \InvalidArgumentException('Test has duplicate selector declarations. Each selector can be declared only once per test.');
 			}
 
 			$selectors = array_merge($selectors, $routine[0]);
@@ -48,6 +48,10 @@ class Doctor {
 					} else {
 						$validator_name = $context1;
 						$options = $context2;
+
+						if (!is_array($options)) {
+							throw new \InvalidArgumentException('Validator options must be passed as array.');
+						}
 					}
 
 					$test->assert($selector, $validator_name, $options);

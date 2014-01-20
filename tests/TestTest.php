@@ -19,6 +19,6 @@ class TestTest extends PHPUnit_Framework_TestCase {
 			]
 		];
 
-		$this->assertSame($expected_test_script, $test->getTestScript());
+		$this->assertSame($expected_test_script, $test->getScript());
 	}
 }

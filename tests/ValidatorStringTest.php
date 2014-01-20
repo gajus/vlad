@@ -4,8 +4,8 @@ class ValidatorStringTest extends PHPUnit_Framework_TestCase {
 		$test = new \gajus\vlad\Test();
 		$test->assert('foo', 'string');
 
-		$this->assertCount(1, $test->getTestScript());
-		$this->assertSame(['strict' => false], $test->getTestScript()['foo'][0]['options']);
+		$this->assertCount(1, $test->getScript());
+		$this->assertSame(['strict' => false], $test->getScript()['foo'][0]['options']);
 	}
 
 	/**

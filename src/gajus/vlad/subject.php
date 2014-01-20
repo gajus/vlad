@@ -9,7 +9,6 @@ namespace gajus\vlad;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Subject {
-
 	private
 		$input,
 		$selector,
