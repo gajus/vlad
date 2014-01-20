@@ -33,7 +33,7 @@ class Length extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 
 		if (!isset($options['min']) && !isset($options['max'])) {
-			throw new \BadMethodCallException('"min" and/or "max" option is required.');
+			throw new \InvalidArgumentException('"min" and/or "max" option is required.');
 		}
 		
 		if (isset($options['min']) && !is_numeric($options['min'])) {

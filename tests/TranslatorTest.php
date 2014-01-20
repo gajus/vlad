@@ -209,4 +209,26 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertSame(['Foo must be a valid email address.', 'The input must be a valid email address.'], $assessment[0]->getMessage());
 	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 * @expectedExceptionMessage Unknown variable in error message.
+	 */
+	public function testUnknownVariableInErrorMessage () {
+		$translator = new \gajus\vlad\Translator([
+			'validator_error' => [
+				'gajus\vlad\validator\email' => [
+					'invalid_syntax' => [
+						'{vlad.subject.unknown_variable} must be a valid email address.',
+						'The input must be a valid email address.'
+					]
+				]
+			]
+		]);
+
+		$test = new \gajus\vlad\Test($translator);
+		$test->assert('foo', 'email');
+
+		$assessment = $test->assess(['foo' => 'invalid_email']);
+	}
 }

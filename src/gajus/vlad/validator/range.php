@@ -84,24 +84,20 @@ class Range extends \gajus\vlad\Validator {
 			throw new \InvalidArgumentException('Value is expected to be numeric. "' . gettype($value) . '" given instead.');
 		}
 
-		if (isset($options['min_inclusive'], $options['max_inclusive'])) {
-			if ($value <= $options['min_exclusive'] || $value >= $options['max_inclusive']) {
-				return 'min_inclusive_max_inclusive';
-			}
-		} else if (isset($options['min_exclusive'])) {
-			if ($value < $options['min_exclusive']) {
+		if (isset($options['min_exclusive'])) {
+			if ($value <= $options['min_exclusive']) {
 				return 'min_exclusive';
 			}
 		} else if (isset($options['max_exclusive'])) {
-			if ($value > $options['max_exclusive']) {
+			if ($value >= $options['max_exclusive']) {
 				return 'max_exclusive';
 			}
 		} else if (isset($options['min_inclusive'])) {
-			if ($value <= $options['min_inclusive']) {
+			if ($value < $options['min_inclusive']) {
 				return 'min_inclusive';
 			}
-		} else if (isset($options['min_inclusive'])) {
-			if ($value >= $options['min_inclusive']) {
+		} else if (isset($options['max_inclusive'])) {
+			if ($value > $options['max_inclusive']) {
 				return 'max_inclusive';
 			}
 		}

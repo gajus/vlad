@@ -152,7 +152,7 @@ class Translator {
 			$message = $this->dictionary['validator_error'][$validator_error[0]][$validator_error[1]];
 		}
 
-		$message = preg_replace_callback('/\{vlad\.([a-z\.]+)}/i', function ($e) use ($subject, $validator) { // \.(?:a-z\.)+\}
+		$message = preg_replace_callback('/\{vlad\.([a-z_\.]+)}/i', function ($e) use ($subject, $validator) { // \.(?:a-z\.)+\}
 			$path = explode('.', $e[1]);
 
 			if ($path[0] === 'subject' && $path[1] === 'name') {
@@ -165,7 +165,7 @@ class Translator {
 				}
 			}
 
-			throw new \InvalidArgumentException('Unknown variable ' . $e[0] . '.');
+			throw new \InvalidArgumentException('Unknown variable in error message.');
 		}, $message);
 
 		return $message;
