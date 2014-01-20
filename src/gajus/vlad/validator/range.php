@@ -38,20 +38,29 @@ class Range extends \gajus\vlad\Validator {
 
 		$options = $this->getOptions();
 
-		if (!isset($options['min_exclusive']) && !isset($options['min_inclusive']) && !isset($options['max_excluisve']) && !isset($options['max_inclusive'])) {
-			throw new \BadMethodCallException('Missing required parameter.');
+		if (!isset($options['min_exclusive']) && !isset($options['min_inclusive']) && !isset($options['max_exclusive']) && !isset($options['max_inclusive'])) {
+			throw new \InvalidArgumentException('Missing required parameter.');
 		}
 
 		if (isset($options['min_exclusive'], $options['min_inclusive'])) {
 			throw new \InvalidArgumentException('Cannot use "min_exclusive" and "min_inclusive" options together.');
 		}
 
-		if (isset($options['max_excluisve'], $options['max_inclusive'])) {
-			throw new \InvalidArgumentException('Cannot use "max_excluisve" and "max_inclusive" options together.');
+		if (isset($options['max_exclusive'], $options['max_inclusive'])) {
+			throw new \InvalidArgumentException('Cannot use "max_exclusive" and "max_inclusive" options together.');
 		}
 
-		$min = isset($options['min_exclusive']) ? $options['min_exclusive'] : isset($options['min_inclusive']) ? $options['min_inclusive'] : null;
-		$max = isset($options['max_exclusive']) ? $options['max_exclusive'] : isset($options['max_inclusive']) ? $options['max_inclusive'] : null;
+		$min = isset($options['min_exclusive']) ? $options['min_exclusive'] : null;
+
+		if ($min === null) {
+			$min = isset($options['min_inclusive']) ? $options['min_inclusive'] : null;
+		}
+
+		$max = isset($options['max_exclusive']) ? $options['max_exclusive'] : null;
+
+		if ($max === null) {
+			$max = isset($options['max_inclusive']) ? $options['max_inclusive'] : null;
+		}
 
 		if (isset($min) && !is_numeric($min)) {
 			throw new \InvalidArgumentException('Minimum boundry option must be numeric.');
