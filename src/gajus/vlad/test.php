@@ -57,7 +57,7 @@ class Test {
 	 */
 	public function assert ($selector, $validator_name, array $options = []) {
 		if (!is_string($validator_name)) {
-			throw new \InvalidArgumentException('Validator must be a string.');
+			throw new \InvalidArgumentException('Validator name must be a string.');
 		}
 
 		if (strpos($validator_name, '\\') === false) {

@@ -10,7 +10,9 @@ class String extends \gajus\vlad\Validator {
 	protected
 		$default_options = [
 			'strict' => false
-		],
+		];
+
+	static protected
 		$messages = [
 			'not_string' => [
 				'{vlad.subject.name} is not a string.',

@@ -10,6 +10,14 @@ class ValidatorTest extends PHPUnit_Framework_TestCase {
 		$test->assess([]);
 	}
 
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
+	public function testValidatorWithUnrecognisedOption () {
+		$test = new \gajus\vlad\Test();
+		$test->assert('foo', 'email', ['foo' => 'bar']);
+	}
+
 	public function testGetValidatorOptions () {
 		$validator = new \gajus\vlad\validator\String();
 

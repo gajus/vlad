@@ -8,7 +8,9 @@ namespace gajus\vlad\validator;
  */
 class Not_Empty extends \gajus\vlad\Validator {
 	protected
-		$requires_value = false,
+		$requires_value = false;
+
+	static protected
 		$messages = [
 			'empty' => [
 				'{vlad.subject.name} is empty.',

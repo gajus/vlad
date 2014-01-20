@@ -11,7 +11,9 @@ class Length extends \gajus\vlad\Validator {
 		$default_options = [
 			'min' => null,
 			'max' => null
-		],
+		];
+
+	static protected
 		$messages = [
 			'min' => [
 				'{vlad.subject.name} must be at least {vlad.validator.options.min} characters long.',

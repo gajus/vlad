@@ -20,7 +20,9 @@ class In extends \gajus\vlad\Validator {
 			 */
 			'c14n' => true,
 			'recursive' => false
-		],
+		];
+
+	static protected
 		$messages = [
 			'not_in' => [
 				'{vlad.subject.name} is not found in the haystack.',

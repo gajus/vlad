@@ -1,6 +1,7 @@
 0.0.5 / 2014-01-20
 
 * Syntax change. Removed "failure_scenario" option. The latter was useful only to edge case scenarios and resulted in non-intuitive test scripts.
+* Validator's getMessage and getMessages methods changed to static. This is done because message collection is independant of instance and to assist unit testing.
 
 0.0.4 / 2014-01-18
 

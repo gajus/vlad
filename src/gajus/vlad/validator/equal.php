@@ -10,7 +10,9 @@ class Equal extends \gajus\vlad\Validator {
 	protected
 		$default_options = [
 			'to' => null
-		],
+		];
+
+	static protected
 		$messages = [
 			'not_equal' => [
 				'{vlad.subject.name} is not a equal to "{vlad.validator.options.to}".',

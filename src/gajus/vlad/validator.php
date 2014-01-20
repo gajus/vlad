@@ -12,9 +12,11 @@ abstract class Validator {
 	
 	protected
 		$requires_value = true,
-		$default_options = [],
-		$messages = [];
+		$default_options = [];
 	
+	static protected
+		$messages = [];
+
 	/**
 	 * @throws BadMethodCallException if either of the $options argument properties do not already exist in the instance $options array.
 	 */
@@ -22,7 +24,7 @@ abstract class Validator {
 		$unrecognised_options = \array_diff_key($options, $this->default_options);
 		
 		if ($unrecognised_options) {
-			throw new \BadMethodCallException('Unrecognised option.');
+			throw new \InvalidArgumentException('Unrecognised option.');
 		}
 		
 		$this->instance_options = $options + array_filter($this->default_options, function ($e) { return !is_null($e); });
@@ -31,7 +33,7 @@ abstract class Validator {
 	/**
 	 * @return array
 	 */
-	final public function getOptions () {
+	public function getOptions () {
 		return $this->instance_options;
 	}
 
@@ -39,12 +41,12 @@ abstract class Validator {
 	 * @param string $error_name
 	 * @return string
 	 */
-	final public function getMessage ($error_name) {
-		if (!isset($this->messages[$error_name])) {
+	static public function getMessage ($error_name) {
+		if (!isset(static::$messages[$error_name])) {
 			throw new \InvalidArgumentException('Undefined error message.');
 		}
 		
-		return $this->messages[$error_name];
+		return static::$messages[$error_name];
 	}
 
 	/**
@@ -52,8 +54,8 @@ abstract class Validator {
 	 *
 	 * @return array
 	 */
-	final public function getMessages () {
-		return $this->messages;
+	static public function getMessages () {
+		return static::$messages;
 	}
 
 	final public function assess (Subject $subject) {

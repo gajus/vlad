@@ -21,4 +21,34 @@ class TestTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertSame($expected_test_script, $test->getScript());
 	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
+	public function testInvalidValidatorNameParameters () {
+		$test = new \gajus\vlad\Test();
+
+		$test->assert('foo', []);
+	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
+	public function testNotFoundValidator () {
+		$test = new \gajus\vlad\Test();
+
+		$test->assert('foo', 'NotFound');
+	}
+
+	public function testUsingImplicitInput () {
+		$_POST['foo'] = 'test';
+
+		$test = new \gajus\vlad\Test();
+
+		$test->assert('foo', 'string');
+
+		$assessment = $test->assess();
+
+		$this->assertCount(0, $assessment);
+	}
 }

@@ -13,7 +13,9 @@ class Range extends \gajus\vlad\Validator {
 			'min_inclusive' => null,
 			'max_exclusive' => null,
 			'max_inclusive' => null
-		],
+		];
+
+	static protected
 		$messages = [
 			'min_exclusive' => [
 				'{vlad.subject.name} is not more than {vlad.validator.options.min_exclusive}.',

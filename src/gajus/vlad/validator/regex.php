@@ -10,7 +10,9 @@ class Regex extends \gajus\vlad\Validator {
 	protected
 		$default_options = [
 			'pattern' => null
-		],
+		];
+		
+	static protected
 		$messages = [
 			'no_match' => [
 				'{vlad.subject.name} does not match against pattern "{vlad.validator.options.pattern}".',

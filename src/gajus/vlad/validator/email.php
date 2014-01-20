@@ -7,7 +7,7 @@ namespace gajus\vlad\validator;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Email extends \gajus\vlad\Validator {
-	protected
+	static protected
 		$messages = [
 			'invalid_syntax' => [
 				'{vlad.subject.name} is not a valid email address.',

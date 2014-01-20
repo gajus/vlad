@@ -10,7 +10,9 @@ class Match extends \gajus\vlad\Validator {
 	protected
 		$default_options = [
 			'selector' => null
-		],
+		];
+	
+	static protected
 		$messages = [
 			'not_match' => [
 				'{vlad.subject.name} does not match {vlad.validator.options.selector}.',
