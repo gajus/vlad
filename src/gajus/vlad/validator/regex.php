@@ -18,20 +18,28 @@ class Regex extends \gajus\vlad\Validator {
 			]
 		];
 
-	public function validate (\gajus\vlad\Subject $subject) {
-		$value = $subject->getValue();
+	public function __construct (array $options = []) {
+		parent::__construct($options);
 
 		$options = $this->getOptions();
 		
 		if (!isset($options['pattern'])) {
-			throw new \InvalidArgumentException('"pattern" property is required.');
+			throw new \BadMethodCallException('"pattern" property is required.');
 		}
+
+		if (@preg_match($options['pattern'], 'test') === false) {
+			throw new \InvalidArgumentException('Pattern "' . $options['pattern'] . '" failed (' . array_flip(get_defined_constants(true)['pcre'])[preg_last_error()] . ').');
+		}
+	}
+
+	public function validate (\gajus\vlad\Subject $subject) {
+		$value = $subject->getValue();
+
+		$options = $this->getOptions();
 
 		$match = preg_match($options['pattern'], $value);
 
-		if ($match === false) {
-			throw new \InvalidArgumentException('Pattern "' . $options['pattern'] . '" failed (' . array_flip(get_defined_constants(true)['pcre'])[preg_last_error()] . ') against the supplied input "' . $value . '".');
-		} else if ($match === 0) {
+		if ($match === 0) {
 			return 'no_match';
 		}
 	}

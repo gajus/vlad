@@ -18,7 +18,7 @@ abstract class Validator {
 	/**
 	 * @throws BadMethodCallException if either of the $options argument properties do not already exist in the instance $options array.
 	 */
-	final public function __construct (array $options = []) {
+	public function __construct (array $options = []) {
 		$unrecognised_options = \array_diff_key($options, $this->default_options);
 		
 		if ($unrecognised_options) {
