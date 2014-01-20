@@ -4,7 +4,7 @@ namespace gajus\vlad\demo\examples;
 // Defining custom validators requires to extend \gajus\vlad\Validator. The custom Validator must be namespaced.
 
 class My_Custom_Validator extends \gajus\vlad\Validator {
-	protected
+	static protected
 		// If the Validator accepts any options, the placeholder for each option must be predefined.
 		$default_options = [
 			'alt' => null

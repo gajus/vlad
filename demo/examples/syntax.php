@@ -44,7 +44,7 @@ $test = $doctor->test([
 		['email_again'],
 		[
 			'not_empty',
-			'match' => ['to' => 'email']
+			'match' => ['selector' => 'email']
 		]
 	],
 	[
