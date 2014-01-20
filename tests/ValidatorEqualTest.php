@@ -5,7 +5,7 @@ class ValidatorEqualTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testMissingRequiredParameter () {
 		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'range');
+		$test->assert('foo', 'equal');
 	}
 
 	public function testEqual () {

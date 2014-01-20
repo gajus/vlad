@@ -8,15 +8,38 @@ namespace gajus\vlad\validator;
  */
 class String extends \gajus\vlad\Validator {
 	protected
+		$default_options = [
+			'strict' => false
+		],
 		$messages = [
 			'not_string' => [
 				'{vlad.subject.name} is not a string.',
 				'The input is not a string.'
 			]
 		];
+
+	public function __construct (array $options = []) {
+		parent::__construct($options);
+
+		$options = $this->getOptions();
+
+		if (!is_bool($options['strict'])) {
+			throw new \InvalidArgumentException('Boolean property assigned non-boolean value.');
+		}
+	}
 	
 	public function validate (\gajus\vlad\Subject $subject) {
-		if (!is_string($subject->getValue())) {
+		$options = $this->getOptions();
+
+		$value = $subject->getValue();
+
+		if (!$options['strict']) {
+			if (is_numeric($value)) {
+				$value = (string) $value;
+			}
+		}
+
+		if (!is_string($value)) {
 			return 'not_string';
 		}
 	}

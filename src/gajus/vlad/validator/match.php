@@ -9,31 +9,29 @@ namespace gajus\vlad\validator;
 class Match extends \gajus\vlad\Validator {
 	protected
 		$default_options = [
-			'to' => null
+			'selector' => null
 		],
 		$messages = [
 			'not_match' => [
-				'{vlad.subject.name} does not match {vlad.validator.options.to}.',
-				'Does not match "{vlad.validator.options.to}".'
+				'{vlad.subject.name} does not match {vlad.validator.options.selector}.',
+				'Does not match "{vlad.validator.options.selector}".'
 			]
 		];
 
 	public function __construct (array $options = []) {
+		parent::__construct($options);
+
 		$options = $this->getOptions();
 
-		if (!isset($options['to'])) {
-			throw new \Exception('"to" option cannot be left undefined.');
+		if (!isset($options['selector'])) {
+			throw new \InvalidArgumentException('"selector" option cannot be left undefined.');
 		}
 	}
 	
 	public function validate (\gajus\vlad\Subject $subject) {
-		if (!$subject->isFound()) {
-			throw new \Exception('Validator cannot be used with undefined input.');
-		}
-
 		$options = $this->getOptions();
 
-		$second_subject = $subject->getInput()->getSubject($options['to']);
+		$second_subject = $subject->getInput()->getSubject($options['selector']);
 
 		if ($subject->getValue() !== $second_subject->getValue()) {
 			return 'not_match';
