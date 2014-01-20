@@ -80,7 +80,6 @@ class Range extends \gajus\vlad\Validator {
 
 		$options = $this->getOptions();
 		
-		// @todo Should this not be a an error message instead.
 		if (!is_numeric($value)) {
 			throw new \InvalidArgumentException('Value is expected to be numeric. "' . gettype($value) . '" given instead.');
 		}
