@@ -7,15 +7,13 @@ namespace gajus\vlad\validator;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Range extends \gajus\vlad\Validator {
-	protected
+	static protected
 		$default_options = [
 			'min_exclusive' => null,
 			'min_inclusive' => null,
 			'max_exclusive' => null,
 			'max_inclusive' => null
-		];
-
-	static protected
+		],
 		$messages = [
 			'min_exclusive' => [
 				'{vlad.subject.name} is not more than {vlad.validator.options.min_exclusive}.',

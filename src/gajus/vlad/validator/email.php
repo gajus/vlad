@@ -15,7 +15,7 @@ class Email extends \gajus\vlad\Validator {
 			]
 		];
 	
-	public function validate (\gajus\vlad\Subject $subject) {
+	protected function validate (\gajus\vlad\Subject $subject) {
 		$value = $subject->getValue();
 
 		if (!is_scalar($value)) {

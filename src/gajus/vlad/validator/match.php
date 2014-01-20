@@ -7,12 +7,10 @@ namespace gajus\vlad\validator;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Match extends \gajus\vlad\Validator {
-	protected
+	static protected
 		$default_options = [
 			'selector' => null
-		];
-	
-	static protected
+		],
 		$messages = [
 			'not_match' => [
 				'{vlad.subject.name} does not match {vlad.validator.options.selector}.',
@@ -30,7 +28,7 @@ class Match extends \gajus\vlad\Validator {
 		}
 	}
 	
-	public function validate (\gajus\vlad\Subject $subject) {
+	protected function validate (\gajus\vlad\Subject $subject) {
 		$options = $this->getOptions();
 
 		$second_subject = $subject->getInput()->getSubject($options['selector']);

@@ -7,12 +7,10 @@ namespace gajus\vlad\validator;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Equal extends \gajus\vlad\Validator {
-	protected
+	static protected
 		$default_options = [
 			'to' => null
-		];
-
-	static protected
+		],
 		$messages = [
 			'not_equal' => [
 				'{vlad.subject.name} is not a equal to "{vlad.validator.options.to}".',
@@ -28,7 +26,7 @@ class Equal extends \gajus\vlad\Validator {
 		}
 	}
 	
-	public function validate (\gajus\vlad\Subject $subject) {
+	protected function validate (\gajus\vlad\Subject $subject) {
 		$options = $this->getOptions();
 
 		$value = $subject->getValue();

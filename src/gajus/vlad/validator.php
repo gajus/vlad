@@ -10,24 +10,22 @@ abstract class Validator {
 	private
 		$instance_options = [];
 	
-	protected
-		$requires_value = true,
-		$default_options = [];
-	
 	static protected
+		$requires_value = true,
+		$default_options = [],
 		$messages = [];
 
 	/**
 	 * @throws BadMethodCallException if either of the $options argument properties do not already exist in the instance $options array.
 	 */
 	public function __construct (array $options = []) {
-		$unrecognised_options = \array_diff_key($options, $this->default_options);
+		$unrecognised_options = \array_diff_key($options, static::$default_options);
 		
 		if ($unrecognised_options) {
 			throw new \InvalidArgumentException('Unrecognised option.');
 		}
 		
-		$this->instance_options = $options + array_filter($this->default_options, function ($e) { return !is_null($e); });
+		$this->instance_options = $options + array_filter(static::$default_options, function ($e) { return !is_null($e); });
 	}
 
 	/**
@@ -58,24 +56,16 @@ abstract class Validator {
 		return static::$messages;
 	}
 
-	final public function assess (Subject $subject) {
-		if ($this->requires_value && !$subject->isFound()) {
+	public function assess (Subject $subject) {
+		if (static::$requires_value && !$subject->isFound()) {
 			throw new \RuntimeException('Validator cannot be used with undefined input.');
 		}
 
-		$error = $this->validate($subject);
+		$error_name = $this->validate($subject);
 
-		if (!$error) {
-			return;
+		if ($error_name) {
+			return new \gajus\vlad\Error($this, $subject, $error_name, static::getMessage($error_name));
 		}
-
-		if (is_string($error)) {
-			return new \gajus\vlad\Error($this, $subject, $error);
-		} else if (is_object($error) && $error instanceof Error) {
-			return $error;
-		}
-
-		throw new \RuntimeException('Unexpected validation output.');
 	}
 	
 	abstract protected function validate (Subject $subject);

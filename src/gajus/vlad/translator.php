@@ -133,12 +133,12 @@ class Translator {
 	 * @return string
 	 */
 	public function getErrorMessage (Error $error) {
-		$error_name = $error->getErrorName();
+		$error_name = $error->getName();
 		$subject = $error->getSubject();
 		$validator = $error->getValidator();
 
-		$validator_error = mb_strtolower( get_class($validator) ) . ' ' . $error_name;
-		$validator_error_selector = $validator_error . ' ' . $subject->getSelector()->getSelector();
+		$validator_error = [mb_strtolower( get_class($validator) ), $error_name];
+		$validator_error_selector = mb_strtolower( get_class($validator) ) . ' ' . $error_name . ' ' . $subject->getSelector()->getSelector();
 
 		// Enforce check presense of the error message in the original Validator.
 		$message = $validator->getMessage($error_name);
@@ -146,25 +146,10 @@ class Translator {
 		if (isset($this->dictionary['validator_error_selector'][$validator_error_selector])) {
 			$message = $this->dictionary['validator_error_selector'][$validator_error_selector];
 			
-			if (!is_string($message)) {
-				throw new \Exception('Selector specific error message must be a string.');
-			
-			}
 			// This is input specific error already.
 			$message = [$message, null];
-		} else if (isset($this->dictionary['validator_error'][$validator_error])) {
-			$message = $this->dictionary['validator_error'][$validator_error];
-		}
-
-		if (!is_array($message)) {
-			throw new \Exception('Error message must be an array.');
-		} else if (count($message) != 2) {
-			throw new \Exception('Error message array must be exactly two messages long.');
-		} else if (!isset($message[0], $message[1]) || !is_string($message[0]) || !is_string($message[1])) {
-			// validator_error_selector is allowed to omit the generic message.
-			if (!isset($this->dictionary['validator_error_selector'][$validator_error_selector]) || !is_null($message[1])) {
-				throw new \Exception('Invalid error message format.');
-			}			
+		} else if (isset($this->dictionary['validator_error'][$validator_error[0]][$validator_error[1]])) {
+			$message = $this->dictionary['validator_error'][$validator_error[0]][$validator_error[1]];
 		}
 
 		$message = preg_replace_callback('/\{vlad\.([a-z\.]+)}/i', function ($e) use ($subject, $validator) { // \.(?:a-z\.)+\}
@@ -180,7 +165,7 @@ class Translator {
 				}
 			}
 
-			throw new \Exception('Unknown variable ' . $e[0] . '.');
+			throw new \InvalidArgumentException('Unknown variable ' . $e[0] . '.');
 		}, $message);
 
 		return $message;

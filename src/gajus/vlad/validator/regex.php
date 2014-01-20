@@ -7,12 +7,10 @@ namespace gajus\vlad\validator;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Regex extends \gajus\vlad\Validator {
-	protected
+	static protected
 		$default_options = [
 			'pattern' => null
-		];
-		
-	static protected
+		],
 		$messages = [
 			'no_match' => [
 				'{vlad.subject.name} does not match against pattern "{vlad.validator.options.pattern}".',

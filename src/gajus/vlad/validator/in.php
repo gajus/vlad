@@ -7,7 +7,7 @@ namespace gajus\vlad\validator;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class In extends \gajus\vlad\Validator {
-	protected
+	static protected
 		$default_options = [
 			'haystack' => null,
 			'strict' => true,
@@ -20,9 +20,7 @@ class In extends \gajus\vlad\Validator {
 			 */
 			'c14n' => true,
 			'recursive' => false
-		];
-
-	static protected
+		],
 		$messages = [
 			'not_in' => [
 				'{vlad.subject.name} is not found in the haystack.',
@@ -46,7 +44,7 @@ class In extends \gajus\vlad\Validator {
 		}
 	}
 
-	public function validate (\gajus\vlad\Subject $subject) {
+	protected function validate (\gajus\vlad\Subject $subject) {
 		$value = $subject->getValue();
 
 		$options = $this->getOptions();

@@ -7,12 +7,10 @@ namespace gajus\vlad\validator;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class String extends \gajus\vlad\Validator {
-	protected
+	static protected
 		$default_options = [
 			'strict' => false
-		];
-
-	static protected
+		],
 		$messages = [
 			'not_string' => [
 				'{vlad.subject.name} is not a string.',
@@ -30,7 +28,7 @@ class String extends \gajus\vlad\Validator {
 		}
 	}
 	
-	public function validate (\gajus\vlad\Subject $subject) {
+	protected function validate (\gajus\vlad\Subject $subject) {
 		$options = $this->getOptions();
 
 		$value = $subject->getValue();

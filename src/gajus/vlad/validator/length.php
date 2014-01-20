@@ -7,13 +7,11 @@ namespace gajus\vlad\validator;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Length extends \gajus\vlad\Validator {
-	protected
+	static protected
 		$default_options = [
 			'min' => null,
 			'max' => null
-		];
-
-	static protected
+		],
 		$messages = [
 			'min' => [
 				'{vlad.subject.name} must be at least {vlad.validator.options.min} characters long.',

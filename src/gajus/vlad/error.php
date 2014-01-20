@@ -19,9 +19,13 @@ class Error {
 		/**
 		 * @var string
 		 */
-		$name;
+		$name,
+		/**
+		 * @var string
+		 */
+		$message;
 
-	public function __construct (Validator $validator, Subject $subject, $name) {
+	public function __construct (Validator $validator, Subject $subject, $name, $message) {
 		$this->validator = $validator;
 		$this->subject = $subject;
 		$this->name = $name;
@@ -40,6 +44,10 @@ class Error {
 	}
 
 	public function getMessage () {
-		return $this->validator->getMessage($this->name);
+		return $this->message;
+	}
+
+	public function translate (Translator $translator) {
+		$this->message = $translator->getErrorMessage($this);
 	}
 }

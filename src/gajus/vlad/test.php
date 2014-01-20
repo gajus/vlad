@@ -101,6 +101,8 @@ class Test {
 				$error = $validator->assess($subject);
 
 				if ($error) {
+					$error->translate($this->translator);
+
 					$result[] = $error;
 
 					break;

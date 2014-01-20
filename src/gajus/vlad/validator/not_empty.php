@@ -7,10 +7,8 @@ namespace gajus\vlad\validator;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Not_Empty extends \gajus\vlad\Validator {
-	protected
-		$requires_value = false;
-
 	static protected
+		$requires_value = false,
 		$messages = [
 			'empty' => [
 				'{vlad.subject.name} is empty.',
@@ -18,7 +16,7 @@ class Not_Empty extends \gajus\vlad\Validator {
 			]
 		];
 	
-	public function validate (\gajus\vlad\Subject $subject) {
+	protected function validate (\gajus\vlad\Subject $subject) {
 		$value = $subject->getValue();
 		
 		if (!is_null($value) && !is_scalar($value) && !is_array($value) && !is_object($value)) {
