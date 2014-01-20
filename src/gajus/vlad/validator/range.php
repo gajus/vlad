@@ -33,14 +33,13 @@ class Range extends \gajus\vlad\Validator {
 			]
 		];
 
-	public function validate (\gajus\vlad\Subject $subject) {
-		$value = $subject->getValue();
+	public function __construct (array $options = []) {
+		parent::__construct($options);
 
 		$options = $this->getOptions();
-		
-		// @todo Should this not be a an error message instead.
-		if (!is_numeric($value)) {
-			throw new \InvalidArgumentException('Value is expected to be numeric. "' . gettype($value) . '" given instead.');
+
+		if (!isset($options['min_exclusive']) && !isset($options['min_inclusive']) && !isset($options['max_excluisve']) && !isset($options['max_inclusive'])) {
+			throw new \BadMethodCallException('Missing required parameter.');
 		}
 
 		if (isset($options['min_exclusive'], $options['min_inclusive'])) {
@@ -64,6 +63,17 @@ class Range extends \gajus\vlad\Validator {
 
 		if (isset($min, $max) && $min > $max) {
 			throw new \InvalidArgumentException('Minimum bountry cannot be greater than the maximum boundry.');
+		}
+	}
+
+	public function validate (\gajus\vlad\Subject $subject) {
+		$value = $subject->getValue();
+
+		$options = $this->getOptions();
+		
+		// @todo Should this not be a an error message instead.
+		if (!is_numeric($value)) {
+			throw new \InvalidArgumentException('Value is expected to be numeric. "' . gettype($value) . '" given instead.');
 		}
 
 		if (isset($options['min_inclusive'], $options['max_inclusive'])) {

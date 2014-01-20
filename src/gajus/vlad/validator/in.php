@@ -28,8 +28,8 @@ class In extends \gajus\vlad\Validator {
 			]
 		];
 
-	public function validate (\gajus\vlad\Subject $subject) {
-		$value = $subject->getValue();
+	public function __construct (array $options = []) {
+		parent::__construct($options);
 
 		$options = $this->getOptions();
 		
@@ -39,10 +39,16 @@ class In extends \gajus\vlad\Validator {
 			throw new \InvalidArgumentException('"haystack" option must be an array.');
 		}
 
-		if (!is_bool($options['strict'])) {
-			throw new \InvalidArgumentException('Invalid option "strict" type. Expecting boolean.');
+		if (!is_bool($options['strict']) || !is_bool($options['c14n']) || !is_bool($options['recursive'])) {
+			throw new \InvalidArgumentException('Boolean property assigned non-boolean value.');
 		}
+	}
 
+	public function validate (\gajus\vlad\Subject $subject) {
+		$value = $subject->getValue();
+
+		$options = $this->getOptions();
+		
 		if ($options['recursive']) {
 			foreach ($subject->getSelector()->getPath() as $crumble) {
 				if (!isset($options['haystack'][$crumble]) || !is_array($options['haystack'][$crumble])) {

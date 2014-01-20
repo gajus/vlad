@@ -27,14 +27,10 @@ class Length extends \gajus\vlad\Validator {
 			],
 		];
 
-	protected function validate (\gajus\vlad\Subject $subject) {
-		$value = $subject->getValue();
+	public function __construct (array $options = []) {
+		parent::__construct($options);
 
 		$options = $this->getOptions();
-		
-		if (!is_string($value)) {
-			throw new \InvalidArgumentException('Value is expected to be string. "' . gettype($value) . '" given instead.');
-		}
 
 		if (!isset($options['min']) && !isset($options['max'])) {
 			throw new \BadMethodCallException('"min" and/or "max" option is required.');
@@ -50,6 +46,16 @@ class Length extends \gajus\vlad\Validator {
 		
 		if (isset($options['min'], $options['max']) && $options['min'] > $options['max']) {
 			throw new \InvalidArgumentException('"min" option cannot be greater than "max".');
+		}
+	}
+
+	protected function validate (\gajus\vlad\Subject $subject) {
+		$value = $subject->getValue();
+
+		$options = $this->getOptions();
+		
+		if (!is_string($value)) {
+			throw new \InvalidArgumentException('Value is expected to be string. "' . gettype($value) . '" given instead.');
 		}
 		
 		if (isset($options['min'], $options['max']) && (mb_strlen($value) < $options['min'] || mb_strlen($value) > $options['max'])) {

@@ -17,6 +17,14 @@ class Match extends \gajus\vlad\Validator {
 				'Does not match "{vlad.validator.options.to}".'
 			]
 		];
+
+	public function __construct (array $options = []) {
+		$options = $this->getOptions();
+
+		if (!isset($options['to'])) {
+			throw new \Exception('"to" option cannot be left undefined.');
+		}
+	}
 	
 	public function validate (\gajus\vlad\Subject $subject) {
 		if (!$subject->isFound()) {
@@ -25,15 +33,7 @@ class Match extends \gajus\vlad\Validator {
 
 		$options = $this->getOptions();
 
-		if (!isset($options['to'])) {
-			throw new \Exception('"to" option cannot be left undefined.');
-		}
-
 		$second_subject = $subject->getInput()->getSubject($options['to']);
-
-		#if (!$second_subject->isFound()) {
-		#	throw new \Exception('"to" does not reference an existing input.');
-		#}
 
 		if ($subject->getValue() !== $second_subject->getValue()) {
 			return 'not_match';
