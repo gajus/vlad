@@ -14,7 +14,7 @@ class TestTest extends PHPUnit_Framework_TestCase {
 				],
 				[
 					'name' => 'gajus\vlad\validator\not_empty',
-					'options' => []
+					'options' => ['trim' => true]
 				]
 			]
 		];

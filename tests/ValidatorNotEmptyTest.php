@@ -1,55 +1,103 @@
 <?php
 class ValidatorNotEmptyTest extends PHPUnit_Framework_TestCase {
-	private
-		$input,
-		$validator;
+	public function testDefaultOptions () {
+		$test = new \gajus\vlad\Test();
+		$test->assert('foo', 'not_empty');
 
-	public function setUp () {
-		$this->input = new \gajus\vlad\Input([
-			//'foo0' => '',
-			'foo1' => '',
-			'foo2' => null,
-			'bar0' => 'bar',
-			'bar1' => ['test'],
-			'bar1' => 1
-		]);
-
-		$this->validator = new \gajus\vlad\validator\Not_Empty();
+		$this->assertSame(['trim' => true], $test->getScript()['foo'][0]['options']);
 	}
 
 	/**
-	 * @dataProvider testEmptyInputProvider
+	 * @dataProvider testTrimEmptyInputProvider
 	 */
-	public function testEmptyInput ($selector) {
-		$subject = $this->input->getSubject($selector);
+	public function testTrimEmptyInput ($input) {
+		$test = new \gajus\vlad\Test();
+		$test->assert('foo', 'not_empty');
 
-		$error = $this->validator->assess($subject);
+		$assessment = $test->assess($input);
 
-		$this->assertNotNull($error);
-		$this->assertSame('empty', $error->getName());
+		$this->assertCount(1, $assessment);
+		$this->assertSame('empty', $assessment[0]->getName());
 	}
 
-	public function testEmptyInputProvider () {
+	public function testTrimEmptyInputProvider () {
 		return [
-			['foo0'],
-			['foo1'],
-			['foo2']
+			[ [] ],
+			[ ['foo' => ''] ],
+			[ ['foo' => '   '] ],
+			[ ['foo' => 0] ],
+			[ ['foo' => null] ]
 		];
 	}
 
 	/**
-	 * @dataProvider testNotEmptyInputProvider
+	 * @dataProvider testTrimNotEmptyInputProvider
 	 */
-	public function testNotEmptyInput ($selector) {
-		$subject = $this->input->getSubject($selector);
+	public function testTrimNotEmptyInput ($input) {
+		$test = new \gajus\vlad\Test();
+		$test->assert('bar', 'not_empty');
 
-		$this->assertNull($this->validator->assess($subject));
+		$assessment = $test->assess($input);
+
+		$this->assertCount(0, $assessment);
 	}
 
-	public function testNotEmptyInputProvider () {
+	public function testTrimNotEmptyInputProvider () {
 		return [
-			['bar0'],
-			['bar1']
+			[ ['bar' => 'bar'] ],
+			[ ['bar' => ['test']] ],
+			[ ['bar' => 1] ]
 		];
+	}
+
+	/**
+	 * @dataProvider testNotTrimEmptyInputProvider
+	 */
+	public function testNotTrimEmptyInput ($input) {
+		$test = new \gajus\vlad\Test();
+		$test->assert('foo', 'not_empty');
+
+		$assessment = $test->assess($input, ['trim' => false]);
+
+		$this->assertCount(1, $assessment);
+		$this->assertSame('empty', $assessment[0]->getName());
+	}
+
+	public function testNotTrimEmptyInputProvider () {
+		return [
+			[ [] ],
+			[ ['foo' => ''] ],
+			[ ['foo' => 0] ],
+			[ ['foo' => null] ]
+		];
+	}
+
+	/**
+	 * @dataProvider testNotTrimNotEmptyInputProvider
+	 */
+	public function testNotTrimNotEmptyInput ($input) {
+		$test = new \gajus\vlad\Test();
+		$test->assert('bar', 'not_empty', ['trim' => false]);
+
+		$assessment = $test->assess($input);
+
+		$this->assertCount(0, $assessment);
+	}
+
+	public function testNotTrimNotEmptyInputProvider () {
+		return [
+			[ ['bar' => ' '] ],
+			[ ['bar' => 'bar'] ],
+			[ ['bar' => ['test']] ],
+			[ ['bar' => 1] ]
+		];
+	}
+
+
+	public function testNotSupportedValue () {
+		$test = new \gajus\vlad\Test();
+		$test->assert('foo', 'not_empty');
+
+		$assessment = $test->assess(['foo' => function () {}]);
 	}
 }

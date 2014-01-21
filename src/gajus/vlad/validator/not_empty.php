@@ -9,21 +9,33 @@ namespace gajus\vlad\validator;
 class Not_Empty extends \gajus\vlad\Validator {
 	static protected
 		$requires_value = false,
+		$default_options = [
+			// Trim string values
+			'trim' => true,
+		],
 		$messages = [
 			'empty' => [
 				'{vlad.subject.name} is empty.',
 				'The input is empty.'
 			]
 		];
+
+	public function __construct (array $options = []) {
+		parent::__construct($options);
+
+		$options = $this->getOptions();
+
+		if (!is_bool($options['trim'])) {
+			throw new \InvalidArgumentException('Boolean property assigned non-boolean value.');
+		}
+	}
 	
 	protected function validate (\gajus\vlad\Subject $subject) {
 		$value = $subject->getValue();
-		
-		if (!is_null($value) && !is_scalar($value) && !is_array($value) && !is_object($value)) {
-			throw new \InvalidArgumentException('Value is not null, string, integer, float, boolean or array.');
-		}
 
-		if (!preg_replace('/^\s+$/', '', $value)) {
+		$options = $this->getOptions();
+
+		if (empty($value) || $options['trim'] && is_string($value) && empty(trim($value))) {
 			return 'empty';
 		}
 	}

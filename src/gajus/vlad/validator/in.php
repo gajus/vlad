@@ -52,7 +52,7 @@ class In extends \gajus\vlad\Validator {
 		if ($options['recursive']) {
 			foreach ($subject->getSelector()->getPath() as $crumble) {
 				if (!isset($options['haystack'][$crumble]) || !is_array($options['haystack'][$crumble])) {
-					throw new \RuntimeException('Path does not resolve an array within the haystack.');
+					throw new \InvalidArgumentException('Selector path does not resolve an array within the haystack.');
 				}
 
 				$options['haystack'] = $options['haystack'][$crumble];

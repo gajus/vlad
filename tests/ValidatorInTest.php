@@ -114,6 +114,17 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @expectedException InvalidArgumentException
+	 * @expectedExceptionMessage Selector path does not resolve an array within the haystack.
+	 */
+	public function testRecursiveQuasiStrictInNotResolved () {
+		$test = new \gajus\vlad\Test();
+		$test->assert('foo[bar]', 'in', ['haystack' => [], 'recursive' => true]);
+
+		$assessment = $test->assess(['foo' => ['bar' => 1]]);
+	}
+
+	/**
 	 * @dataProvider strictInProvider
 	 */
 	public function testStrictIn ($needle, $haystack) {
