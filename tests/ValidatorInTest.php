@@ -7,7 +7,7 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 		]);
 
 		$this->assertCount(1, $test->getScript());
-		$this->assertSame(['haystack' => [1], 'strict' => true, 'c14n' => true, 'recursive' => false], $test->getScript()['foo'][0]['options']);
+		$this->assertSame(['haystack' => [1], 'strict' => true, 'c14n' => true, 'recursive' => false, 'inverse' => false], $test->getScript()['foo'][0]['options']);
 	}
 
 	/**
@@ -46,7 +46,7 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 		return [
 			[1, 123],
 			['test', 123],
-			[123, '123']
+			//[123, '123']
 		];
 	}
 
@@ -56,7 +56,7 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 	public function testRecursiveQuasiStrictIn ($selector, $input) {
 		$options = [
 			'birth' => [
-				'year' => range(date('Y') - 100, date('Y'))
+				'year' => range(date('Y') - 10, date('Y'))
 			]
 		];
 
@@ -107,6 +107,69 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 				[
 					'birth' => [
 						'month' => 13
+					]
+				]
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider recursiveInverseQuasiStrictInProvider
+	 */
+	public function testRecursiveInverseQuasiStrictIn ($selector, $input) {
+		$options = [
+			'birth' => [
+				'year' => array_flip(range(date('Y') - 10, date('Y')))
+			]
+		];
+
+		$test = new \gajus\vlad\Test();
+		$test->assert($selector, 'in', ['haystack' => $options, 'recursive' => true, 'inverse' => true]);
+
+		$assessment = $test->assess($input);
+
+		$this->assertCount(0, $assessment);
+	}
+
+	public function recursiveInverseQuasiStrictInProvider () {
+		return [
+			[
+				'birth[year]',
+				[
+					'birth' => [
+						'year' => date('Y')
+					]
+				]
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider recursiveInverseQuasiStrictNotInProvider
+	 */
+	public function testRecursiveInverseQuasiStrictNotIn ($selector, $input) {
+		$options = [
+			'birth' => [
+				'month' => array_flip(range(1, 12))
+			]
+		];
+
+		$test = new \gajus\vlad\Test();
+		$test->assert($selector, 'in', ['haystack' => $options, 'recursive' => true, 'inverse' => true]);
+
+		$assessment = $test->assess($input);
+
+		$this->assertCount(1, $assessment);
+		$this->assertSame('not_in', $assessment[0]->getName());
+	}
+
+	public function recursiveInverseQuasiStrictNotInProvider () {
+		return [
+			[
+				'birth[month]',
+				[
+					'birth' => [
+						'month' => [13 => 'Month that does not exist.']
 					]
 				]
 			]

@@ -19,7 +19,8 @@ class In extends \gajus\vlad\Validator {
 			 * @param boolean
 			 */
 			'c14n' => true,
-			'recursive' => false
+			'recursive' => false,
+			'inverse' => false
 		],
 		$messages = [
 			'not_in' => [
@@ -39,7 +40,7 @@ class In extends \gajus\vlad\Validator {
 			throw new \InvalidArgumentException('"haystack" option must be an array.');
 		}
 
-		if (!is_bool($options['strict']) || !is_bool($options['c14n']) || !is_bool($options['recursive'])) {
+		if (!is_bool($options['strict']) || !is_bool($options['c14n']) || !is_bool($options['recursive']) || !is_bool($options['inverse'])) {
 			throw new \InvalidArgumentException('Boolean property assigned non-boolean value.');
 		}
 	}
@@ -48,7 +49,7 @@ class In extends \gajus\vlad\Validator {
 		$value = $subject->getValue();
 
 		$options = $this->getOptions();
-		
+			
 		if ($options['recursive']) {
 			foreach ($subject->getSelector()->getPath() as $crumble) {
 				if (!isset($options['haystack'][$crumble]) || !is_array($options['haystack'][$crumble])) {
@@ -59,7 +60,12 @@ class In extends \gajus\vlad\Validator {
 			}
 		}
 
-		if (is_string($value) && !array_filter($options['haystack'], 'is_array') && $options['strict'] && $options['c14n']) {
+		if ($options['inverse']) {
+			$options['haystack'] = array_flip($options['haystack']);
+		}
+
+		if ((is_string($value) || is_int($value)) && !array_filter($options['haystack'], 'is_array') && $options['strict'] && $options['c14n']) {
+			$value = (string) $value;
 			$options['haystack'] = array_map('strval', $options['haystack']);
 
 			if (!in_array($value, $options['haystack'], true)) {
