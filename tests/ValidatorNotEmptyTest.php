@@ -46,7 +46,8 @@ class ValidatorNotEmptyTest extends PHPUnit_Framework_TestCase {
 		return [
 			[ ['bar' => 'bar'] ],
 			[ ['bar' => ['test']] ],
-			[ ['bar' => 1] ]
+			[ ['bar' => 1] ],
+			[ ['bar' => '0'] ]
 		];
 	}
 

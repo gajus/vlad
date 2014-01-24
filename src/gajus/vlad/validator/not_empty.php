@@ -35,7 +35,11 @@ class Not_Empty extends \gajus\vlad\Validator {
 
 		$options = $this->getOptions();
 
-		if (empty($value) || $options['trim'] && is_string($value) && empty(trim($value))) {
+		if ($value === '0') {
+			return;
+		}
+
+		if (empty($value) || $options['trim'] && is_string($value) && !strlen(trim($value))) {
 			return 'empty';
 		}
 	}
