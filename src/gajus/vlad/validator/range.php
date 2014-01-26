@@ -15,6 +15,10 @@ class Range extends \gajus\vlad\Validator {
 			'max_inclusive' => null
 		],
 		$messages = [
+			/*'invalid_type' => [
+				'{vlad.subject.name} is not more than {vlad.validator.options.min_exclusive}.',
+				'The input is not more than {vlad.validator.options.min_exclusive}.'
+			],*/
 			'min_exclusive' => [
 				'{vlad.subject.name} is not more than {vlad.validator.options.min_exclusive}.',
 				'The input is not more than {vlad.validator.options.min_exclusive}.'

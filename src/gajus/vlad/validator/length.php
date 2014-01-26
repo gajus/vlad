@@ -36,12 +36,12 @@ class Length extends \gajus\vlad\Validator {
 			throw new \InvalidArgumentException('"min" and/or "max" option is required.');
 		}
 		
-		if (isset($options['min']) && !is_numeric($options['min'])) {
-			throw new \InvalidArgumentException('"min" option must be numeric.');
+		if (isset($options['min']) && !ctype_digit((string) $options['min'])) {
+			throw new \InvalidArgumentException('"min" option must be a whole number.');
 		}
 		
-		if (isset($options['max']) && !is_numeric($options['max'])) {
-			throw new \InvalidArgumentException('"max" option must be numeric.');
+		if (isset($options['max']) && !ctype_digit((string) $options['max'])) {
+			throw new \InvalidArgumentException('"max" option must be a whole number.');
 		}
 		
 		if (isset($options['min'], $options['max']) && $options['min'] > $options['max']) {

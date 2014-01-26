@@ -11,7 +11,7 @@ class ValidatorLengthTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @expectedException InvalidArgumentException
-	 * @expectedExceptionMessage "min" option must be numeric.
+	 * @expectedExceptionMessage "min" option must be a whole number.
 	 */
 	public function testInvalidMinParameter () {
 		$test = new \gajus\vlad\Test();
@@ -20,7 +20,7 @@ class ValidatorLengthTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @expectedException InvalidArgumentException
-	 * @expectedExceptionMessage "max" option must be numeric.
+	 * @expectedExceptionMessage "max" option must be a whole number.
 	 */
 	public function testInvalidMaxParameter () {
 		$test = new \gajus\vlad\Test();

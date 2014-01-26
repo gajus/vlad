@@ -60,7 +60,7 @@ class Test {
 			throw new \InvalidArgumentException('Validator name must be a string.');
 		}
 
-		if (strpos($validator_name, '\\') === false) {
+		if (strpos($validator_name, '\\') === false || strpos($validator_name, 'file\\') === 0) {
 			$validator_name = 'gajus\vlad\validator\\' . $validator_name;
 		}
 		
@@ -111,5 +111,6 @@ class Test {
 		}
 
 		return $result;
+		#return new \gajus\vlad\Assessment($input, $this->translator, $result);
 	}
 }
