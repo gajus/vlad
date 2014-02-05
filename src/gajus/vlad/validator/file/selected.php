@@ -30,7 +30,7 @@ class Selected extends \gajus\vlad\Validator {
 		}
 
 		if (!is_string($tmp_name)) {
-			throw new \RuntimeException('Validator selector does not reference file input.');
+			throw new \gajus\vlad\exception\Runtime_Exception('Validator selector does not reference file input.');
 		}
 
 		if ($tmp_name === '') {

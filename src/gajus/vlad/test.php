@@ -57,7 +57,7 @@ class Test {
 	 */
 	public function assert ($selector, $validator_name, array $options = []) {
 		if (!is_string($validator_name)) {
-			throw new \InvalidArgumentException('Validator name must be a string.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Validator name must be a string.');
 		}
 
 		if (strpos($validator_name, '\\') === false || strpos($validator_name, 'file\\') === 0 || strpos($validator_name, 'credit_card\\') === 0) {
@@ -66,9 +66,9 @@ class Test {
 		
 		if (!class_exists($validator_name)) {
 			#var_dump($validator_name);
-			throw new \InvalidArgumentException('Validator not found.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Validator not found.');
 		} else if (!is_subclass_of($validator_name, 'gajus\vlad\Validator')) {
-			throw new \InvalidArgumentException('Validator must extend gajus\vlad\Validator.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Validator must extend gajus\vlad\Validator.');
 		}
 
 		if (!isset($this->script[$selector])) {

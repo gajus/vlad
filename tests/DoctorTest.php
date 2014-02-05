@@ -19,7 +19,8 @@ class DoctorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage Validator options must be an array.
 	 */
 	public function testValidatorOptionsNotArray () {
 		$doctor = new \gajus\vlad\Doctor();
@@ -32,7 +33,8 @@ class DoctorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage Selector must be an array.
 	 */
 	public function testSelectorNotArray () {
 		$doctor = new \gajus\vlad\Doctor();
@@ -45,7 +47,8 @@ class DoctorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage Test has duplicate selector declarations. Each selector can be declared only once per test.
 	 */
 	public function testHasDuplicateSelectorDeclartion () {
 		$doctor = new \gajus\vlad\Doctor();

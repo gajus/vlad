@@ -2,6 +2,7 @@
 
 * Added Credit Card PAN validator.
 * Added script (./bin/build.php) to populate default translation file.
+* All Exceptions now extend \gajus\vlad\exception\Vlad_Exception.
 
 0.0.5 / 2014-01-20
 

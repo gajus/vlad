@@ -1,7 +1,7 @@
 <?php
 class ValidatorLengthTest extends PHPUnit_Framework_TestCase {
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage "min" and/or "max" option is required.
 	 */
 	public function testMissingRequiredParameter () {
@@ -10,7 +10,7 @@ class ValidatorLengthTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage "min" option must be a whole number.
 	 */
 	public function testInvalidMinParameter () {
@@ -19,7 +19,7 @@ class ValidatorLengthTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage "max" option must be a whole number.
 	 */
 	public function testInvalidMaxParameter () {
@@ -28,7 +28,7 @@ class ValidatorLengthTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage "min" option cannot be greater than "max".
 	 */
 	public function testMinOptionCannotBeGreaterThanMax () {

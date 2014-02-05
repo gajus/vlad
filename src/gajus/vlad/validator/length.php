@@ -33,19 +33,19 @@ class Length extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 
 		if (!isset($options['min']) && !isset($options['max'])) {
-			throw new \InvalidArgumentException('"min" and/or "max" option is required.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"min" and/or "max" option is required.');
 		}
 		
 		if (isset($options['min']) && !ctype_digit((string) $options['min'])) {
-			throw new \InvalidArgumentException('"min" option must be a whole number.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"min" option must be a whole number.');
 		}
 		
 		if (isset($options['max']) && !ctype_digit((string) $options['max'])) {
-			throw new \InvalidArgumentException('"max" option must be a whole number.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"max" option must be a whole number.');
 		}
 		
 		if (isset($options['min'], $options['max']) && $options['min'] > $options['max']) {
-			throw new \InvalidArgumentException('"min" option cannot be greater than "max".');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"min" option cannot be greater than "max".');
 		}
 	}
 
@@ -55,7 +55,7 @@ class Length extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 		
 		if (!is_string($value)) {
-			throw new \InvalidArgumentException('Value is expected to be string. "' . gettype($value) . '" given instead.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Value is expected to be string. "' . gettype($value) . '" given instead.');
 		}
 		
 		if (isset($options['min'], $options['max']) && (mb_strlen($value) < $options['min'] || mb_strlen($value) > $options['max'])) {

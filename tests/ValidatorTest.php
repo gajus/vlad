@@ -1,7 +1,7 @@
 <?php
 class ValidatorTest extends PHPUnit_Framework_TestCase {
 	/**
-	 * @expectedException RuntimeException
+	 * @expectedException gajus\vlad\exception\Runtime_Exception
 	 */
 	public function testValidatorWithoutRequiredValue () {
 		$test = new \gajus\vlad\Test();
@@ -11,7 +11,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage Unrecognised option.
 	 */
 	public function testValidatorWithUnrecognisedOption () {
 		$test = new \gajus\vlad\Test();
@@ -39,7 +40,8 @@ class ValidatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage Undefined error message.
 	 */
 	public function testGetNonExistingMessage () {
 		$validator = new \gajus\vlad\validator\String();

@@ -43,15 +43,15 @@ class Range extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 
 		if (!isset($options['min_exclusive']) && !isset($options['min_inclusive']) && !isset($options['max_exclusive']) && !isset($options['max_inclusive'])) {
-			throw new \InvalidArgumentException('Missing required parameter.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Missing required parameter.');
 		}
 
 		if (isset($options['min_exclusive'], $options['min_inclusive'])) {
-			throw new \InvalidArgumentException('Cannot use "min_exclusive" and "min_inclusive" options together.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Cannot use "min_exclusive" and "min_inclusive" options together.');
 		}
 
 		if (isset($options['max_exclusive'], $options['max_inclusive'])) {
-			throw new \InvalidArgumentException('Cannot use "max_exclusive" and "max_inclusive" options together.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Cannot use "max_exclusive" and "max_inclusive" options together.');
 		}
 
 		$min = isset($options['min_exclusive']) ? $options['min_exclusive'] : null;
@@ -67,15 +67,15 @@ class Range extends \gajus\vlad\Validator {
 		}
 
 		if (isset($min) && !is_numeric($min)) {
-			throw new \InvalidArgumentException('Minimum boundry option must be numeric.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Minimum boundry option must be numeric.');
 		}
 
 		if (isset($max) && !is_numeric($max)) {
-			throw new \InvalidArgumentException('Minimum boundry option must be numeric.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Minimum boundry option must be numeric.');
 		}
 
 		if (isset($min, $max) && $min > $max) {
-			throw new \InvalidArgumentException('Minimum bountry cannot be greater than the maximum boundry.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Minimum bountry cannot be greater than the maximum boundry.');
 		}
 	}
 
@@ -85,7 +85,7 @@ class Range extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 		
 		if (!is_numeric($value)) {
-			throw new \InvalidArgumentException('Value is expected to be numeric. "' . gettype($value) . '" given instead.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Value is expected to be numeric. "' . gettype($value) . '" given instead.');
 		}
 
 		if (isset($options['min_exclusive'])) {

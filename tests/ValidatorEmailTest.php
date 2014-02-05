@@ -24,7 +24,8 @@ class ValidatorEmailTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage Input is not a scalar value.
 	 */
 	public function testNotScalarInput () {
 		$test = new \gajus\vlad\Test();

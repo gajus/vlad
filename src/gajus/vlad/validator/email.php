@@ -19,7 +19,7 @@ class Email extends \gajus\vlad\Validator {
 		$value = $subject->getValue();
 
 		if (!is_scalar($value)) {
-			throw new \InvalidArgumentException('Input is expected to be a scalar value.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Input is not a scalar value.');
 		}
 
 		if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {

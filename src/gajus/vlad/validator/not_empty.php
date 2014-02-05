@@ -26,7 +26,7 @@ class Not_Empty extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 
 		if (!is_bool($options['trim'])) {
-			throw new \InvalidArgumentException('Boolean property assigned non-boolean value.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Boolean property assigned non-boolean value.');
 		}
 	}
 	

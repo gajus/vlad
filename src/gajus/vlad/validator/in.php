@@ -35,13 +35,13 @@ class In extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 		
 		if (!isset($options['haystack'])) {
-			throw new \BadMethodCallException('"haystack" option is required.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"haystack" option is required.');
 		} else if (!is_array($options['haystack'])) {
-			throw new \InvalidArgumentException('"haystack" option must be an array.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"haystack" option must be an array.');
 		}
 
 		if (!is_bool($options['strict']) || !is_bool($options['c14n']) || !is_bool($options['recursive']) || !is_bool($options['inverse'])) {
-			throw new \InvalidArgumentException('Boolean property assigned non-boolean value.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Boolean property assigned non-boolean value.');
 		}
 	}
 
@@ -53,7 +53,7 @@ class In extends \gajus\vlad\Validator {
 		if ($options['recursive']) {
 			foreach ($subject->getSelector()->getPath() as $crumble) {
 				if (!isset($options['haystack'][$crumble]) || !is_array($options['haystack'][$crumble])) {
-					throw new \InvalidArgumentException('Selector path does not resolve an array within the haystack.');
+					throw new \gajus\vlad\exception\Invalid_Argument_Exception('Selector path does not resolve an array within the haystack.');
 				}
 
 				$options['haystack'] = $options['haystack'][$crumble];

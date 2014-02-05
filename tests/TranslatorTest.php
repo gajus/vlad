@@ -61,7 +61,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage "selector" translation must be a string.
 	 */
 	public function testSelectorNotStringMessage () {
@@ -69,7 +69,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage "validator_error_selector" translation query must break into exactly 3 parts (validator, error, selector).
 	 */
 	public function testValidatorSelectorErrorInvalidQuery () {
@@ -77,7 +77,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage Validator in the "validator_error_selector" dictionary does not exist.
 	 */
 	public function testValidatorSelectorErrorNotExistingValidatorInQuery () {
@@ -85,7 +85,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage Error in the "validator_error_selector" translation does not refer to a known error.
 	 */
 	public function testValidatorSelectorErrorNotExistingErrorInQuery () {
@@ -93,7 +93,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage "validator_error_selector" error translation must be a string.
 	 */
 	public function testValidatorSelectorErrorNotStringTranslation () {
@@ -101,7 +101,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage Validator in the "validator_error" dictionary does not exist.
 	 */
 	public function testValidatorErrorValidatorNotFound () {
@@ -116,7 +116,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage "validator_error" entry must include an array of validators, containing an array of errors, containing an array of messages.
 	 */
 	public function testValidatorErrorStringError () {
@@ -124,7 +124,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage Error in the "validator_error" translation does not refer to a known error.
 	 */
 	public function testValidatorErrorErrorNotFound () {
@@ -139,7 +139,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage "validator_error" message must be an array containing two messages.
 	 */
 	public function testValidatorErrorNotArrayTranslation () {
@@ -154,7 +154,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage "validator_error" message array must contain two messages.
 	 */
 	public function testValidatorErrorSuperfluousArrayTranslation () {
@@ -169,7 +169,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage Individual "validator_error" messages must be a string.
 	 */
 	public function testStringValidatorErrorTranslation () {
@@ -211,7 +211,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage Unknown variable in error message.
 	 */
 	public function testUnknownVariableInErrorMessage () {

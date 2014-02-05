@@ -1,7 +1,8 @@
 <?php
 class ValidatorRegexTest extends PHPUnit_Framework_TestCase {
 	/**
-	 * @expectedException BadMethodCallException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage "pattern" property is required.
 	 */
 	public function testInstantiatingWithoutRequiredParameterPattern () {
 		$test = new \gajus\vlad\Test();
@@ -29,7 +30,7 @@ class ValidatorRegexTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 */
 	public function testBadPattern () {
 		$test = new \gajus\vlad\Test();

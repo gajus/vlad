@@ -23,7 +23,8 @@ class TestTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage Validator name must be a string.
 	 */
 	public function testInvalidValidatorNameParameters () {
 		$test = new \gajus\vlad\Test();
@@ -32,7 +33,8 @@ class TestTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage Validator not found.
 	 */
 	public function testNotFoundValidator () {
 		$test = new \gajus\vlad\Test();

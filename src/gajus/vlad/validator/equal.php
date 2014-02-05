@@ -22,7 +22,7 @@ class Equal extends \gajus\vlad\Validator {
 		parent::__construct($options);
 
 		if (!isset($options['to'])) {
-			throw new \InvalidArgumentException('Missing required option.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Missing required option.');
 		}
 	}
 	

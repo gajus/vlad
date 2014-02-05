@@ -30,17 +30,17 @@ class Size extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 
 		if (isset($options['min']) && !ctype_digit((string) $options['min'])) {
-			throw new \InvalidArgumentException('"min" option must be a whole number.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"min" option must be a whole number.');
 		}
 
 		if (isset($options['max']) && !ctype_digit((string) $options['max'])) {
-			throw new \InvalidArgumentException('"max" option must be a whole number.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"max" option must be a whole number.');
 		}
 
 		// @todo Not supported at the time of writting.
-		if (!in_array($options['name'], ['auto', 'kb', 'mb', 'gb', 'tb'])) {
-			throw new \InvalidArgumentException('Unsupported "name" option value.');
-		}
+		#if (!in_array($options['name'], ['auto', 'kb', 'mb', 'gb', 'tb'])) {
+		#	throw new \gajus\vlad\exception\Invalid_Argument_Exception('Unsupported "name" option value.');
+		#}
 	}
 
 	public function validate (\gajus\vlad\Subject $subject) {
@@ -57,7 +57,7 @@ class Size extends \gajus\vlad\Validator {
 		}
 
 		if (!is_string($tmp_name)) {
-			throw new \RuntimeException('Validator selector does not reference file input.');
+			throw new \gajus\vlad\exception\Runtime_Exception('Validator selector does not reference file input.');
 		}
 
 		// Temporary
@@ -75,14 +75,4 @@ class Size extends \gajus\vlad\Validator {
 			return 'max';
 		}
 	}
-
-	/**
-	 * @author Chris Jester-Young <http://stackoverflow.com/a/2510468/368691>
-	 */
-	/*private function formatBytes ($size, $precision = 2) {
-		$base = log($size) / log(1024);
-		$suffixes = ['', 'KB', 'MB', 'GB', 'TB'];
-
-		return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
-	}*/
 }

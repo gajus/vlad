@@ -177,7 +177,7 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 * @expectedExceptionMessage Selector path does not resolve an array within the haystack.
 	 */
 	public function testRecursiveQuasiStrictInNotResolved () {

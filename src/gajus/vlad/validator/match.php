@@ -24,7 +24,7 @@ class Match extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 
 		if (!isset($options['selector'])) {
-			throw new \InvalidArgumentException('"selector" option cannot be left undefined.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"selector" option cannot be left undefined.');
 		}
 	}
 	

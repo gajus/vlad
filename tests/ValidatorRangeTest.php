@@ -71,7 +71,7 @@ class ValidatorRangeTest extends PHPUnit_Framework_TestCase {
 
 
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 */
 	public function testMissingRequiredParameter () {
 		$test = new \gajus\vlad\Test();
@@ -80,7 +80,7 @@ class ValidatorRangeTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @dataProvider optionsOverlapProvider
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 */
 	public function testOptionsOverlap ($options) {
 		$test = new \gajus\vlad\Test();
@@ -100,7 +100,7 @@ class ValidatorRangeTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @dataProvider invalidOptionTypeProvider
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
 	 */
 	public function testInvalidOptionType ($options) {
 		$test = new \gajus\vlad\Test();
@@ -125,25 +125,11 @@ class ValidatorRangeTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @dataProvider illogicOptionCombinationProvider
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage Minimum bountry cannot be greater than the maximum boundry.
 	 */
-	public function testIllogicOptionCombination ($options) {
+	public function testIllogicOptionCombination () {
 		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'range', $options);
-	}
-
-	public function illogicOptionCombinationProvider () {
-		return [
-			[
-				['min_exclusive' => 10, 'max_inclusive' => 5],
-			],
-			[
-				['min_inclusive' => 10, 'max_exclusive' => 5],
-			],
-			[
-				['min_inclusive' => 10, 'max_inclusive' => 5],
-			]
-		];
+		$test->assert('foo', 'range', ['min_exclusive' => 10, 'max_inclusive' => 5]);
 	}
 }

@@ -24,11 +24,11 @@ class Regex extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 		
 		if (!isset($options['pattern'])) {
-			throw new \BadMethodCallException('"pattern" property is required.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"pattern" property is required.');
 		}
 
 		if (@preg_match($options['pattern'], 'test') === false) {
-			throw new \InvalidArgumentException('Pattern "' . $options['pattern'] . '" failed (' . array_flip(get_defined_constants(true)['pcre'])[preg_last_error()] . ').');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Pattern "' . $options['pattern'] . '" failed (' . array_flip(get_defined_constants(true)['pcre'])[preg_last_error()] . ').');
 		}
 	}
 

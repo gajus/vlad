@@ -1,7 +1,8 @@
 <?php
 class ValidatorMatchTest extends PHPUnit_Framework_TestCase {
 	/**
-	 * @expectedException InvalidArgumentException
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage "selector" option cannot be left undefined.
 	 */
 	public function testMissingRequiredParameter () {
 		$test = new \gajus\vlad\Test();

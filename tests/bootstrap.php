@@ -1,4 +1,8 @@
 <?php
+require __DIR__ . '/../src/gajus/vlad/exception/vlad_exception.php';
+require __DIR__ . '/../src/gajus/vlad/exception/runtime_exception.php';
+require __DIR__ . '/../src/gajus/vlad/exception/invalid_argument_exception.php';
+require __DIR__ . '/../src/gajus/vlad/exception/logic_exception.php';
 require __DIR__ . '/../src/gajus/vlad/doctor.php';
 require __DIR__ . '/../src/gajus/vlad/test.php';
 require __DIR__ . '/../src/gajus/vlad/input.php';

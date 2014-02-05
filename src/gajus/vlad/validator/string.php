@@ -24,7 +24,7 @@ class String extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 
 		if (!is_bool($options['strict'])) {
-			throw new \InvalidArgumentException('Boolean property assigned non-boolean value.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Boolean property assigned non-boolean value.');
 		}
 	}
 	
