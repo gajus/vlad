@@ -16,3 +16,4 @@ require __DIR__ . '/../src/gajus/vlad/validator/length.php';
 require __DIR__ . '/../src/gajus/vlad/validator/in.php';
 require __DIR__ . '/../src/gajus/vlad/validator/equal.php';
 require __DIR__ . '/../src/gajus/vlad/validator/email.php';
+require __DIR__ . '/../src/gajus/vlad/validator/credit_card/pan.php';

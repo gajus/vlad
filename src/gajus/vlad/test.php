@@ -60,11 +60,12 @@ class Test {
 			throw new \InvalidArgumentException('Validator name must be a string.');
 		}
 
-		if (strpos($validator_name, '\\') === false || strpos($validator_name, 'file\\') === 0) {
+		if (strpos($validator_name, '\\') === false || strpos($validator_name, 'file\\') === 0 || strpos($validator_name, 'credit_card\\') === 0) {
 			$validator_name = 'gajus\vlad\validator\\' . $validator_name;
 		}
 		
 		if (!class_exists($validator_name)) {
+			#var_dump($validator_name);
 			throw new \InvalidArgumentException('Validator not found.');
 		} else if (!is_subclass_of($validator_name, 'gajus\vlad\Validator')) {
 			throw new \InvalidArgumentException('Validator must extend gajus\vlad\Validator.');

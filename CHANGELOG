@@ -1,3 +1,7 @@
+0.0.6 / 2014-02-05
+
+* Added Credit Card PAN validator.
+
 0.0.5 / 2014-01-20
 
 * Syntax change. Removed "failure_scenario" option. The latter was useful only to edge case scenarios and resulted in non-intuitive test scripts.

@@ -61,12 +61,20 @@ abstract class Validator {
 			throw new \RuntimeException('Validator cannot be used with undefined input.');
 		}
 
-		$error_name = $this->validate($subject);
+		$error = $this->validate($subject);
 
-		if ($error_name) {
-			return new \gajus\vlad\Error($this, $subject, $error_name, static::getMessage($error_name));
+		if (is_string($error)) {
+			return new \gajus\vlad\Error($this, $subject, $error, static::getMessage($error));
+		} else if (is_null($error)) {
+			return;
 		}
+
+		throw new \LogicException('Invalid validator response.');
 	}
 	
-	abstract protected function validate (Subject $subject);
+	/**
+	 * @param gajus\vlad\Subject $subject
+	 * @return string|null
+	 */
+	abstract protected function validate (\gajus\vlad\Subject $subject);
 }
