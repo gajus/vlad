@@ -1,6 +1,7 @@
 0.0.6 / 2014-02-05
 
 * Added Credit Card PAN validator.
+* Added script (./bin/build.php) to populate default translation file.
 
 0.0.5 / 2014-01-20
 

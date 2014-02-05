@@ -36,10 +36,8 @@ Translator allows to overwrite default error messages, input specific error mess
 
 ## Todo
 
-* Credit card validator.
-* Get the input back from Test/Result that matches at least one rule (and passes that rule?).
-* Add Allow adding custom error message to the Result for input or non-input (e.g. duplicate value). This error would then be passed to the hasErrors array.
+* Do not thrown SPL exceptions. These should extend Vlad exctesion.
+* Allow adding custom error message to the Result for input or non-input (e.g. duplicate value). This error would then be passed to the hasErrors array.
 * Add URL validator. This should consider that URL does not necessarily include protocol and that those that do include, e.g. ftp:// might not necessarily be expected URLs.
-* Validate the translations file. Now that a translation array is loaded, only the syntax is validated, but not whether the translation file resolves to the known error_names from the validator.
 * Improve email validator. Zend validator includes useful additions (MX check, host name validator, etc) https://github.com/zendframework/zf2/blob/master/library/Zend/Validator/EmailAddress.php.
 * http://www.php-fig.org/
