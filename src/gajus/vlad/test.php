@@ -112,6 +112,5 @@ class Test {
 		}
 
 		return $result;
-		#return new \gajus\vlad\Assessment($input, $this->translator, $result);
 	}
 }

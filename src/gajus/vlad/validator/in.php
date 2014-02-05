@@ -35,7 +35,7 @@ class In extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 		
 		if (!isset($options['haystack'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"haystack" option is required.');
+			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"haystack" option is missing.');
 		} else if (!is_array($options['haystack'])) {
 			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"haystack" option must be an array.');
 		}

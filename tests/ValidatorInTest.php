@@ -11,6 +11,24 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage "haystack" option is missing.
+	 */
+	public function testMissingHaystackOption () {
+		$test = new \gajus\vlad\Test();
+		$test->assert('foo', 'in');
+	}
+
+	/**
+	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedExceptionMessage "haystack" option must be an array.
+	 */
+	public function testHaystackOptionNotArray () {
+		$test = new \gajus\vlad\Test();
+		$test->assert('foo', 'in', ['haystack' => (object) []]);
+	}
+
+	/**
 	 * @dataProvider quasiStrictInProvider
 	 */
 	public function testQuasiStrictIn ($needle, $haystack) {
