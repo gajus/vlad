@@ -1,7 +1,7 @@
 <?php
 class SelectorTest extends PHPUnit_Framework_TestCase {
 	public function testGetSelector () {
-		$selector = new \gajus\vlad\Selector('foo[bar]');
+		$selector = new \Gajus\Vlad\Selector('foo[bar]');
 
 		$this->assertSame('foo[bar]', $selector->getSelector());
 	}
@@ -10,7 +10,7 @@ class SelectorTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider getPathProvider
 	 */
 	public function testGetPath ($selector, $path) {
-		$selector = new \gajus\vlad\Selector($selector);
+		$selector = new \Gajus\Vlad\Selector($selector);
 
 		$this->assertSame($path, $selector->getPath());
 	}

@@ -1,12 +1,11 @@
 <?php
-namespace gajus\vlad\validator;
+namespace Gajus\Vlad\Validator;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository
- * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
-class Match extends \gajus\vlad\Validator {
+class Match extends \Gajus\Vlad\Validator {
 	static protected
 		$default_options = [
 			'selector' => null
@@ -24,11 +23,11 @@ class Match extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 
 		if (!isset($options['selector'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"selector" option cannot be left undefined.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"selector" option cannot be left undefined.');
 		}
 	}
 	
-	protected function validate (\gajus\vlad\Subject $subject) {
+	protected function validate (\Gajus\Vlad\Subject $subject) {
 		$options = $this->getOptions();
 
 		$second_subject = $subject->getInput()->getSubject($options['selector']);

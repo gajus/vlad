@@ -1,17 +1,17 @@
 <?php
 class ValidatorRegexTest extends PHPUnit_Framework_TestCase {
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "pattern" property is required.
 	 */
 	public function testInstantiatingWithoutRequiredParameterPattern () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'regex');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Regex');
 	}
 
 	public function testMatch () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'regex', ['pattern' => '/test/']);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Regex', ['pattern' => '/test/']);
 
 		$assessment = $test->assess(['foo' => 'test']);
 
@@ -19,8 +19,8 @@ class ValidatorRegexTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testNoMatch () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'regex', ['pattern' => '/test/']);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Regex', ['pattern' => '/test/']);
 
 		$assessment = $test->assess(['foo' => 'bar']);
 
@@ -30,10 +30,10 @@ class ValidatorRegexTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 */
 	public function testBadPattern () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'regex', ['pattern' => '/']);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Regex', ['pattern' => '/']);
 	}
 }

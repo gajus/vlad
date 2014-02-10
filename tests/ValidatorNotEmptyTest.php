@@ -1,8 +1,8 @@
 <?php
 class ValidatorNotEmptyTest extends PHPUnit_Framework_TestCase {
 	public function testDefaultOptions () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'not_empty');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'NotEmpty');
 
 		$this->assertSame(['trim' => true], $test->getScript()['foo'][0]['options']);
 	}
@@ -11,8 +11,8 @@ class ValidatorNotEmptyTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider testTrimEmptyInputProvider
 	 */
 	public function testTrimEmptyInput ($input) {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'not_empty');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'NotEmpty');
 
 		$assessment = $test->assess($input);
 
@@ -34,8 +34,8 @@ class ValidatorNotEmptyTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider testTrimNotEmptyInputProvider
 	 */
 	public function testTrimNotEmptyInput ($input) {
-		$test = new \gajus\vlad\Test();
-		$test->assert('bar', 'not_empty');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('bar', 'NotEmpty');
 
 		$assessment = $test->assess($input);
 
@@ -55,8 +55,8 @@ class ValidatorNotEmptyTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider testNotTrimEmptyInputProvider
 	 */
 	public function testNotTrimEmptyInput ($input) {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'not_empty');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'NotEmpty');
 
 		$assessment = $test->assess($input, ['trim' => false]);
 
@@ -77,8 +77,8 @@ class ValidatorNotEmptyTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider testNotTrimNotEmptyInputProvider
 	 */
 	public function testNotTrimNotEmptyInput ($input) {
-		$test = new \gajus\vlad\Test();
-		$test->assert('bar', 'not_empty', ['trim' => false]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('bar', 'NotEmpty', ['trim' => false]);
 
 		$assessment = $test->assess($input);
 
@@ -96,8 +96,8 @@ class ValidatorNotEmptyTest extends PHPUnit_Framework_TestCase {
 
 
 	public function testNotSupportedValue () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'not_empty');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'NotEmpty');
 
 		$assessment = $test->assess(['foo' => function () {}]);
 	}

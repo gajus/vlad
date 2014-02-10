@@ -1,9 +1,8 @@
 <?php
-namespace gajus\vlad;
+namespace Gajus\Vlad;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository
- * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Doctor {
@@ -31,11 +30,11 @@ class Doctor {
 
 		foreach ($test_script as $routine) {
 			if (!is_array($routine[0])) {
-				throw new \gajus\vlad\exception\Invalid_Argument_Exception('Selector must be an array.');
+				throw new \Gajus\Vlad\Exception\InvalidArgumentException('Selector must be an array.');
 			}
 
 			if (array_intersect($routine[0], $selectors)) {
-				throw new \gajus\vlad\exception\Invalid_Argument_Exception('Test has duplicate selector declarations. Each selector can be declared only once per test.');
+				throw new \Gajus\Vlad\Exception\InvalidArgumentException('Test has duplicate selector declarations. Each selector can be declared only once per test.');
 			}
 
 			$selectors = array_merge($selectors, $routine[0]);
@@ -50,7 +49,7 @@ class Doctor {
 						$options = $context2;
 
 						if (!is_array($options)) {
-							throw new \gajus\vlad\exception\Invalid_Argument_Exception('Validator options must be an array.');
+							throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator options must be an array.');
 						}
 					}
 

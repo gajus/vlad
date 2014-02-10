@@ -1,12 +1,11 @@
 <?php
-namespace gajus\vlad\validator\file;
+namespace Gajus\Vlad\Validator\File;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository
- * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
-class Size extends \gajus\vlad\Validator {
+class Size extends \Gajus\Vlad\Validator {
 	static protected
 		$default_options = [
 			'min' => null, // kilobytes
@@ -30,16 +29,16 @@ class Size extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 
 		if (isset($options['min']) && !ctype_digit((string) $options['min'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"min" option must be a whole number.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"min" option must be a whole number.');
 		}
 
 		if (isset($options['max']) && !ctype_digit((string) $options['max'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"max" option must be a whole number.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"max" option must be a whole number.');
 		}
 
 		// @todo Not supported at the time of writting.
 		#if (!in_array($options['name'], ['auto', 'kb', 'mb', 'gb', 'tb'])) {
-		#	throw new \gajus\vlad\exception\Invalid_Argument_Exception('Unsupported "name" option value.');
+		#	throw new \Gajus\Vlad\Exception\InvalidArgumentException('Unsupported "name" option value.');
 		#}
 	}
 
@@ -57,7 +56,7 @@ class Size extends \gajus\vlad\Validator {
 		}
 
 		if (!is_string($tmp_name)) {
-			throw new \gajus\vlad\exception\Runtime_Exception('Validator selector does not reference file input.');
+			throw new \Gajus\Vlad\Exception\RuntimeException('Validator selector does not reference file input.');
 		}
 
 		// Temporary

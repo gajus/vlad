@@ -1,9 +1,8 @@
 <?php
-namespace gajus\vlad;
+namespace Gajus\Vlad;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository
- * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 abstract class Validator {
@@ -22,7 +21,7 @@ abstract class Validator {
 		$unrecognised_options = \array_diff_key($options, static::$default_options);
 		
 		if ($unrecognised_options) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Unrecognised option.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Unrecognised option.');
 		}
 		
 		$this->instance_options = $options + array_filter(static::$default_options, function ($e) { return !is_null($e); });
@@ -41,7 +40,7 @@ abstract class Validator {
 	 */
 	static public function getMessage ($error_name) {
 		if (!isset(static::$messages[$error_name])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Undefined error message.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Undefined error message.');
 		}
 		
 		return static::$messages[$error_name];
@@ -58,23 +57,23 @@ abstract class Validator {
 
 	public function assess (Subject $subject) {
 		if (static::$requires_value && !$subject->isFound()) {
-			throw new \gajus\vlad\exception\Runtime_Exception('Validator cannot be used with undefined input.');
+			throw new \Gajus\Vlad\Exception\RuntimeException('Validator cannot be used with undefined input.');
 		}
 
 		$error = $this->validate($subject);
 
 		if (is_string($error)) {
-			return new \gajus\vlad\Error($this, $subject, $error, static::getMessage($error));
+			return new \Gajus\Vlad\Error($this, $subject, $error, static::getMessage($error));
 		} else if (is_null($error)) {
 			return;
 		}
 
-		throw new \gajus\vlad\exception\Logic_Exception('Invalid validator response.');
+		throw new \Gajus\Vlad\Exception\LogicException('Invalid validator response.');
 	}
 	
 	/**
 	 * @param gajus\vlad\Subject $subject
 	 * @return string|null
 	 */
-	abstract protected function validate (\gajus\vlad\Subject $subject);
+	abstract protected function validate (Subject $subject);
 }

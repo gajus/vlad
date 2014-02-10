@@ -1,10 +1,10 @@
 <?php
 class ValidatorCreditCardPanTest extends PHPUnit_Framework_TestCase {
     public function testNotDecimal () {
-        $test = new \gajus\vlad\Test();
+        $test = new \Gajus\Vlad\Test();
 
         $assessment = $test
-            ->assert('foo', 'credit_card\pan')
+            ->assert('foo', 'CreditCard\Pan')
             ->assess(['foo' => 'abc']);
 
         $this->assertCount(1, $assessment);
@@ -12,10 +12,10 @@ class ValidatorCreditCardPanTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testInvalidChecksum () {
-        $test = new \gajus\vlad\Test();
+        $test = new \Gajus\Vlad\Test();
 
         $assessment = $test
-            ->assert('foo', 'credit_card\pan')
+            ->assert('foo', 'CreditCard\Pan')
             ->assess(['foo' => '4111111111111112']);
 
         $this->assertCount(1, $assessment);
@@ -26,10 +26,10 @@ class ValidatorCreditCardPanTest extends PHPUnit_Framework_TestCase {
      * @dataProvider validPanProvider
      */
     public function testValidPan ($pan) {
-        $test = new \gajus\vlad\Test();
+        $test = new \Gajus\Vlad\Test();
 
         $assessment = $test
-            ->assert('foo', 'credit_card\pan')
+            ->assert('foo', 'CreditCard\Pan')
             ->assess(['foo' => $pan]);
 
         $this->assertCount(0, $assessment);

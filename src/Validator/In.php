@@ -1,12 +1,11 @@
 <?php
-namespace gajus\vlad\validator;
+namespace Gajus\Vlad\Validator;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository
- * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
-class In extends \gajus\vlad\Validator {
+class In extends \Gajus\Vlad\Validator {
 	static protected
 		$default_options = [
 			'haystack' => null,
@@ -35,17 +34,17 @@ class In extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 		
 		if (!isset($options['haystack'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"haystack" option is missing.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"haystack" option is missing.');
 		} else if (!is_array($options['haystack'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"haystack" option must be an array.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"haystack" option must be an array.');
 		}
 
 		if (!is_bool($options['strict']) || !is_bool($options['c14n']) || !is_bool($options['recursive']) || !is_bool($options['inverse'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Boolean property assigned non-boolean value.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Boolean property assigned non-boolean value.');
 		}
 	}
 
-	protected function validate (\gajus\vlad\Subject $subject) {
+	protected function validate (\Gajus\Vlad\Subject $subject) {
 		$value = $subject->getValue();
 
 		$options = $this->getOptions();
@@ -53,7 +52,7 @@ class In extends \gajus\vlad\Validator {
 		if ($options['recursive']) {
 			foreach ($subject->getSelector()->getPath() as $crumble) {
 				if (!isset($options['haystack'][$crumble]) || !is_array($options['haystack'][$crumble])) {
-					throw new \gajus\vlad\exception\Invalid_Argument_Exception('Selector path does not resolve an array within the haystack.');
+					throw new \Gajus\Vlad\Exception\InvalidArgumentException('Selector path does not resolve an array within the haystack.');
 				}
 
 				$options['haystack'] = $options['haystack'][$crumble];

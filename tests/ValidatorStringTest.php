@@ -2,7 +2,7 @@
 class ValidatorStringTest extends PHPUnit_Framework_TestCase {
 	public function testDefaultInstanceOptions () {
 		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'string');
+		$test->assert('foo', 'String');
 
 		$this->assertCount(1, $test->getScript());
 		$this->assertSame(['strict' => false], $test->getScript()['foo'][0]['options']);
@@ -13,7 +13,7 @@ class ValidatorStringTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testNotStrictString ($value) {
 		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'string');
+		$test->assert('foo', 'String');
 
 		$assessment = $test->assess(['foo' => $value]);
 
@@ -33,7 +33,7 @@ class ValidatorStringTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testNotStrictNotString ($value) {
 		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'string');
+		$test->assert('foo', 'String');
 
 		$assessment = $test->assess(['foo' => $value]);
 
@@ -56,7 +56,7 @@ class ValidatorStringTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testStrictString ($value) {
 		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'string');
+		$test->assert('foo', 'String');
 
 		$assessment = $test->assess(['foo' => $value]);
 
@@ -74,7 +74,7 @@ class ValidatorStringTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testStrictNotString ($value) {
 		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'string');
+		$test->assert('foo', 'String');
 
 		$assessment = $test->assess(['foo' => $value]);
 

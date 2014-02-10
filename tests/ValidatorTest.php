@@ -1,38 +1,38 @@
 <?php
 class ValidatorTest extends PHPUnit_Framework_TestCase {
 	/**
-	 * @expectedException gajus\vlad\exception\Runtime_Exception
+	 * @expectedException Gajus\Vlad\exception\RuntimeException
 	 */
 	public function testValidatorWithoutRequiredValue () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'email');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Email');
 
 		$test->assess([]);
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Unrecognised option.
 	 */
 	public function testValidatorWithUnrecognisedOption () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'email', ['foo' => 'bar']);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Email', ['foo' => 'bar']);
 	}
 
 	public function testGetValidatorOptions () {
-		$validator = new \gajus\vlad\validator\String();
+		$validator = new \Gajus\Vlad\Validator\String();
 
 		$this->assertNotEmpty($validator->getOptions());
 	}
 
 	public function testGetMessages () {
-		$validator = new \gajus\vlad\validator\String();
+		$validator = new \Gajus\Vlad\Validator\String();
 
 		$this->assertNotEmpty($validator->getMessages());
 	}
 
 	public function testGetMessage () {
-		$validator = new \gajus\vlad\validator\String();
+		$validator = new \Gajus\Vlad\Validator\String();
 
 		foreach ($validator->getMessages() as $name => $message) {
 			$this->assertSame($message, $validator->getMessage($name));
@@ -40,11 +40,11 @@ class ValidatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Undefined error message.
 	 */
 	public function testGetNonExistingMessage () {
-		$validator = new \gajus\vlad\validator\String();
+		$validator = new \Gajus\Vlad\Validator\String();
 
 		$validator->getMessage('foo');
 	}

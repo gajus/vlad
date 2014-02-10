@@ -1,15 +1,15 @@
 <?php
 class DoctorTest extends PHPUnit_Framework_TestCase {
 	public function testBuildTestWithMultipleSubtests () {
-		$doctor = new \gajus\vlad\Doctor();
+		$doctor = new \Gajus\Vlad\Doctor();
 		$test = $doctor->test([
 			[
 				['foo', 'bar'],
-				['not_empty', 'email']
+				['NotEmpty', 'Email']
 			],
 			[
 				['baz'],
-				['string']
+				['String']
 			]
 		]);
 
@@ -19,47 +19,47 @@ class DoctorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Validator options must be an array.
 	 */
 	public function testValidatorOptionsNotArray () {
-		$doctor = new \gajus\vlad\Doctor();
+		$doctor = new \Gajus\Vlad\Doctor();
 		$test = $doctor->test([
 			[
 				['foo'],
-				['equal' => 'foo!']
+				['Equal' => 'foo!']
 			]
 		]);
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Selector must be an array.
 	 */
 	public function testSelectorNotArray () {
-		$doctor = new \gajus\vlad\Doctor();
+		$doctor = new \Gajus\Vlad\Doctor();
 		$doctor->test([
 			[
 				'selector',
-				['email']
+				['Email']
 			]
 		]);
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Test has duplicate selector declarations. Each selector can be declared only once per test.
 	 */
 	public function testHasDuplicateSelectorDeclartion () {
-		$doctor = new \gajus\vlad\Doctor();
+		$doctor = new \Gajus\Vlad\Doctor();
 		$doctor->test([
 			[
 				['selector'],
-				['not_empty']
+				['NotEmpty']
 			],
 			[
 				['selector'],
-				['email']
+				['Email']
 			],
 		]);
 	}

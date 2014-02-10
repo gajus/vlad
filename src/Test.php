@@ -1,10 +1,9 @@
 <?php
-namespace gajus\vlad;
+namespace Gajus\Vlad;
 
 /**
  *
  * @link https://github.com/gajus/vlad for the canonical source repository
- * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Test {
@@ -39,7 +38,7 @@ class Test {
 				}
 
 				$script[$selector][] = [
-					'name' => strtolower(get_class($validator)),
+					'name' => get_class($validator),
 					'options' => $validator->getOptions()
 				];
 			}
@@ -57,18 +56,17 @@ class Test {
 	 */
 	public function assert ($selector, $validator_name, array $options = []) {
 		if (!is_string($validator_name)) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Validator name must be a string.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator name must be a string.');
 		}
 
-		if (strpos($validator_name, '\\') === false || strpos($validator_name, 'file\\') === 0 || strpos($validator_name, 'credit_card\\') === 0) {
-			$validator_name = 'gajus\vlad\validator\\' . $validator_name;
+		if (strpos($validator_name, '\\') === false || strpos($validator_name, 'File\\') === 0 || strpos($validator_name, 'CreditCard\\') === 0) {
+			$validator_name = 'Gajus\Vlad\Validator\\' . $validator_name;
 		}
 		
 		if (!class_exists($validator_name)) {
-			#var_dump($validator_name);
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Validator not found.');
-		} else if (!is_subclass_of($validator_name, 'gajus\vlad\Validator')) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Validator must extend gajus\vlad\Validator.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator not found "' . $validator_name . '".');
+		} else if (!is_subclass_of($validator_name, 'Gajus\Vlad\Validator')) {
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator must extend Gajus\Vlad\Validator.');
 		}
 
 		if (!isset($this->script[$selector])) {

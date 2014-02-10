@@ -1,8 +1,8 @@
 <?php
 class ValidatorInTest extends PHPUnit_Framework_TestCase {
 	public function testDefaultInstanceOptions () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'in', [
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'In', [
 			'haystack' => [1]
 		]);
 
@@ -11,29 +11,29 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "haystack" option is missing.
 	 */
 	public function testMissingHaystackOption () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'in');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'In');
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "haystack" option must be an array.
 	 */
 	public function testHaystackOptionNotArray () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'in', ['haystack' => (object) []]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'In', ['haystack' => (object) []]);
 	}
 
 	/**
 	 * @dataProvider quasiStrictInProvider
 	 */
 	public function testQuasiStrictIn ($needle, $haystack) {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'in', ['haystack' => [$haystack]]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'In', ['haystack' => [$haystack]]);
 		
 		$assessment = $test->assess(['foo' => $needle]);
 
@@ -51,8 +51,8 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider quasiStrictNotInProvider
 	 */
 	public function testQuasiStrictNotIn ($needle, $haystack) {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'in', ['haystack' => [$haystack]]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'In', ['haystack' => [$haystack]]);
 		
 		$assessment = $test->assess(['foo' => $needle]);
 
@@ -78,8 +78,8 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 			]
 		];
 
-		$test = new \gajus\vlad\Test();
-		$test->assert($selector, 'in', ['haystack' => $options, 'recursive' => true]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert($selector, 'In', ['haystack' => $options, 'recursive' => true]);
 
 		$assessment = $test->assess($input);
 
@@ -109,8 +109,8 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 			]
 		];
 
-		$test = new \gajus\vlad\Test();
-		$test->assert($selector, 'in', ['haystack' => $options, 'recursive' => true]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert($selector, 'In', ['haystack' => $options, 'recursive' => true]);
 
 		$assessment = $test->assess($input);
 
@@ -141,8 +141,8 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 			]
 		];
 
-		$test = new \gajus\vlad\Test();
-		$test->assert($selector, 'in', ['haystack' => $options, 'recursive' => true, 'inverse' => true]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert($selector, 'In', ['haystack' => $options, 'recursive' => true, 'inverse' => true]);
 
 		$assessment = $test->assess($input);
 
@@ -172,8 +172,8 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 			]
 		];
 
-		$test = new \gajus\vlad\Test();
-		$test->assert($selector, 'in', ['haystack' => $options, 'recursive' => true, 'inverse' => true]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert($selector, 'In', ['haystack' => $options, 'recursive' => true, 'inverse' => true]);
 
 		$assessment = $test->assess($input);
 
@@ -195,12 +195,12 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Selector path does not resolve an array within the haystack.
 	 */
 	public function testRecursiveQuasiStrictInNotResolved () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo[bar]', 'in', ['haystack' => [], 'recursive' => true]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo[bar]', 'In', ['haystack' => [], 'recursive' => true]);
 
 		$assessment = $test->assess(['foo' => ['bar' => 1]]);
 	}
@@ -209,8 +209,8 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider strictInProvider
 	 */
 	public function testStrictIn ($needle, $haystack) {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'in', [
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'In', [
 			'haystack' => [$haystack],
 			'c14n' => false
 		]);
@@ -231,8 +231,8 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider testStrictNotInProvider
 	 */
 	public function testStrictNotIn ($needle, $haystack) {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'in', [
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'In', [
 			'haystack' => [$haystack],
 			'c14n' => false
 		]);
@@ -254,8 +254,8 @@ class ValidatorInTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider notStrictInProvider
 	 */
 	public function testNotStrictIn ($needle, $haystack) {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'in', [
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'In', [
 			'haystack' => [$haystack],
 			'strict' => false
 		]);

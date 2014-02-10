@@ -1,8 +1,8 @@
 <?php
 class ValidatorEmailTest extends PHPUnit_Framework_TestCase {
 	public function testValidSyntax () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'email');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Email');
 
 		$assessment = $test->assess(['foo' => 'vlad@test.com']);
 
@@ -14,8 +14,8 @@ class ValidatorEmailTest extends PHPUnit_Framework_TestCase {
 	 * is no reason to extensively test different (in)valid email addressses.
 	 */
 	public function testInvalidSyntax () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'email');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Email');
 
 		$assessment = $test->assess(['foo' => 'vlad']);
 
@@ -24,12 +24,12 @@ class ValidatorEmailTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Input is not a scalar value.
 	 */
 	public function testNotScalarInput () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'email');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Email');
 
 		$assessment = $test->assess(['foo' => null]);
 	}

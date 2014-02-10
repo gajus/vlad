@@ -1,44 +1,44 @@
 <?php
 class ValidatorLengthTest extends PHPUnit_Framework_TestCase {
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "min" and/or "max" option is required.
 	 */
 	public function testMissingRequiredParameter () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'length');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Length');
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "min" option must be a whole number.
 	 */
 	public function testInvalidMinParameter () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'length', ['min' => 'test']);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Length', ['min' => 'test']);
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "max" option must be a whole number.
 	 */
 	public function testInvalidMaxParameter () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'length', ['max' => 'test']);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Length', ['max' => 'test']);
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "min" option cannot be greater than "max".
 	 */
 	public function testMinOptionCannotBeGreaterThanMax () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'length', ['min' => 20, 'max' => 10]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Length', ['min' => 20, 'max' => 10]);
 	}
 
 	public function testTooShort () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'length', ['min' => 10]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Length', ['min' => 10]);
 		
 		$assessment = $test->assess(['foo' => 'bar']);
 		
@@ -47,8 +47,8 @@ class ValidatorLengthTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testNotTooShort () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'length', ['min' => 10]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Length', ['min' => 10]);
 		
 		$assessment = $test->assess(['foo' => 'barbarbarbar']);
 		
@@ -56,8 +56,8 @@ class ValidatorLengthTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testTooLong () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'length', ['max' => 10]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Length', ['max' => 10]);
 		
 		$assessment = $test->assess(['foo' => 'barbarbarbar']);
 		
@@ -66,8 +66,8 @@ class ValidatorLengthTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testNotTooLong () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'length', ['max' => 10]);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Length', ['max' => 10]);
 		
 		$assessment = $test->assess(['foo' => 'bar']);
 		

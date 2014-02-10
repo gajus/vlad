@@ -1,12 +1,11 @@
 <?php
-namespace gajus\vlad\validator\file;
+namespace Gajus\Vlad\Validator\File;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository
- * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
-class Image extends \gajus\vlad\Validator {
+class Image extends \Gajus\Vlad\Validator {
 	static protected
 		$requires_value = false,
 		$default_options = [
@@ -55,39 +54,39 @@ class Image extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 
 		if (isset($options['width']) && (isset($options['min_width']) || isset($options['max_width']))) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"width" option cannot be present together with "min_width" or "max_width" option.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"width" option cannot be present together with "min_width" or "max_width" option.');
 		}
 
 		if (isset($options['min_width']) && !ctype_digit((string) $options['min_width'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"min_width" option must be a whole number.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"min_width" option must be a whole number.');
 		}
 
 		if (isset($options['max_width']) && !ctype_digit((string) $options['max_width'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"max_width" option must be a whole number.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"max_width" option must be a whole number.');
 		}
 
 		if (isset($options['min_width'], $options['max_width']) && $options['min_width'] > $options['max_width']) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"min_width" option cannot be greater than "max_width".');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"min_width" option cannot be greater than "max_width".');
 		}
 
 		if (isset($options['height']) && (isset($options['min_height']) || isset($options['max_height']))) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"height" option cannot be present together with "min_height" or "max_height" option.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"height" option cannot be present together with "min_height" or "max_height" option.');
 		}
 
 		if (isset($options['min_height']) && !ctype_digit((string) $options['min_height'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"min_height" option must be a whole number.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"min_height" option must be a whole number.');
 		}
 
 		if (isset($options['max_height']) && !ctype_digit((string) $options['max_height'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"max_height" option must be a whole number.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"max_height" option must be a whole number.');
 		}
 
 		if (isset($options['min_height'], $options['max_height']) && $options['min_height'] > $options['max_height']) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"min_height" option cannot be greater than "max_height".');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"min_height" option cannot be greater than "max_height".');
 		}
 
 		if (!is_array($options['mime'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"mime" must be an array of image/ mime type extensions.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"mime" must be an array of image/ mime type extensions.');
 		}
 	}
 
@@ -105,7 +104,7 @@ class Image extends \gajus\vlad\Validator {
 		}
 
 		if (!is_string($tmp_name)) {
-			throw new \gajus\vlad\exception\Runtime_Exception('Validator selector does not reference file input.');
+			throw new \Gajus\Vlad\Exception\RuntimeException('Validator selector does not reference file input.');
 		}
 
 		// Temporary
@@ -118,7 +117,7 @@ class Image extends \gajus\vlad\Validator {
 		$mime_type = $finfo->file($tmp_name);
 
 		if (!$mime_type) {
-			throw new \gajus\vlad\exception\Runtime_Exception('File mime type cannot be determined.');
+			throw new \Gajus\Vlad\Exception\RuntimeException('File mime type cannot be determined.');
 		}
 
 		$options = $this->getOptions();
@@ -130,7 +129,7 @@ class Image extends \gajus\vlad\Validator {
 		$image_size = @getimagesize($tmp_name);
 
 		if ($image_size === false) {
-			throw new \gajus\vlad\exception\Runtime_Exception('File image size cannot be determined.');
+			throw new \Gajus\Vlad\Exception\RuntimeException('File image size cannot be determined.');
 		}
 
 		if (isset($options['width']) && $options['width'] != $image_size[0]) {

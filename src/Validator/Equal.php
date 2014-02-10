@@ -1,12 +1,11 @@
 <?php
-namespace gajus\vlad\validator;
+namespace Gajus\Vlad\Validator;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository
- * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
-class Equal extends \gajus\vlad\Validator {
+class Equal extends \Gajus\Vlad\Validator {
 	static protected
 		$default_options = [
 			'to' => null
@@ -22,11 +21,11 @@ class Equal extends \gajus\vlad\Validator {
 		parent::__construct($options);
 
 		if (!isset($options['to'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Missing required option.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Missing required option.');
 		}
 	}
 	
-	protected function validate (\gajus\vlad\Subject $subject) {
+	protected function validate (\Gajus\Vlad\Subject $subject) {
 		$options = $this->getOptions();
 
 		$value = $subject->getValue();

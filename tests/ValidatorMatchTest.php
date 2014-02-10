@@ -1,17 +1,17 @@
 <?php
 class ValidatorMatchTest extends PHPUnit_Framework_TestCase {
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "selector" option cannot be left undefined.
 	 */
 	public function testMissingRequiredParameter () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'match');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Match');
 	}
 
 	public function testMatch () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'match', ['selector' => 'bar']);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Match', ['selector' => 'bar']);
 
 		$assessment = $test->assess(['foo' => 'test', 'bar' => 'test']);
 
@@ -19,8 +19,8 @@ class ValidatorMatchTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testNotMatch () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'match', ['selector' => 'bar']);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Match', ['selector' => 'bar']);
 
 		$assessment = $test->assess(['foo' => 'test', 'bar' => 'baz']);
 

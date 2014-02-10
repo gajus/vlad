@@ -1,12 +1,11 @@
 <?php
-namespace gajus\vlad\validator\file;
+namespace Gajus\Vlad\Validator\File;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository
- * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
-class Selected extends \gajus\vlad\Validator {
+class Selected extends \Gajus\Vlad\Validator {
 	static protected
 		$requires_value = false,
 		$messages = [
@@ -30,7 +29,7 @@ class Selected extends \gajus\vlad\Validator {
 		}
 
 		if (!is_string($tmp_name)) {
-			throw new \gajus\vlad\exception\Runtime_Exception('Validator selector does not reference file input.');
+			throw new \Gajus\Vlad\Exception\RuntimeException('Validator selector does not reference file input.');
 		}
 
 		if ($tmp_name === '') {

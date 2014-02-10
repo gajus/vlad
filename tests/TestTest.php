@@ -3,17 +3,17 @@ class TestTest extends PHPUnit_Framework_TestCase {
 	public function testGetTestScript () {
 		$test = new \gajus\vlad\Test();
 
-		$test->assert('foo', 'length', ['min' => 3]);
-		$test->assert('foo', 'not_empty');
+		$test->assert('foo', 'Length', ['min' => 3]);
+		$test->assert('foo', 'NotEmpty');
 
 		$expected_test_script = [
 			'foo' => [
 				[
-					'name' => 'gajus\vlad\validator\length',
+					'name' => 'Gajus\Vlad\Validator\Length',
 					'options' => ['min' => 3]
 				],
 				[
-					'name' => 'gajus\vlad\validator\not_empty',
+					'name' => 'Gajus\Vlad\Validator\NotEmpty',
 					'options' => ['trim' => true]
 				]
 			]
@@ -23,7 +23,7 @@ class TestTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Validator name must be a string.
 	 */
 	public function testInvalidValidatorNameParameters () {
@@ -33,8 +33,8 @@ class TestTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
-	 * @expectedExceptionMessage Validator not found.
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
+	 * @expectedExceptionMessage Validator not found "Gajus\Vlad\Validator\NotFound".
 	 */
 	public function testNotFoundValidator () {
 		$test = new \gajus\vlad\Test();
@@ -47,7 +47,7 @@ class TestTest extends PHPUnit_Framework_TestCase {
 
 		$test = new \gajus\vlad\Test();
 
-		$test->assert('foo', 'string');
+		$test->assert('foo', 'String');
 
 		$assessment = $test->assess();
 

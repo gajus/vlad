@@ -1,12 +1,11 @@
 <?php
-namespace gajus\vlad\validator;
+namespace Gajus\Vlad\Validator;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository
- * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
-class Regex extends \gajus\vlad\Validator {
+class Regex extends \Gajus\Vlad\Validator {
 	static protected
 		$default_options = [
 			'pattern' => null
@@ -24,11 +23,11 @@ class Regex extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 		
 		if (!isset($options['pattern'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('"pattern" property is required.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"pattern" property is required.');
 		}
 
 		if (@preg_match($options['pattern'], 'test') === false) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Pattern "' . $options['pattern'] . '" failed (' . array_flip(get_defined_constants(true)['pcre'])[preg_last_error()] . ').');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Pattern "' . $options['pattern'] . '" failed (' . array_flip(get_defined_constants(true)['pcre'])[preg_last_error()] . ').');
 		}
 	}
 

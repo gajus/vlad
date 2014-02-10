@@ -4,7 +4,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider populateDictionaryWithValidDictionaryProvider
 	 */
 	public function testPopulateDictionaryWithValidDictionary ($input_dictionary) {
-		$translator = new \gajus\vlad\Translator($input_dictionary);
+		$translator = new \Gajus\Vlad\Translator($input_dictionary);
 
 		$dictionary = $translator->getDictionary();
 
@@ -23,7 +23,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 			[
 				[
 					'validator_error' => [
-						'gajus\vlad\validator\email' => [
+						'Gajus\Vlad\Validator\Email' => [
 							'invalid_syntax' => [
 								'{vlad.subject.name} must be a valid email address.',
 								'The input must be a valid email address.'
@@ -35,7 +35,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 			[
 				[
 					'validator_error_selector' => [
-						'gajus\vlad\validator\email invalid_syntax vladfoo' => 'Oops. Email address does not seem to be valid.'
+						'Gajus\Vlad\Validator\Email invalid_syntax vladfoo' => 'Oops. Email address does not seem to be valid.'
 					]
 				]
 			],
@@ -45,7 +45,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 						'foo' => 'Foo!'
 					],
 					'validator_error' => [
-						'gajus\vlad\validator\email' => [
+						'Gajus\Vlad\Validator\Email' => [
 							'invalid_syntax' => [
 								'{vlad.subject.name} must be a valid email address.',
 								'The input must be a valid email address.'
@@ -53,7 +53,7 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 						]
 					],
 					'validator_error_selector' => [
-						'gajus\vlad\validator\email invalid_syntax vladfoo' => 'Oops. Email address does not seem to be valid.'
+						'Gajus\Vlad\Validator\Email invalid_syntax vladfoo' => 'Oops. Email address does not seem to be valid.'
 					]
 				]
 			],
@@ -61,53 +61,53 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "selector" translation must be a string.
 	 */
 	public function testSelectorNotStringMessage () {
-		new \gajus\vlad\Translator(['selector' => ['foo' => ['bar']]]);
+		new \Gajus\Vlad\Translator(['selector' => ['foo' => ['bar']]]);
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "validator_error_selector" translation query must break into exactly 3 parts (validator, error, selector).
 	 */
 	public function testValidatorSelectorErrorInvalidQuery () {
-		new \gajus\vlad\Translator(['validator_error_selector' => ['gajus\vlad\validator\not_empty missing_selector_name' => 'bar']]);
+		new \Gajus\Vlad\Translator(['validator_error_selector' => ['Gajus\Vlad\Validator\NotEmpty missing_selector_name' => 'bar']]);
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Validator in the "validator_error_selector" dictionary does not exist.
 	 */
 	public function testValidatorSelectorErrorNotExistingValidatorInQuery () {
-		new \gajus\vlad\Translator(['validator_error_selector' => ['gajus\vlad\validator\not_existing_validator invalid_syntax test' => 'bar']]);
+		new \Gajus\Vlad\Translator(['validator_error_selector' => ['Gajus\Vlad\Validator\NotExistingValidator invalid_syntax test' => 'bar']]);
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Error in the "validator_error_selector" translation does not refer to a known error.
 	 */
 	public function testValidatorSelectorErrorNotExistingErrorInQuery () {
-		new \gajus\vlad\Translator(['validator_error_selector' => ['gajus\vlad\validator\not_empty not_existing_error_name test' => 'bar']]);
+		new \Gajus\Vlad\Translator(['validator_error_selector' => ['Gajus\Vlad\Validator\NotEmpty not_existing_error_name test' => 'bar']]);
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "validator_error_selector" error translation must be a string.
 	 */
 	public function testValidatorSelectorErrorNotStringTranslation () {
-		new \gajus\vlad\Translator(['validator_error_selector' => ['gajus\vlad\validator\not_empty empty test' => ['bar']]]);
+		new \Gajus\Vlad\Translator(['validator_error_selector' => ['Gajus\Vlad\Validator\NotEmpty empty test' => ['bar']]]);
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Validator in the "validator_error" dictionary does not exist.
 	 */
 	public function testValidatorErrorValidatorNotFound () {
-		new \gajus\vlad\Translator([
+		new \Gajus\Vlad\Translator([
 				'validator_error' => [
-					'gajus\vlad\validator\not_existing_validator' => [
+					'Gajus\Vlad\Validator\NotExistingValidator' => [
 						'empty' => ['a', 'b']
 					]
 				]
@@ -116,21 +116,21 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "validator_error" entry must include an array of validators, containing an array of errors, containing an array of messages.
 	 */
 	public function testValidatorErrorStringError () {
-		new \gajus\vlad\Translator(['validator_error' => ['gajus\vlad\validator\not_empty' => '???']]);
+		new \Gajus\Vlad\Translator(['validator_error' => ['Gajus\Vlad\Validator\NotEmpty' => '???']]);
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Error in the "validator_error" translation does not refer to a known error.
 	 */
 	public function testValidatorErrorErrorNotFound () {
-		new \gajus\vlad\Translator([
+		new \Gajus\Vlad\Translator([
 				'validator_error' => [
-					'gajus\vlad\validator\not_empty' => [
+					'Gajus\Vlad\Validator\NotEmpty' => [
 						'not_existing_validator' => ['a', 'b']
 					]
 				]
@@ -139,13 +139,13 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "validator_error" message must be an array containing two messages.
 	 */
 	public function testValidatorErrorNotArrayTranslation () {
-		new \gajus\vlad\Translator([
+		new \Gajus\Vlad\Translator([
 				'validator_error' => [
-					'gajus\vlad\validator\not_empty' => [
+					'Gajus\Vlad\Validator\NotEmpty' => [
 						'empty' => 'ab'
 					]
 				]
@@ -154,13 +154,13 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage "validator_error" message array must contain two messages.
 	 */
 	public function testValidatorErrorSuperfluousArrayTranslation () {
-		new \gajus\vlad\Translator([
+		new \Gajus\Vlad\Translator([
 				'validator_error' => [
-					'gajus\vlad\validator\not_empty' => [
+					'Gajus\Vlad\Validator\NotEmpty' => [
 						'empty' => ['a', 'b', 'c']
 					]
 				]
@@ -169,13 +169,13 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Individual "validator_error" messages must be a string.
 	 */
 	public function testStringValidatorErrorTranslation () {
-		new \gajus\vlad\Translator([
+		new \Gajus\Vlad\Translator([
 				'validator_error' => [
-					'gajus\vlad\validator\not_empty' => [
+					'Gajus\Vlad\Validator\NotEmpty' => [
 						'empty' => [null, null]
 					]
 				]
@@ -184,16 +184,16 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetSelectorTranslation () {
-		$translator = new \gajus\vlad\Translator(['selector' => ['foo' => 'Foo!']]);
-		$selector = new \gajus\vlad\Selector('foo');
+		$translator = new \Gajus\Vlad\Translator(['selector' => ['foo' => 'Foo!']]);
+		$selector = new \Gajus\Vlad\Selector('foo');
 		
 		$this->assertSame('Foo!', $translator->getSelectorName($selector));
 	}
 
 	public function testGetErrorMessageWithSelector () {
-		$translator = new \gajus\vlad\Translator([
+		$translator = new \Gajus\Vlad\Translator([
 			'validator_error' => [
-				'gajus\vlad\validator\email' => [
+				'Gajus\Vlad\Validator\Email' => [
 					'invalid_syntax' => [
 						'{vlad.subject.name} must be a valid email address.',
 						'The input must be a valid email address.'
@@ -202,22 +202,24 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 			]
 		]);
 
-		$test = new \gajus\vlad\Test($translator);
-		$test->assert('foo', 'email');
+		$test = new \Gajus\Vlad\Test($translator);
+		$test->assert('foo', 'Email');
 
 		$assessment = $test->assess(['foo' => 'invalid_email']);
+
+		#var_dump($assessment[0]->getValidator()); exit;
 
 		$this->assertSame(['Foo must be a valid email address.', 'The input must be a valid email address.'], $assessment[0]->getMessage());
 	}
 
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Unknown variable in error message.
 	 */
 	public function testUnknownVariableInErrorMessage () {
-		$translator = new \gajus\vlad\Translator([
+		$translator = new \Gajus\Vlad\Translator([
 			'validator_error' => [
-				'gajus\vlad\validator\email' => [
+				'Gajus\Vlad\Validator\Email' => [
 					'invalid_syntax' => [
 						'{vlad.subject.unknown_variable} must be a valid email address.',
 						'The input must be a valid email address.'
@@ -226,9 +228,11 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
 			]
 		]);
 
-		$test = new \gajus\vlad\Test($translator);
-		$test->assert('foo', 'email');
+		$test = new \Gajus\Vlad\Test($translator);
+		$test->assert('foo', 'Email');
 
 		$assessment = $test->assess(['foo' => 'invalid_email']);
+
+
 	}
 }

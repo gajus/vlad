@@ -1,9 +1,8 @@
 <?php
-namespace gajus\vlad\validator;
+namespace Gajus\Vlad\Validator;
 
 /**
  * @link https://github.com/gajus/vlad for the canonical source repository
- * @copyright Copyright (c) 2013-2014, Anuary (http://anuary.com/)
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class String extends \gajus\vlad\Validator {
@@ -24,7 +23,7 @@ class String extends \gajus\vlad\Validator {
 		$options = $this->getOptions();
 
 		if (!is_bool($options['strict'])) {
-			throw new \gajus\vlad\exception\Invalid_Argument_Exception('Boolean property assigned non-boolean value.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Boolean property assigned non-boolean value.');
 		}
 	}
 	

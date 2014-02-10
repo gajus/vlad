@@ -1,17 +1,17 @@
 <?php
 class ValidatorEqualTest extends PHPUnit_Framework_TestCase {
 	/**
-	 * @expectedException gajus\vlad\exception\Invalid_Argument_Exception
+	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Missing required option.
 	 */
 	public function testMissingRequiredParameter () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'equal');
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Equal');
 	}
 
 	public function testEqual () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'equal', ['to' => 'test']);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Equal', ['to' => 'test']);
 
 		$assessment = $test->assess(['foo' => 'test']);
 
@@ -19,8 +19,8 @@ class ValidatorEqualTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testNotEqual () {
-		$test = new \gajus\vlad\Test();
-		$test->assert('foo', 'equal', ['to' => 'test']);
+		$test = new \Gajus\Vlad\Test();
+		$test->assert('foo', 'Equal', ['to' => 'test']);
 
 		$assessment = $test->assess(['foo' => 'not test']);
 
