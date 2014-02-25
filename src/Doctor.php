@@ -20,13 +20,16 @@ class Doctor {
 	}
 	
 	/**
-	 * @param array $test_script
 	 * @return gajus\vlad\Test
 	 */
-	public function test (array $test_script) {
-		$test = new Test($this->translator);
+	public function assert ($selector, $validator) {
+		$test = new Test ($this->translator);
 
-		$selectors = [];
+		$test->assert($selector, $validator);
+
+		return $test;
+
+		/*$selectors = [];
 
 		foreach ($test_script as $routine) {
 			if (!is_array($routine[0])) {
@@ -58,6 +61,6 @@ class Doctor {
 			}
 		}
 
-		return $test;
+		return $test;*/
 	}
 }

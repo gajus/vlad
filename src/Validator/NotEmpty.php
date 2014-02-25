@@ -7,7 +7,6 @@ namespace Gajus\Vlad\Validator;
  */
 class NotEmpty extends \Gajus\Vlad\Validator {
 	static protected
-		$requires_value = false,
 		$default_options = [
 			// Trim string values
 			'trim' => true,
@@ -29,14 +28,8 @@ class NotEmpty extends \Gajus\Vlad\Validator {
 		}
 	}
 	
-	protected function validate (\Gajus\Vlad\Subject $subject) {
-		$value = $subject->getValue();
-
+	public function validate ($value) {
 		$options = $this->getOptions();
-
-		if ($value === '0') {
-			return;
-		}
 
 		if (empty($value) || $options['trim'] && is_string($value) && !strlen(trim($value))) {
 			return 'empty';
