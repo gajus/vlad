@@ -2,7 +2,6 @@
 /**
  * Build the default translation file (./i18l/en.php) to reflect all of the existing errors.
  */
-
 require __DIR__ . '/../tests/bootstrap.php';
 
 $validator_classes = array_filter(get_declared_classes(), function ($e) {
