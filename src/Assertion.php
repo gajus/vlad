@@ -25,14 +25,18 @@ class Assertion {
      * @param array $validator_options
      * @param array $condition_options
      */
-    public function is ($validator_name, array $validator_options = [], array $condition_options = []) {
+    public function is ($validator_name, array $validator_options = null, array $condition_options = []) {
+        if ($validator_options === null) {
+            $validator_options = [];
+        }
+
         if (!is_string($validator_name)) {
             throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator name must be a string.');
         }
 
-        #if (strpos($validator_name, '\\') === false || strpos($validator_name, 'File\\') === 0 || strpos($validator_name, 'CreditCard\\') === 0) {
+        if (strpos($validator_name, '\\') === false) {
             $validator_name = 'Gajus\Vlad\Validator\\' . $validator_name;
-        #}
+        }
         
         if (!class_exists($validator_name)) {
             throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator not found.');

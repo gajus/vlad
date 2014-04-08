@@ -7,10 +7,11 @@ namespace Gajus\Vlad;
  */
 class Translator {
 	private
+		$validator_messages = [],
 		$input_names = [];
 
 	public function translateMessage (\Gajus\Vlad\Validator $validator, \Gajus\Vlad\Selector $selector) {
-		$message = $validator::getMessage();
+		$message = $this->getValidatorMessage(get_class($validator));
 
 		$message = preg_replace_callback('/\{([a-z_\.]+)}/i', function ($e) use ($validator, $selector) {
 			$path = explode('.', $e[1]);
@@ -31,6 +32,32 @@ class Translator {
 		}, $message);
 
 		return $message;
+	}
+
+	public function setValidatorMessage ($validator_name, $message) {
+		if (!is_string($validator_name)) {
+            throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator name must be a string.');
+        }
+
+        if (strpos($validator_name, '\\') === false) {
+            $validator_name = 'Gajus\Vlad\Validator\\' . $validator_name;
+        }
+        
+        if (!class_exists($validator_name)) {
+            throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator not found.');
+        } else if (!is_subclass_of($validator_name, 'Gajus\Vlad\Validator')) {
+            throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator must extend Gajus\Vlad\Validator.');
+        }
+
+        $this->validator_messages[$validator_name] = $message;
+	}
+
+	public function getValidatorMessage ($validator_name) {
+		if (isset($this->validator_messages[$validator_name])) {
+			return $this->validator_messages[$validator_name];
+		}
+
+		return $validator_name::getMessage();
 	}
 
 	/**

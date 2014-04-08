@@ -55,10 +55,10 @@ class Test {
 
             if ($assertion = $test['assertion']->assess($input)) {
                 if (isset($assertion['options']['message'])) {
-                    return $assertion['options']['message'];
+                    $errors[$selector->getName()] = $assertion['options']['message'];
+                } else {
+                    $errors[$selector->getName()] = $this->translator->translateMessage($assertion['validator'], $selector);
                 }
-
-                $errors[$selector->getName()] = $this->translator->translateMessage($assertion['validator'], $selector);
             }
         }
 
