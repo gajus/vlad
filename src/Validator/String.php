@@ -5,16 +5,13 @@ namespace Gajus\Vlad\Validator;
  * @link https://github.com/gajus/vlad for the canonical source repository
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
-class String extends \gajus\vlad\Validator {
+class String extends \Gajus\Vlad\Validator {
 	static protected
 		$default_options = [
 			'strict' => false
 		],
 		$messages = [
-			'not_string' => [
-				'{vlad.subject.name} is not a string.',
-				'The input is not a string.'
-			]
+			'not_string' => '{subject.name} is not a string.'
 		];
 
 	public function __construct (array $options = []) {
@@ -27,10 +24,8 @@ class String extends \gajus\vlad\Validator {
 		}
 	}
 	
-	protected function validate (\gajus\vlad\Subject $subject) {
+	public function assess ($value) {
 		$options = $this->getOptions();
-
-		$value = $subject->getValue();
 
 		if (!$options['strict']) {
 			if (is_numeric($value)) {

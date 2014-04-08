@@ -54,4 +54,26 @@ abstract class Validator {
 	static public function getMessages () {
 		return static::$messages;
 	}
+
+	public function assess (Subject $subject) {
+		if (static::$requires_value && !$subject->isFound()) {
+			throw new \Gajus\Vlad\Exception\RuntimeException('Validator cannot be used with undefined input.');
+		}
+
+		$error = $this->validate($subject);
+
+		if (is_string($error)) {
+			return new \Gajus\Vlad\Error($this, $subject, $error, static::getMessage($error));
+		} else if (is_null($error)) {
+			return;
+		}
+
+		throw new \Gajus\Vlad\Exception\LogicException('Invalid validator response.');
+	}
+	
+	/**
+	 * @param gajus\vlad\Subject $subject
+	 * @return string|null
+	 */
+	abstract protected function validate (Subject $subject);
 }

@@ -2,113 +2,58 @@
 namespace Gajus\Vlad;
 
 /**
- *
  * @link https://github.com/gajus/vlad for the canonical source repository
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Test {
-	private
-		/**
-		 * @var Translator
-		 */
-		$translator,
-		/**
-		 * @see Test::assert()
-		 * @var array
-		 */
-		$script = [];
+    private
+        $translator,
+        $test = [];
 
-	/**
-	 * @param Translator $translator
-	 */
-	final public function __construct (Translator $translator = null) {
-		$this->translator = $translator === null ? new Translator(): $translator;
-	}
+    /**
+     * @param Gajus\Vlad\Translator $translator
+     */
+    public function __construct (\Gajus\Vlad\Translator $translator = null) {
+        if ($translator) {
+            $this->translator = $translator;
+        } else {
+            $this->translator = new \Gajus\Vlad\Translator;
+        }
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getScript () {
-		$script = [];
+    /**
+     * Add an assertion to the test.
+     *
+     * @param string $selector
+     * @return Gajus\Vlad\Assertion
+     */
+    public function assert ($selector) {
+        $assertion = new \Gajus\Vlad\Assertion($this, new \Gajus\Vlad\Selector($selector));
 
-		foreach ($this->script as $selector => $validators) {
-			foreach ($validators as $validator) {
-				if (!isset($script[$selector])) {
-					$script[$selector] = [];
-				}
+        $this->test[] = [
+            'assertion' => $assertion
+        ];
 
-				$script[$selector][] = [
-					'name' => get_class($validator),
-					'options' => $validator->getOptions()
-				];
-			}
-		}
+        return $assertion;
+    }
 
-		return $script;
-	}
+    /**
+     * @param Gajus\Vlad\Input $input
+     * @return array Errors.
+     */
+    public function assess (\Gajus\Vlad\Input $input) {
+        $errors = [];
 
-	/**
-	 * 
-	 * @param string $selector
-	 * @param string $validator_name
-	 * @param array $options
-	 * @return Test
-	 */
-	public function assert ($selector, $validator_name, array $options = []) {
-		if (!is_string($validator_name)) {
-			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator name must be a string.');
-		}
+        foreach ($this->test as $test) {
+            if ($error = $test['assertion']->assess($input)) {
 
-		if (strpos($validator_name, '\\') === false || strpos($validator_name, 'File\\') === 0 || strpos($validator_name, 'CreditCard\\') === 0) {
-			$validator_name = 'Gajus\Vlad\Validator\\' . $validator_name;
-		}
-		
-		if (!class_exists($validator_name)) {
-			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator not found "' . $validator_name . '".');
-		} else if (!is_subclass_of($validator_name, 'Gajus\Vlad\Validator')) {
-			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Validator must extend Gajus\Vlad\Validator.');
-		}
+                
+                die(var_dump( $error ));
 
-		if (!isset($this->script[$selector])) {
-			$this->script[$selector] = [];
-		}
+                //$errors[] = $this->translator->translateMessage($error);
+            }
+        }
 
-		$this->script[$selector][] = new $validator_name ($options);
-		
-		return $this;
-	}
-
-	/**
-	 * Assess the test script against user input.
-	 *
-	 * @param array $input The input to run the test against. If null, defaults to $_POST.
-	 * @return array Assessments that resulted in an error.
-	 */
-	public function assess (array $input = null) {
-		if ($input === null) {
-			$input = $_POST;
-		}
-
-		$input = new Input($input, $this->translator);
-		
-		$result = [];
-
-		foreach ($this->script as $selector => $validators) {
-			$subject = $input->getSubject($selector);
-
-			foreach ($validators as $validator) {
-				$error = $validator->assess($subject);
-
-				if ($error) {
-					$error->translate($this->translator);
-
-					$result[] = $error;
-
-					break;
-				}
-			}
-		}
-
-		return $result;
-	}
+        return $errors;
+    }
 }

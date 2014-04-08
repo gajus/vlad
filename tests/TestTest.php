@@ -1,56 +1,62 @@
 <?php
 class TestTest extends PHPUnit_Framework_TestCase {
-	public function testGetTestScript () {
-		$test = new \gajus\vlad\Test();
+    public function testBuildInput () {
+        $_POST = [
+            'foo' => 'bar',
+            'baz' => new \stdClass
+        ];
 
-		$test->assert('foo', 'Length', ['min' => 3]);
-		$test->assert('foo', 'NotEmpty');
+        return new \Gajus\Vlad\Input($_POST);
+    }
 
-		$expected_test_script = [
-			'foo' => [
-				[
-					'name' => 'Gajus\Vlad\Validator\Length',
-					'options' => ['min' => 3]
-				],
-				[
-					'name' => 'Gajus\Vlad\Validator\NotEmpty',
-					'options' => ['trim' => true]
-				]
-			]
-		];
+    public function testBuildTest () {
+        return new \Gajus\Vlad\Test();
+    }
 
-		$this->assertSame($expected_test_script, $test->getScript());
-	}
+    /**
+     * @depends testBuildInput
+     * @depends testBuildTest
+     */
+    public function testAssessEmptyAssertion (\Gajus\Vlad\Input $input, \Gajus\Vlad\Test $test) {
+        $this->assertCount(0, $test->assess($input));
+    }
 
-	/**
-	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
-	 * @expectedExceptionMessage Validator name must be a string.
-	 */
-	public function testInvalidValidatorNameParameters () {
-		$test = new \gajus\vlad\Test();
+    /**
+     * @depends testBuildTest
+     */
+    public function testBuildAssertion (\Gajus\Vlad\Test $test) {
+        $assertion = $test->assert('foo');
 
-		$test->assert('foo', []);
-	}
+        $this->assertInstanceOf('Gajus\Vlad\Assertion', $assertion);
 
-	/**
-	 * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
-	 * @expectedExceptionMessage Validator not found "Gajus\Vlad\Validator\NotFound".
-	 */
-	public function testNotFoundValidator () {
-		$test = new \gajus\vlad\Test();
+        return $assertion;
+    }
 
-		$test->assert('foo', 'NotFound');
-	}
+    /**
+     * @depends testBuildInput
+     * @depends testBuildTest
+     */
+    public function testAssessPassingAssertion (\Gajus\Vlad\Input $input, \Gajus\Vlad\Test $test) {
+        $test
+            ->assert('foo')
+            ->is('String');
 
-	public function testUsingImplicitInput () {
-		$_POST['foo'] = 'test';
+        $this->assertCount(0, $test->assess($input));
+    }
 
-		$test = new \gajus\vlad\Test();
+    /**
+     * @depends testBuildInput
+     * @depends testBuildTest
+     */
+    public function testAssessFailingAssertion (\Gajus\Vlad\Input $input, \Gajus\Vlad\Test $test) {
+        $test
+            ->assert('baz')
+            ->is('String');
 
-		$test->assert('foo', 'String');
+        $assessment = $test->assess($input);
 
-		$assessment = $test->assess();
+        $this->assertCount(1, $assessment);
 
-		$this->assertCount(0, $assessment);
-	}
+        die(var_dump($assessment));
+    }
 }

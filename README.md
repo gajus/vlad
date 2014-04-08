@@ -7,26 +7,20 @@ Input validation library.
 
 ## Succint test declaration
 
-Vlad uses *many, many-to-many* array syntax to define selectors and validation rules. Test script is defined using a single array.
-
 ```php
-$test = $vlad->test([
-    [
-        ['foo', 'bar', 'baz'], // Selectors
-        ['not_empty', 'email'] // Validators
-    ],
-    [
-        ['qux'],
-        [
-            'required',
-            ['length', 'max' => 10] // Length Validator with constructor options.
-        ]
-    ],
-    [
-        ['location[coordinates][lat]', 'location[coordinates][lng]'], // Selector can refer to multidimensional values.
-        ['not_empty']
-    ]
-]);
+$input = new \Gajus\Vlad\Input($_POST);
+$test = new \Gajus\Vlad\Test();
+
+$test
+    ->assert('user[first_name]')
+    ->is('NotEmpty')
+    ->is('String');
+
+if ($assessment = $test->assess($input)) {
+    foreach ($assessment as $error) {
+        // 
+    }
+}
 ```
 
 Individual validator options allow to customise the test-case behaviour (e.g. whether Email address MX records are checked).
