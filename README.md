@@ -38,7 +38,7 @@ if ($assessment = $test->assess($_POST)) {
 
 ## Extendable Validation Rules
 
-Vlad has [inbuilt validators](https://github.com/gajus/vlad#inbuilt-validation-rules). It is easy to write custom validators. You can [request new validators](https://github.com/gajus/vlad/issues) to be added to the core package. Validators benefit from the translator interface. Vlad does not encourage inline boolean validation expressions.
+Vlad has [inbuilt validators](https://github.com/gajus/vlad#inbuilt-validation-rules). It is easy to write [custom validators](https://github.com/gajus/vlad#writing-a-custom-validator). You can [request new validators](https://github.com/gajus/vlad/issues) to be added to the core package. Validators benefit from the translator interface. Vlad does not encourage inline boolean validation expressions.
 
 ### Inbuilt Validation Rules
 
