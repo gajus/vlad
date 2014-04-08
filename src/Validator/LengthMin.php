@@ -21,7 +21,7 @@ class LengthMin extends \Gajus\Vlad\Validator {
 			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"length" option is required.');
 		}
 
-		if (isset($options['length']) && !ctype_digit((string) $options['length'])) {
+		if (!ctype_digit((string) $options['length'])) {
 			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"length" option must be a whole number.');
 		}
 	}
