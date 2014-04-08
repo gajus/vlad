@@ -43,7 +43,7 @@ class Translator {
 	 * @param Gajus\Vlad\Selector $selector
 	 * @return string
 	 */
-	private function deriveSelectorName (\Gajus\Vlad\Selector $selector) {
+	static public function deriveSelectorName (\Gajus\Vlad\Selector $selector) {
 		$path = explode('_', implode('_', $selector->getpath()));
 
 		if (count($path) > 1 && $path[count($path) -1] == 'id') {

@@ -57,7 +57,7 @@ Vlad has [inbuilt validators](https://github.com/gajus/vlad#inbuilt-validation-r
 | [In](src/Validator/In.php) | Validate that input value is in the haystack. |
 | [Email](src/Validator/Email.php) | Validate that input value is syntactically valid email address. |
 
-### Writing Custom Validator
+### Writing a Custom Validator
 
 ```php
 <?php
