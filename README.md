@@ -3,11 +3,11 @@
 [![Build Status](https://travis-ci.org/gajus/vlad.png?branch=master)](https://travis-ci.org/gajus/vlad)
 [![Coverage Status](https://coveralls.io/repos/gajus/vlad/badge.png)](https://coveralls.io/r/gajus/vlad)
 
-Input validation library.
+Input validation library promoting succinct syntax with extendable validators and multilingual support.
 
 ## Succint Test Declaration
 
-Test is composed of assertions about input.
+Test is composed of assertions about the input.
 
 ```php
 $test = new \Gajus\Vlad\Test();
@@ -29,8 +29,9 @@ $test
     ->is('LengthMax', ['length' => 20]);
 
 if ($assessment = $test->assess($_POST)) {
+    // Iterate through error messages.
     foreach ($assessment as $error) {
-        // 
+        // [..]
     }
 }
 ```
@@ -48,6 +49,7 @@ Vlad has [inbuilt validators](https://github.com/gajus/vlad#inbuilt-validation-r
 * [RangeMaxInclusive](src/Validator/RangeMaxInclusive.php)
 * [RangeMaxExclusive](src/Validator/RangeMaxExclusive.php)
 * [NotEmpty](src/Validator/NotEmpty.php)
+* [Length](src/Validator/Length.php) – Validate that input has a specific length.
 * [LengthMin](src/Validator/LengthMin.php)
 * [LengthMax](src/Validator/LengthMax.php)
 * [In](src/Validator/In.php)
@@ -84,15 +86,23 @@ class HexColor extends \Gajus\Vlad\Validator {
 
 ## Multilingual
 
-Translator allows to overwrite default error messages, input specific error messages and give input names.
+Translator allows to overwrite default error messages and give input names.
 
-## Documentation
+```php
+```
 
+## Installation
 
+Vlad uses [Composer](https://getcomposer.org/) to install and update:
+
+```
+curl -s http://getcomposer.org/installer | php
+php composer.phar require gajus/vlad
+```
 
 ## Todo
 
-* HEX colour validator.
+* Documentation.
 * Add URL validator. This should consider that URL does not necessarily include protocol and that those that do include, e.g. ftp:// might not necessarily be expected URLs.
 * Improve email validator. Zend validator includes useful additions (MX check, host name validator, etc) https://github.com/zendframework/zf2/blob/master/library/Zend/Validator/EmailAddress.php.
 
@@ -103,6 +113,5 @@ Translator allows to overwrite default error messages, input specific error mess
 * https://github.com/Wixel/GUMP
 * https://github.com/vlucas/valitron
 * https://github.com/Dachande663/PHP-Validation
-* https://github.com/ASoares/PHP-Form-Validation
 * https://github.com/fuelphp/validation
 * https://github.com/smgt/inspector

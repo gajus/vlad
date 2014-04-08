@@ -4,7 +4,7 @@ class LengthMaxTest extends PHPUnit_Framework_TestCase {
      * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
      * @expectedExceptionMessage "length" option must be a whole number.
      */
-    public function testInvalidMinParameter () {
+    public function testInvalidLengthParameter () {
         new \Gajus\Vlad\Validator\LengthMax(['length' => 'test']);
     }
 
