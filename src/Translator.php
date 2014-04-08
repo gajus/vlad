@@ -18,16 +18,14 @@ class Translator {
 
 			if ($path[0] === 'input' && $path[1] === 'name') {
 				return $this->getInputName($selector);
-			}
-
-			/*} else if ($path[0] === 'validator' && $path[1] === 'options') {
+			} else if ($path[0] === 'validator' && $path[1] === 'options') {
 				$options = $validator->getOptions();
 
 				if (isset($path[2]) && isset($options[$path[2]]) && is_scalar($options[$path[2]])) {
 					return $options[$path[2]];
 				}
-			}*/
-
+			}
+			
 			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Unknown variable in error message.');
 		}, $message);
 

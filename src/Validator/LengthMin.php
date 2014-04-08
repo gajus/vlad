@@ -12,7 +12,7 @@ class LengthMin extends \Gajus\Vlad\Validator {
 		$default_options = [
 			'length' => null
 		],
-		$message = '{input.name} must be at most {validator.options.length} characters long.';
+		$message = '{input.name} must be at least {validator.options.length} characters long.';
 
 	public function __construct (array $options = []) {
 		parent::__construct($options);
