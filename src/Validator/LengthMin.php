@@ -8,27 +8,27 @@ namespace Gajus\Vlad\Validator;
 class LengthMin extends \Gajus\Vlad\Validator {
 	static protected
 		$default_options = [
-			'min' => null
+			'length' => null
 		],
-		$message = '{input.name} must be at least {validator.options.min} characters long.';
+		$message = '{input.name} must be at most {validator.options.length} characters long.';
 
 	public function __construct (array $options = []) {
 		parent::__construct($options);
 
 		$options = $this->getOptions();
 
-		if (!isset($options['min'])) {
-			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"min" option is required.');
+		if (!isset($options['length'])) {
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"length" option is required.');
 		}
 
-		if (isset($options['min']) && !ctype_digit((string) $options['min'])) {
-			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"min" option must be a whole number.');
+		if (isset($options['length']) && !ctype_digit((string) $options['length'])) {
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('"length" option must be a whole number.');
 		}
 	}
 	
 	public function assess ($value) {
 		$options = $this->getOptions();
 
-		return mb_strlen($value) >= $options['min'];
+		return mb_strlen($value) >= $options['length'];
 	}
 }

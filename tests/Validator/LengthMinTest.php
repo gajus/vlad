@@ -2,14 +2,14 @@
 class LengthMinTest extends PHPUnit_Framework_TestCase {
     /**
      * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
-     * @expectedExceptionMessage "min" option must be a whole number.
+     * @expectedExceptionMessage "length" option must be a whole number.
      */
     public function testInvalidMinParameter () {
-        new \Gajus\Vlad\Validator\LengthMin(['min' => 'test']);
+        new \Gajus\Vlad\Validator\LengthMin(['length' => 'test']);
     }
 
     public function testTooShort () {
-        $validator = new \Gajus\Vlad\Validator\LengthMin(['min' => 10]);
+        $validator = new \Gajus\Vlad\Validator\LengthMin(['length' => 10]);
         
         $assessment = $validator->assess('bar');
 
@@ -17,7 +17,7 @@ class LengthMinTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testNotTooShort () {
-        $validator = new \Gajus\Vlad\Validator\LengthMin(['min' => 3]);
+        $validator = new \Gajus\Vlad\Validator\LengthMin(['length' => 3]);
         
         $assessment = $validator->assess('bar');
 
