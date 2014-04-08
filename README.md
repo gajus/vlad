@@ -104,7 +104,7 @@ Translator allows to overwrite default error messages and give input names.
 
 ### Input name
 
-In most cases, you do not need to provide input name at all. Vlad will derive English name from the selector, e.g. `foo[bar_tar_id]` will appear as "Foo Bar Tar".
+In most cases, you do not need to provide input name at all. Vlad will derive English name from the selector, e.g. `foo[bar_tar_id]` will come out as "Foo Bar Tar".
 
 You can translate input names.
 
