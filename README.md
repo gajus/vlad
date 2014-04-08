@@ -13,9 +13,20 @@ Test is composed of assertions about input.
 $test = new \Gajus\Vlad\Test();
 
 $test
+    // string $selector_name[, boolean $condition = false]
     ->assert('user[first_name]')
+    // string $validator_name[, array $validator_options = null[, array $condition_options = null]]
     ->is('NotEmpty')
-    ->is('String');
+    ->is('String')
+    ->is('LengthMin', ['length' => 5])
+    ->is('LengthMax', ['length' => 20]);
+
+$test
+    ->assert('user[last_name]')
+    ->is('NotEmpty')
+    ->is('String')
+    ->is('LengthMin', ['length' => 5])
+    ->is('LengthMax', ['length' => 20]);
 
 if ($assessment = $test->assess($_POST)) {
     foreach ($assessment as $error) {
