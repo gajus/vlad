@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/gajus/vlad.png?branch=master)](https://travis-ci.org/gajus/vlad)
 [![Coverage Status](https://coveralls.io/repos/gajus/vlad/badge.png)](https://coveralls.io/r/gajus/vlad)
 
-Input validation library promoting succinct syntax with extendable validators and multilingual support.
+Input validation library, that has inbuilt error messages that are translatable, validators that are easy to extend, and that has easy to understand test declaration syntax.
 
 ## Succint Test Declaration
 
