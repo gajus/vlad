@@ -37,7 +37,7 @@ if ($assessment = $test->assess($_POST)) {
 
 ## Extendable Validation Rules
 
-Vlad has in-built validators. It is easy to write custom validators. You can [request new validators](https://github.com/gajus/vlad/issues) to be added to the core package. Validators benefit from the translator interface. Vlad does not encourage inline boolean validation expressions.
+Vlad has [inbuilt validators](https://github.com/gajus/vlad#inbuilt-validation-rules). It is easy to write custom validators. You can [request new validators](https://github.com/gajus/vlad/issues) to be added to the core package. Validators benefit from the translator interface. Vlad does not encourage inline boolean validation expressions.
 
 ### Inbuilt Validation Rules
 
@@ -52,6 +52,35 @@ Vlad has in-built validators. It is easy to write custom validators. You can [re
 * [LengthMax](src/Validator/LengthMax.php)
 * [In](src/Validator/In.php)
 * [Email](src/Validator/Email.php)
+
+### Writing Custom Validator
+
+```php
+<?php
+namespace Foo\Bar;
+
+// Defining custom validators requires to extend \Gajus\Vlad\Validator.
+// The custom Validator must be namespaced.
+
+class HexColor extends \Gajus\Vlad\Validator {
+    static protected
+        // Each option must be predefined with default value.
+        $default_options = [
+            'trim' => false
+        ],
+        $message = '{input.name} is not a hexadecimal number.';
+    
+    public function assess ($value) {
+        $options = $this->getOptions();
+
+        if ($options['trim']) {
+            $value = ltrim($value, '#');
+        }
+
+        return ctype_xdigit($value) && (strlen($value) == 6 || strlen($value) == 3);
+    }
+}
+```
 
 ## Multilingual
 
