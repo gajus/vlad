@@ -102,6 +102,8 @@ $assessment = $test->assess(['foo_bar' => 'fff']);
 
 Translator allows to overwrite default error messages and give input names.
 
+In addition to the provided (below) use cases of the translator, you can extend `Gajus\Vlad\Translator` with your own functionality (e.g. importing translations from a file or database).
+
 ### Input name
 
 In most cases, you do not need to provide input name at all. Vlad will derive English name from the selector, e.g. `foo[bar_tar_id]` will come out as "Foo Bar Tar".
