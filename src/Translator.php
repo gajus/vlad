@@ -6,6 +6,9 @@ namespace Gajus\Vlad;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Translator {
+	private
+		$input_names = [];
+
 	public function translateMessage (\Gajus\Vlad\Validator $validator, \Gajus\Vlad\Selector $selector) {
 		$message = $validator::getMessage();
 
@@ -13,7 +16,7 @@ class Translator {
 			$path = explode('.', $e[1]);
 
 			if ($path[0] === 'input' && $path[1] === 'name') {
-				return $this->translateSelector($selector);
+				return $this->getInputName($selector);
 			}
 
 			/*} else if ($path[0] === 'validator' && $path[1] === 'options') {
@@ -30,7 +33,21 @@ class Translator {
 		return $message;
 	}
 
-	public function translateSelector (\Gajus\Vlad\Selector $selector) {
+	/**
+	 * @param string $selector
+	 * @param string $name
+	 */
+	public function setInputName ($selector, $name) {
+		$this->input_names[$selector] = $name;
+	}
+
+	public function getInputName (\Gajus\Vlad\Selector $selector) {
+		$input_name = $selector->getName();
+
+		if (isset($this->input_names[$input_name])) {
+			return $this->input_names[$input_name];
+		}
+
 		return $this->deriveSelectorName($selector);
 	}
 

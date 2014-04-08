@@ -18,4 +18,13 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
             ['foo[bar_tar]', 'Foo Bar Tar']
         ];
     }
+
+    public function testTranslateInputName () {
+        $selector = new \Gajus\Vlad\Selector('foo_bar');
+
+        $translator = new \Gajus\Vlad\Translator();
+        $translator->setInputName($selector->getName(), 'Foo Bar!');
+
+        $this->assertSame('Foo Bar!', $translator->getInputName($selector));
+    }
 }
