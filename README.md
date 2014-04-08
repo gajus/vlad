@@ -122,7 +122,7 @@ $assessment = $test->assess([]);
 
 The above will produce the following error message:
 
-> Foo Tar is empty.
+> Bar Tar is empty.
 
 ### Validator Message
 
