@@ -30,17 +30,17 @@ Vlad has in-built validators. It is easy to write custom validators. You can [re
 
 ### Inbuilt Validation Rules
 
-* [String](tests/Validator/StringTest.php)
-* Regex
-* RangeMinInclusive
-* RangeMinExclusive
-* RangeMaxInclusive
-* RangeMaxExclusive
-* NotEmpty
-* LengthMin
-* LengthMax
-* In
-* Email
+* [String](src/Validator/String.php)
+* [Regex](src/Validator/Regex.php)
+* [RangeMinInclusive](src/Validator/RangeMinInclusive.php)
+* [RangeMinExclusive](src/Validator/RangeMinExclusive.php)
+* [RangeMaxInclusive](src/Validator/RangeMaxInclusive.php)
+* [RangeMaxExclusive](src/Validator/RangeMaxExclusive.php)
+* [NotEmpty](src/Validator/NotEmpty.php)
+* [LengthMin](src/Validator/LengthMin.php)
+* [LengthMax](src/Validator/LengthMax.php)
+* [In](src/Validator/In.php)
+* [Email](src/Validator/Email.php)
 
 ## Multilingual
 
