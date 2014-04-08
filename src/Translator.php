@@ -6,24 +6,32 @@ namespace Gajus\Vlad;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class Translator {
-	public function translateMessage ($message) {
-		$message = preg_replace_callback('/\{vlad\.([a-z_\.]+)}/i', function ($e) {
+	public function translateMessage (\Gajus\Vlad\Validator $validator, \Gajus\Vlad\Selector $selector) {
+		$message = $validator::getMessage();
+
+		$message = preg_replace_callback('/\{([a-z_\.]+)}/i', function ($e) use ($validator, $selector) {
 			$path = explode('.', $e[1]);
 
-			if ($path[0] === 'subject' && $path[1] === 'name') {
-				return $subject->getName();
-			} else if ($path[0] === 'validator' && $path[1] === 'options') {
+			if ($path[0] === 'input' && $path[1] === 'name') {
+				return $this->translateSelector($selector);
+			}
+
+			/*} else if ($path[0] === 'validator' && $path[1] === 'options') {
 				$options = $validator->getOptions();
 
 				if (isset($path[2]) && isset($options[$path[2]]) && is_scalar($options[$path[2]])) {
 					return $options[$path[2]];
 				}
-			}
+			}*/
 
 			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Unknown variable in error message.');
 		}, $message);
 
 		die(var_dump( $message ));
+	}
+
+	public function translateSelector (\Gajus\Vlad\Selector $selector) {
+		return $this->deriveSelectorName($selector);
 	}
 
 	/**

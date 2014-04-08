@@ -48,9 +48,13 @@ class Assertion {
         return $this;
     }
 
+    public function getSelector () {
+        return $this->selector;
+    }
+
     /**
      * @param Gajus\Vlad\Input $input
-     * @return null|string Error message.
+     * @return null|array Failed assertion.
      */
     public function assess (\Gajus\Vlad\Input $input) {
         $value = $input->getValue($this->selector);
@@ -59,15 +63,7 @@ class Assertion {
             $assessment = $assertion['validator']->assess($value);
 
             if ($assessment) {
-                if (isset($assertion['options']['message'])) {
-                    return $assertion['options']['message'];
-                }
-
-                $message = $assertion['validator']::getMessage($assessment);
-
-                die(var_dump($message));
-
-                return $message;
+                return $assertion;
             }
         }
     }

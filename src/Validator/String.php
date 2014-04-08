@@ -10,9 +10,7 @@ class String extends \Gajus\Vlad\Validator {
 		$default_options = [
 			'strict' => false
 		],
-		$messages = [
-			'not_string' => '{subject.name} is not a string.'
-		];
+		$message = '{input.name} is not a string.';
 
 	public function __construct (array $options = []) {
 		parent::__construct($options);
@@ -34,7 +32,9 @@ class String extends \Gajus\Vlad\Validator {
 		}
 
 		if (!is_string($value)) {
-			return 'not_string';
+			return false;
 		}
+
+		return true;
 	}
 }

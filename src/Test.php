@@ -45,12 +45,18 @@ class Test {
         $errors = [];
 
         foreach ($this->test as $test) {
-            if ($error = $test['assertion']->assess($input)) {
+            $selector = $test['assertion']->getSelector();
 
-                
-                die(var_dump( $error ));
+            if (isset($errors[$selector->getName()])) {
+                continue;
+            }
 
-                //$errors[] = $this->translator->translateMessage($error);
+            if ($assertion = $test['assertion']->assess($input)) {
+                if (isset($assertion['options']['message'])) {
+                    return $assertion['options']['message'];
+                }
+
+                $errors[$selector->getName()] = $this->translator->translateMessage($assertion['validator'], $selector);
             }
         }
 

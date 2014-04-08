@@ -12,7 +12,7 @@ abstract class Validator {
 	static protected
 		$requires_value = true,
 		$default_options = [],
-		$messages = [];
+		$message;
 
 	/**
 	 * @throws BadMethodCallException if either of the $options argument properties do not already exist in the instance $options array.
@@ -38,20 +38,13 @@ abstract class Validator {
 	 * @param string $error_name
 	 * @return string
 	 */
-	static public function getMessage ($error_name) {
-		if (!isset(static::$messages[$error_name])) {
-			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Undefined error message.');
-		}
-		
-		return static::$messages[$error_name];
+	static public function getMessage () {
+		return static::$message;
 	}
 
 	/**
-	 * Return all possible error messages. This is used by the Translator to test the translator input array.
-	 *
-	 * @return array
+	 * @param mixed $value
+	 * @return boolean
 	 */
-	static public function getMessages () {
-		return static::$messages;
-	}
+	abstract public function assess ($value);
 }
