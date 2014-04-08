@@ -5,7 +5,7 @@
 
 Input validation library.
 
-## Succint test declaration
+## Succint Test Declaration
 
 Test is composed of assertions about input.
 
@@ -24,27 +24,25 @@ if ($assessment = $test->assess($_POST)) {
 }
 ```
 
-## Extendable validation rules
+## Extendable Validation Rules
 
 Vlad has in-built validators. It is easy to write custom validators. You can [request new validators](https://github.com/gajus/vlad/issues) to be added to the core package. Validators benefit from the translator interface. Vlad does not encourage inline boolean validation expressions.
 
-## Multilingual
+### Inbuilt Validation Rules
 
-Produced errors always include two sets of messages: public and anonymous. The former is used to display error messages in error summary, while the latter – inline (e.g. "Name is left empty.", "Input is left empty.").
+## Multilingual
 
 Translator allows to overwrite default error messages, input specific error messages and give input names.
 
 ## Documentation
 
-[Documentation](http://anuary.com/vlad/) and [Usage Examples](http://anuary.com/vlad/) are written using code examples with inline documentation.
+
 
 ## Todo
 
 * HEX colour validator.
-* Allow adding custom error message to the Result for input or non-input (e.g. duplicate value). This error would then be passed to the hasErrors array.
 * Add URL validator. This should consider that URL does not necessarily include protocol and that those that do include, e.g. ftp:// might not necessarily be expected URLs.
 * Improve email validator. Zend validator includes useful additions (MX check, host name validator, etc) https://github.com/zendframework/zf2/blob/master/library/Zend/Validator/EmailAddress.php.
-* http://www.php-fig.org/
 
 ## Alternatives
 
