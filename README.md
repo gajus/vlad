@@ -30,6 +30,18 @@ Vlad has in-built validators. It is easy to write custom validators. You can [re
 
 ### Inbuilt Validation Rules
 
+* [String](tests/Validator/StringTest.php)
+* Regex
+* RangeMinInclusive
+* RangeMinExclusive
+* RangeMaxInclusive
+* RangeMaxExclusive
+* NotEmpty
+* LengthMin
+* LengthMax
+* In
+* Email
+
 ## Multilingual
 
 Translator allows to overwrite default error messages, input specific error messages and give input names.
