@@ -42,18 +42,20 @@ Vlad has [inbuilt validators](https://github.com/gajus/vlad#inbuilt-validation-r
 
 ### Inbuilt Validation Rules
 
-* [String](src/Validator/String.php)
-* [Regex](src/Validator/Regex.php)
-* [RangeMinInclusive](src/Validator/RangeMinInclusive.php)
-* [RangeMinExclusive](src/Validator/RangeMinExclusive.php)
-* [RangeMaxInclusive](src/Validator/RangeMaxInclusive.php)
-* [RangeMaxExclusive](src/Validator/RangeMaxExclusive.php)
-* [NotEmpty](src/Validator/NotEmpty.php)
-* [Length](src/Validator/Length.php) – Validate that input has a specific length.
-* [LengthMin](src/Validator/LengthMin.php)
-* [LengthMax](src/Validator/LengthMax.php)
-* [In](src/Validator/In.php)
-* [Email](src/Validator/Email.php)
+| Validator | Description |
+| --- | --- |
+| [String](src/Validator/String.php) | Validate that input is a string. |
+| [Regex](src/Validator/Regex.php) | Validate that input is matched using a regular expression. |
+| [RangeMinInclusive](src/Validator/RangeMinInclusive.php)| Validate that a numeric input is at least of the given size (inclusive). |
+| [RangeMinExclusive](src/Validator/RangeMinExclusive.php)| Validate that a numeric input is at least of the given size (exclusive). |
+| [RangeMaxInclusive](src/Validator/RangeMaxInclusive.php)| Validate that a numeric input is at most of the given size (inclusive). |
+| [RangeMaxExclusive](src/Validator/RangeMaxExclusive.php)| Validate that a numeric input is at most of the given size (exclusive). |
+| [NotEmpty](src/Validator/NotEmpty.php) | Validate that input value is not empty. |
+| [Length](src/Validator/Length.php) | Validate that input string representation is of a specific length. |
+| [LengthMin](src/Validator/LengthMin.php) | Validate that input string representation is not shorter than the specified length. |
+| [LengthMax](src/Validator/LengthMax.php) | Validate that input string representation is not longer than the specified length. |
+| [In](src/Validator/In.php) | Validate that input value is in the haystack. |
+| [Email](src/Validator/Email.php) | Validate that input value is syntactically valid email address. |
 
 ### Writing Custom Validator
 

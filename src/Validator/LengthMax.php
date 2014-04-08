@@ -2,6 +2,8 @@
 namespace Gajus\Vlad\Validator;
 
 /**
+ * Validate that input string representation is not longer than the specified length.
+ * 
  * @link https://github.com/gajus/vlad for the canonical source repository
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
