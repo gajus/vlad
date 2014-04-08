@@ -110,7 +110,7 @@ $assessment = $test->assess([]);
 
 The above will produce the following error message:
 
->>> Foo Tar is empty.
+> Foo Tar is empty.
 
 ### Validator Message
 
@@ -128,7 +128,7 @@ $test
 $assessment = $test->assess([]);
 ```
 
->>> Foo Bar cannot be left empty.
+> Foo Bar cannot be left empty.
 
 ### Assertion Error Message
 
