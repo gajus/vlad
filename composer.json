@@ -1,7 +1,7 @@
 {
 	"name": "gajus/vlad",
 	"version": "0.2.0",
-	"description": "Input validation library.",
+	"description": "Input validation library promoting succinct syntax with extendable validators and multilingual support.",
 	"keywords": ["input", "form", "validation"],
 	"homepage": "https://github.com/gajus/vlad",
 	"type": "library",
