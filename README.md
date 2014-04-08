@@ -90,7 +90,55 @@ class HexColor extends \Gajus\Vlad\Validator {
 
 Translator allows to overwrite default error messages and give input names.
 
+### Input name
+
+In most cases, you do not need to provide input name at all. Vlad will derive English name from the selector, e.g. `foo[bar_tar_id]` will appear as "Foo Bar Tar".
+
+You can translate input names.
+
 ```php
+$translator = new \Gajus\Vlad\Translator();
+$translator->setInputName('foo[bar_tar_id]', 'Bar Tar');
+
+$test = new \Gajus\Vlad\Test();
+$test
+    ->assert('foo_bar')
+    ->is('NotEmpty');
+
+$assessment = $test->assess([]);
+```
+
+The above will produce the following error message:
+
+>>> Foo Tar is empty.
+
+### Validator Message
+
+Validators have inbuilt English error messages. You can overwrite them like this:
+
+```php
+$translator = new \Gajus\Vlad\Translator();
+$translator->setValidatorMessage('NotEmpty', '{input.name} cannot be left empty.');
+
+$test = new \Gajus\Vlad\Test($translator);
+$test
+    ->assert('foo_bar')
+    ->is('NotEmpty');
+
+$assessment = $test->assess([]);
+```
+
+>>> Foo Bar cannot be left empty.
+
+### Assertion Error Message
+
+Individual assertions can overwrite the error messages.
+
+```php
+$test = new \Gajus\Vlad\Test();
+$test
+    ->assert('foo_bar')
+    ->is('NotEmpty', null, ['message' => 'You must provide Foo Bar value.']);
 ```
 
 ## Installation
