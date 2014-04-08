@@ -61,12 +61,11 @@ Vlad does not encourage inline boolean validation expressions.
 
 ### Writing a Custom Validator
 
+Each validator is a class that extends `Gajus\Vlad\Validator`. Validators that are not part of the Vlad package must be under a namespace.
+
 ```php
 <?php
 namespace Foo\Bar;
-
-// Defining custom validators requires to extend \Gajus\Vlad\Validator.
-// The custom Validator must be namespaced.
 
 class HexColor extends \Gajus\Vlad\Validator {
     static protected
@@ -86,6 +85,17 @@ class HexColor extends \Gajus\Vlad\Validator {
         return ctype_xdigit($value) && (strlen($value) == 6 || strlen($value) == 3);
     }
 }
+```
+
+In the test declaration, custom validator is referred to using the full (namespaced) class name.
+
+```php
+$test = new \Gajus\Vlad\Test();
+$test
+    ->assert('foo_bar')
+    ->is('Foo\Bar\HexColor');
+
+$assessment = $test->assess(['foo_bar' => 'fff']);
 ```
 
 ## Multilingual
