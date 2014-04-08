@@ -30,7 +30,7 @@ class Integer extends \Gajus\Vlad\Validator {
 		if ($options['strict']) {
 			return is_int($value);
 		} else {
-			return ctype_digit((string) $value);
+			return ctype_digit(ltrim((string) $value, '-'));
 		}
 	}
 }

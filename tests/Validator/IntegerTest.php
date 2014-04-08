@@ -42,10 +42,10 @@ class IntegerTest extends PHPUnit_Framework_TestCase {
 
     public function notStrictNotIntegerProvider () {
         return [
-            [10.0],
-            [-10.0],
-            ['10.0'],
-            ['-10.0']
+            [10.01],
+            [-10.01],
+            ['10.01'],
+            ['-10.01']
         ];
     }
 
@@ -84,7 +84,8 @@ class IntegerTest extends PHPUnit_Framework_TestCase {
     public function strictNotIntegerProvider () {
         return [
             ['100'],
-            [100.0]
+            ['0100'],
+            [100.01]
         ];
     }
 }
