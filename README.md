@@ -54,6 +54,7 @@ Vlad does not encourage inline boolean validation expressions.
 | [RangeMaxExclusive](src/Validator/RangeMaxExclusive.php)| Validate that a numeric input is at most of the given size (exclusive). |
 | [NotEmpty](src/Validator/NotEmpty.php) | Validate that input value is not empty. |
 | [Length](src/Validator/Length.php) | Validate that input string representation is of a specific length. |
+| [Integer](src/Validator/Integer.php) | Validate that input is an integer. |
 | [LengthMin](src/Validator/LengthMin.php) | Validate that input string representation is not shorter than the specified length. |
 | [LengthMax](src/Validator/LengthMax.php) | Validate that input string representation is not longer than the specified length. |
 | [In](src/Validator/In.php) | Validate that input value is in the haystack. |
