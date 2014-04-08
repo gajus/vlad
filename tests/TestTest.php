@@ -1,24 +1,14 @@
 <?php
 class TestTest extends PHPUnit_Framework_TestCase {
-    public function testBuildInput () {
-        $_POST = [
-            'foo' => 'bar',
-            'baz' => new \stdClass
-        ];
-
-        return new \Gajus\Vlad\Input($_POST);
-    }
-
     public function testBuildTest () {
         return new \Gajus\Vlad\Test();
     }
 
     /**
-     * @depends testBuildInput
      * @depends testBuildTest
      */
-    public function testAssessEmptyAssertion (\Gajus\Vlad\Input $input, \Gajus\Vlad\Test $test) {
-        $this->assertCount(0, $test->assess($input));
+    public function testAssessEmptyAssertion (\Gajus\Vlad\Test $test) {
+        $this->assertCount(0, $test->assess([]));
     }
 
     /**
@@ -33,30 +23,29 @@ class TestTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @depends testBuildInput
      * @depends testBuildTest
      */
-    public function testAssessPassingAssertion (\Gajus\Vlad\Input $input, \Gajus\Vlad\Test $test) {
+    public function testAssessPassingAssertion (\Gajus\Vlad\Test $test) {
         $test
             ->assert('foo')
             ->is('String');
 
-        $this->assertCount(0, $test->assess($input));
+        $assessment = $test->assess(['foo' => 'bar']);
+
+        $this->assertCount(0, $assessment);
     }
 
     /**
-     * @depends testBuildInput
      * @depends testBuildTest
      */
-    public function testAssessFailingAssertion (\Gajus\Vlad\Input $input, \Gajus\Vlad\Test $test) {
+    public function testAssessFailingAssertion (\Gajus\Vlad\Test $test) {
         $test
-            ->assert('baz')
+            ->assert('foo')
             ->is('String');
 
-        $assessment = $test->assess($input);
+        $assessment = $test->assess(['foo' => new \stdClass]);
 
         $this->assertCount(1, $assessment);
-
-        die(var_dump($assessment));
+        $this->assertSame('Foo is not a string.', $assessment[0]);
     }
 }

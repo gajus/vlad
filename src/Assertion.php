@@ -60,9 +60,7 @@ class Assertion {
         $value = $input->getValue($this->selector);
 
         foreach ($this->assertions as $assertion) {
-            $assessment = $assertion['validator']->assess($value);
-
-            if ($assessment) {
+            if (!$assertion['validator']->assess($value)) {
                 return $assertion;
             }
         }

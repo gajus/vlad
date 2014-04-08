@@ -31,10 +31,6 @@ class String extends \Gajus\Vlad\Validator {
 			}
 		}
 
-		if (!is_string($value)) {
-			return false;
-		}
-
-		return true;
+		return is_string($value);
 	}
 }

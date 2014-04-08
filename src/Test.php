@@ -38,10 +38,12 @@ class Test {
     }
 
     /**
-     * @param Gajus\Vlad\Input $input
+     * @param array $source
      * @return array Errors.
      */
-    public function assess (\Gajus\Vlad\Input $input) {
+    public function assess (array $source) {
+        $input = new \Gajus\Vlad\Input($source);
+
         $errors = [];
 
         foreach ($this->test as $test) {
@@ -60,6 +62,6 @@ class Test {
             }
         }
 
-        return $errors;
+        return array_values($errors);
     }
 }

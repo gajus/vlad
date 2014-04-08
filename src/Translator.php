@@ -27,7 +27,7 @@ class Translator {
 			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Unknown variable in error message.');
 		}, $message);
 
-		die(var_dump( $message ));
+		return $message;
 	}
 
 	public function translateSelector (\Gajus\Vlad\Selector $selector) {
