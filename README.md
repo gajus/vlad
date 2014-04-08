@@ -7,8 +7,9 @@ Input validation library.
 
 ## Succint test declaration
 
+Test is composed of assertions about input.
+
 ```php
-$input = new \Gajus\Vlad\Input($_POST);
 $test = new \Gajus\Vlad\Test();
 
 $test
@@ -16,18 +17,16 @@ $test
     ->is('NotEmpty')
     ->is('String');
 
-if ($assessment = $test->assess($input)) {
+if ($assessment = $test->assess($_POST)) {
     foreach ($assessment as $error) {
         // 
     }
 }
 ```
 
-Individual validator options allow to customise the test-case behaviour (e.g. whether Email address MX records are checked).
-
 ## Extendable validation rules
 
-Vlad has [in-built validators](http://anuary.com/vlad/#example-validators). It is easy to write [custom validators](http://anuary.com/vlad/#example-custom_validator). You can [request new validators](https://github.com/gajus/vlad/issues) to be added to the core package. Validators benefit from the [translator interface](http://anuary.com/vlad/#example-multilingual). Vlad does not promote inline boolean validation cases.
+Vlad has in-built validators. It is easy to write custom validators. You can [request new validators](https://github.com/gajus/vlad/issues) to be added to the core package. Validators benefit from the translator interface. Vlad does not encourage inline boolean validation expressions.
 
 ## Multilingual
 
