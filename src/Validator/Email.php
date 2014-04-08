@@ -7,7 +7,7 @@ namespace Gajus\Vlad\Validator;
  */
 class Email extends \Gajus\Vlad\Validator {
 	static protected
-		$message = '{vlad.subject.name} is not a valid email address.';
+		$message = '{input.name} is not a valid email address.';
 
 	public function assess ($value) {
 		if (!is_scalar($value)) {
