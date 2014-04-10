@@ -173,6 +173,7 @@ php composer.phar require gajus/vlad
 
 ## Alternatives
 
+* https://github.com/project-melody/validator
 * https://github.com/zendframework/zf2/tree/master/library/Zend/Validator
 * https://github.com/Respect/Validation
 * https://github.com/Wixel/GUMP
