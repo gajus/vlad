@@ -10,7 +10,7 @@ class RangeMinInclusiveTest extends PHPUnit_Framework_TestCase {
 
     /**
      * @expectedException Gajus\Vlad\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Minimum boundry option must be numeric.
+     * @expectedExceptionMessage Minimum boundary option must be numeric.
      */
     public function testInvalidRangeParameter () {
         new \Gajus\Vlad\Validator\RangeMinInclusive(['range' => 'test']);

@@ -24,15 +24,13 @@ class Input {
      */
     public function getValue (\Gajus\Vlad\Selector $selector) {
         $value = $this->input;
-        $found = true;
 
         foreach ($selector->getPath() as $crumb) {
             if (array_key_exists($crumb, $value)) {
                 $value = $value[$crumb];
             } else {
                 $value = null;
-                $found = false;
-                
+
                 break;
             }
         }

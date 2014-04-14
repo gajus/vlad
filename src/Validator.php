@@ -35,7 +35,6 @@ abstract class Validator {
 	}
 
 	/**
-	 * @param string $error_name
 	 * @return string
 	 */
 	static public function getMessage () {
