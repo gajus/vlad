@@ -5,7 +5,7 @@
 
 Input validation library, that has inbuilt error messages that are translatable, validators that are easy to extend, and that has easy to understand test declaration syntax.
 
-## Succint Test Declaration
+## Succinct Test Declaration
 
 Test is composed of assertions about the input.
 

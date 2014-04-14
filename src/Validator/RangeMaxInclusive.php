@@ -24,7 +24,7 @@ class RangeMaxInclusive extends \Gajus\Vlad\Validator {
 		}
 
 		if (!is_numeric($options['range'])) {
-			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Minimum boundry option must be numeric.');
+			throw new \Gajus\Vlad\Exception\InvalidArgumentException('Minimum boundary option must be numeric.');
 		}
 	}
 	

@@ -13,9 +13,9 @@ class In extends \Gajus\Vlad\Validator {
 			'haystack' => null,
 			'strict' => true,
 			/**
-			 * This option is relavent only with strict option true and input type string.
+			 * This option is relevant only with strict option true and input type string.
 			 * Performers quasi-strict comparison: haystack members are casted to string to avoid 'abc' == 0 false/positive
-			 * that would otherwise occur using non-strict comparison, but '123' input will match 123 haystact member.
+			 * that would otherwise occur using non-strict comparison, but '123' input will match 123 haystack member.
 			 *
 			 * @param boolean
 			 */

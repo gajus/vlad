@@ -10,7 +10,7 @@ class EmailTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Since the underlying implementation is using PHP filter_var, there
-     * is no reason to extensively test different (in)valid email addressses.
+     * is no reason to extensively test different (in)valid email addresses.
      */
     public function testInvalidSyntax () {
         $validator = new \Gajus\Vlad\Validator\Email();
