@@ -8,12 +8,12 @@ namespace Gajus\Vlad\Validator;
  * @license https://github.com/gajus/vlad/blob/master/LICENSE BSD 3-Clause
  */
 class NotEmpty extends \Gajus\Vlad\Validator {
-	static protected
+    static protected
         $default_options = [
             // Trim string values
             'trim' => true,
         ],
-		$message = '{input.name} is empty.';
+        $message = '{input.name} is empty.';
 
     public function __construct (array $options = []) {
         parent::__construct($options);
@@ -25,13 +25,13 @@ class NotEmpty extends \Gajus\Vlad\Validator {
         }
     }
 
-	public function assess ($value) {
-		$options = $this->getOptions();
+    public function assess ($value) {
+        $options = $this->getOptions();
 
         if ($value === '0') {
             return true;
         }
 
         return !(empty($value) || $options['trim'] && is_string($value) && !strlen(trim($value)));
-	}
+    }
 }
