@@ -16,7 +16,8 @@ class TranslatorTest extends PHPUnit_Framework_TestCase {
             ['foo_bar', 'Foo Bar'],
             ['foo[bar]', 'Foo Bar'],
             ['foo[bar_tar]', 'Foo Bar Tar'],
-            ['foo[bar_tar_id]', 'Foo Bar Tar']
+            ['foo[bar_tar_id]', 'Foo Bar Tar'],
+            ['foo[bar_tar_id][]', 'Foo Bar Tar']
         ];
     }
 
