@@ -1,7 +1,9 @@
 # Vlad
 
 [![Build Status](https://travis-ci.org/gajus/vlad.png?branch=master)](https://travis-ci.org/gajus/vlad)
-[![Coverage Status](https://coveralls.io/repos/gajus/vlad/badge.png)](https://coveralls.io/r/gajus/vlad)
+[![Coverage Status](https://coveralls.io/repos/gajus/vlad/badge.png?branch=master)](https://coveralls.io/r/gajus/vlad?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/gajus/vlad/version.png)](https://packagist.org/packages/gajus/vlad)
+[![License](https://poser.pugx.org/gajus/vlad/license.png)](https://packagist.org/packages/gajus/vlad)
 
 Input validation library, that has inbuilt error messages that are translatable, validators that are easy to extend, and that has easy to understand test declaration syntax.
 
