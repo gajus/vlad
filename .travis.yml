@@ -1,16 +1,18 @@
 language: php
 
 php:
-  - "5.4"
-  - "5.5"
+    - 5.4
+    - 5.5
+    - 5.6
 
 before_script:
- - wget http://getcomposer.org/composer.phar
- - php composer.phar install --dev --no-interaction
+    - travis_retry composer self-update
+    - travis_retry composer install --no-interaction --prefer-source --dev
+    - mkdir -p build/logs
 
 script:
- - mkdir -p build/logs
- - phpunit --coverage-clover build/logs/clover.xml
+    - mkdir -p build/logs
+    - phpunit --verbose --coverage-clover build/logs/clover.xml
 
 after_script:
- - php vendor/bin/coveralls -v
+    - php vendor/bin/coveralls -v
