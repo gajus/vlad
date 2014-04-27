@@ -12,6 +12,9 @@ Input validation library, that has inbuilt error messages that are translatable,
 Test is composed of assertions about the input.
 
 ```php
+/**
+ * @param Gajus\Vlad\Translator $translator
+ */
 $test = new \Gajus\Vlad\Test();
 
 /**
