@@ -24,11 +24,11 @@ class Test {
     /**
      * Add an assertion to the test.
      *
-     * @param string $selector
+     * @param string $selector_name
      * @return Gajus\Vlad\Assertion
      */
-    public function assert ($selector) {
-        $assertion = new \Gajus\Vlad\Assertion($this, new \Gajus\Vlad\Selector($selector));
+    public function assert ($selector_name) {
+        $assertion = new \Gajus\Vlad\Assertion($this, new \Gajus\Vlad\Selector($selector_name));
 
         $this->test[] = [
             'assertion' => $assertion
@@ -39,9 +39,10 @@ class Test {
 
     /**
      * @param array $source
+     * @param string $selector_name
      * @return array Errors.
      */
-    public function assess (array $source) {
+    public function assess (array $source, $selector_name = null) {
         $input = new \Gajus\Vlad\Input($source);
 
         $errors = [];

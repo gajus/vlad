@@ -14,15 +14,26 @@ Test is composed of assertions about the input.
 ```php
 $test = new \Gajus\Vlad\Test();
 
-$test
-    // string $selector_name[, boolean $condition = false]
-    ->assert('user[first_name]')
-    // string $validator_name[, array $validator_options = null[, array $condition_options = null]]
-    ->is('NotEmpty')
-    ->is('String')
-    ->is('LengthMin', ['length' => 5])
-    ->is('LengthMax', ['length' => 20]);
+/**
+ * Add an assertion to the test.
+ *
+ * @param string $selector_name
+ * @return Gajus\Vlad\Assertion
+ */
+$assertion = $test->assert('user[first_name]');
 
+/**
+ * @param string $validator_name
+ * @param array $validator_options
+ * @param array $condition_options
+ * @return Gajus\Vlad\Assertion
+ */
+$assertion->is('NotEmpty');
+$assertion->is('String');
+$assertion->is('LengthMin', ['length' => 5]);
+$assertion->is('LengthMax', ['length' => 20]);
+
+// In practise, assertion is declared using chaining:
 $test
     ->assert('user[last_name]')
     ->is('NotEmpty')
@@ -30,12 +41,27 @@ $test
     ->is('LengthMin', ['length' => 5])
     ->is('LengthMax', ['length' => 20]);
 
-if ($assessment = $test->assess($_POST)) {
+/**
+ * @param array $source
+ * @param string $selector_name
+ * @return array Errors.
+ */
+$assessment = $test->assess($_POST);
+
+if ($assessment) {
     // Iterate through error messages.
     foreach ($assessment as $error) {
         // [..]
     }
 }
+```
+
+### Limit the Assessment Scope
+
+Note that assertions are done against selector name, not the actual value. You can limit the assessment to specific assertion:
+
+```php
+$assessment = $test->assess($_POST, 'user[first_name]');
 ```
 
 ## Extendable Validation Rules

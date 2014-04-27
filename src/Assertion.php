@@ -24,6 +24,7 @@ class Assertion {
      * @param string $validator_name
      * @param array $validator_options
      * @param array $condition_options
+     * @return Gajus\Vlad\Assertion
      */
     public function is ($validator_name, array $validator_options = null, array $condition_options = []) {
         if ($validator_options === null) {
