@@ -61,7 +61,7 @@ if ($assessment) {
 
 ### Limit the Assessment Scope
 
-Note that assertions are done against selector name, not the actual value. You can limit the assessment to specific assertion:
+Note that assertions are done against selector name, not the actual value. You can limit test to specific assertions at the time of the assessment:
 
 ```php
 $assessment = $test->assess($_POST, 'user[first_name]');
