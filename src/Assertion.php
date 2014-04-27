@@ -7,18 +7,7 @@ namespace Gajus\Vlad;
  */
 class Assertion {
     private
-        $test,
-        $selector,
         $assertions = [];
-
-    /**
-     * @param Gajus\Vlad\Test $test
-     * @param Gajus\Vlad\Selector $selector
-     */
-    public function __construct (\Gajus\Vlad\Test $test, \Gajus\Vlad\Selector $selector) {
-        $this->test = $test;
-        $this->selector = $selector;
-    }
 
     /**
      * @param string $validator_name
@@ -53,17 +42,11 @@ class Assertion {
         return $this;
     }
 
-    public function getSelector () {
-        return $this->selector;
-    }
-
     /**
-     * @param Gajus\Vlad\Input $input
-     * @return null|array Failed assertion.
+     * @param mixed $value
+     * @return null|array
      */
-    public function assess (\Gajus\Vlad\Input $input) {
-        $value = $input->getValue($this->selector);
-
+    public function assess ($value) {
         foreach ($this->assertions as $assertion) {
             if (!$assertion['validator']->assess($value)) {
                 return $assertion;

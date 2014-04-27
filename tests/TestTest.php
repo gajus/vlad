@@ -7,7 +7,7 @@ class TestTest extends PHPUnit_Framework_TestCase {
     /**
      * @depends testBuildTest
      */
-    public function testAssessEmptyAssertion (\Gajus\Vlad\Test $test) {
+    public function testAssessEmptyTest (\Gajus\Vlad\Test $test) {
         $this->assertCount(0, $test->assess([]));
     }
 
@@ -30,6 +30,32 @@ class TestTest extends PHPUnit_Framework_TestCase {
             ->assert('foo')
             ->is('String');
 
+        $assessment = $test->assertion('foo', 'bar');
+
+        $this->assertNull($assessment);
+    }
+
+    /**
+     * @depends testBuildTest
+     */
+    public function testAssessFailingAssertion (\Gajus\Vlad\Test $test) {
+        $test
+            ->assert('foo')
+            ->is('String');
+
+        $assessment = $test->assertion('foo', []);
+
+        $this->assertSame('Foo is not a string.', $assessment);
+    }
+
+    /**
+     * @depends testBuildTest
+     */
+    public function testAssessPassingTest (\Gajus\Vlad\Test $test) {
+        $test
+            ->assert('foo')
+            ->is('String');
+
         $assessment = $test->assess(['foo' => 'bar']);
 
         $this->assertCount(0, $assessment);
@@ -38,7 +64,7 @@ class TestTest extends PHPUnit_Framework_TestCase {
     /**
      * @depends testBuildTest
      */
-    public function testAssessFailingAssertion (\Gajus\Vlad\Test $test) {
+    public function testAssessFailingTest (\Gajus\Vlad\Test $test) {
         $test
             ->assert('foo')
             ->is('String');

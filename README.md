@@ -64,7 +64,7 @@ if ($assessment) {
 Note that assertions are done against selector name, not the actual value. You can limit test to specific assertions at the time of the assessment:
 
 ```php
-$assessment = $test->assess($_POST, 'user[first_name]');
+$assessment = $test->assertion($_POST, 'user[first_name]');
 ```
 
 ## Extendable Validation Rules

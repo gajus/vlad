@@ -22,47 +22,73 @@ class Test {
     }
 
     /**
-     * Add an assertion to the test.
+     * Add an assertion about a $selector_name to the test.
      *
      * @param string $selector_name
      * @return Gajus\Vlad\Assertion
      */
     public function assert ($selector_name) {
-        $assertion = new \Gajus\Vlad\Assertion($this, new \Gajus\Vlad\Selector($selector_name));
+        $assertion = new \Gajus\Vlad\Assertion();
 
-        $this->test[] = [
-            'assertion' => $assertion
-        ];
+        $this->test[$selector_name][] = $assertion;
 
         return $assertion;
     }
 
     /**
      * @param array $source
-     * @param string $selector_name
      * @return array Errors.
      */
-    public function assess (array $source, $selector_name = null) {
+    public function assess (array $source) {
         $input = new \Gajus\Vlad\Input($source);
 
         $errors = [];
 
-        foreach ($this->test as $test) {
-            $selector = $test['assertion']->getSelector();
+        foreach ($this->test as $selector_name => $assertions) {
+            $selector = new \Gajus\Vlad\Selector($selector_name);
+            $value = $input->getValue($selector);
 
-            if (isset($errors[$selector->getName()])) {
-                continue;
-            }
+            foreach ($assertions as $assertion) {
+                $assertion = $assertion->assess($value);
 
-            if ($assertion = $test['assertion']->assess($input)) {
-                if (isset($assertion['options']['message'])) {
-                    $errors[$selector->getName()] = $assertion['options']['message'];
-                } else {
-                    $errors[$selector->getName()] = $this->translator->translateMessage($assertion['validator'], $selector);
+                if ($assertion) {
+                    if (isset($assertion['options']['message'])) {
+                        $errors[$selector_name] = $assertion['options']['message'];
+                    } else {
+                        $errors[$selector_name] = $this->translator->translateMessage($assertion['validator'], $selector);
+                    }
+
+                    break;
                 }
+                
             }
         }
 
         return array_values($errors);
+    }
+
+    /**
+     * @param string $selector_name
+     * @param mixed $value
+     * @return array Error.
+     */
+    public function assertion ($selector_name, $value) {
+        if (!isset($this->test[$selector_name])) {
+            return;
+        }
+
+        $selector = new \Gajus\Vlad\Selector($selector_name);
+
+        foreach ($this->test[$selector_name] as $assertion) {
+            $assertion = $assertion->assess($value);
+
+            if ($assertion) {
+                if (isset($assertion['options']['message'])) {
+                    return $assertion['options']['message'];
+                } else {
+                    return $this->translator->translateMessage($assertion['validator'], $selector);
+                }
+            }
+        }
     }
 }
