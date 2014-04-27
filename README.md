@@ -64,7 +64,12 @@ if ($assessment) {
 Note that assertions are done against selector name, not the actual value. You can limit test to specific assertions at the time of the assessment:
 
 ```php
-$assessment = $test->assertion($_POST, 'user[first_name]');
+/**
+ * @param string $selector_name
+ * @param mixed $value
+ * @return string Error.
+ */
+$error = $test->assertion('user[first_name]', $_POST);
 ```
 
 ## Extendable Validation Rules

@@ -70,7 +70,7 @@ class Test {
     /**
      * @param string $selector_name
      * @param mixed $value
-     * @return array Error.
+     * @return string Error.
      */
     public function assertion ($selector_name, $value) {
         if (!isset($this->test[$selector_name])) {
