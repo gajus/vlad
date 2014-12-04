@@ -26,7 +26,7 @@ class Translator {
                 }
             }
             
-            throw new \Gajus\Vlad\Exception\InvalidArgumentException('Unknown variable in error message.');
+            throw new \Gajus\Vlad\Exception\InvalidArgumentException('Unknown variable ("' . $e[1] .'") in error message.');
         }, $message);
 
         return $message;

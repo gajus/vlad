@@ -12,7 +12,7 @@ class Regex extends \Gajus\Vlad\Validator {
         $default_options = [
             'pattern' => null
         ],
-        $message = '{input.name} does not match against pattern "{vlad.validator.options.pattern}".';
+        $message = '{input.name} does not match against pattern "{validator.options.pattern}".';
 
     public function __construct (array $options = []) {
         parent::__construct($options);

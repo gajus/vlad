@@ -12,7 +12,7 @@ class Date extends \Gajus\Vlad\Validator {
         $default_options = [
             'format' => null
         ],
-        $message = '{input.name} cannot be parsed using "{vlad.validator.options.format}" date format.';
+        $message = '{input.name} cannot be parsed using "{validator.options.format}" date format.';
 
     public function __construct (array $options = []) {
         parent::__construct($options);
