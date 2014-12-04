@@ -1,9 +1,8 @@
 # Vlad
 
-[![Build Status](https://travis-ci.org/gajus/vlad.png?branch=master)](https://travis-ci.org/gajus/vlad)
-[![Coverage Status](https://coveralls.io/repos/gajus/vlad/badge.png?branch=master)](https://coveralls.io/r/gajus/vlad?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/gajus/vlad/version.png)](https://packagist.org/packages/gajus/vlad)
-[![License](https://poser.pugx.org/gajus/vlad/license.png)](https://packagist.org/packages/gajus/vlad)
+[![Build Status](https://img.shields.io/travis/gajus/vlad.svg?style=flat)](https://travis-ci.org/gajus/vlad)
+[![Coverage Status](https://img.shields.io/coveralls/jekyll/jekyll.svg?style=flat)](https://coveralls.io/r/gajus/vlad?branch=master)
+[![Latest Stable Version](https://img.shields.io/packagist/v/gajus/vlad.svg?style=flat)](https://packagist.org/packages/gajus/vlad)
 
 Input validation library, that has inbuilt error messages that are translatable, validators that are easy to extend, and that has easy to understand test declaration syntax.
 
@@ -84,6 +83,7 @@ Vlad does not encourage inline boolean validation expressions.
 | --- | --- |
 | [String](src/Validator/String.php) | Validate that input is a string. |
 | [Regex](src/Validator/Regex.php) | Validate that input is matched using a regular expression. |
+| [Date](src/Validator/Date.php) | Validates that string can be parsed using a date format. |
 | [RangeMinInclusive](src/Validator/RangeMinInclusive.php)| Validate that a numeric input is at least of the given size (inclusive). |
 | [RangeMinExclusive](src/Validator/RangeMinExclusive.php)| Validate that a numeric input is at least of the given size (exclusive). |
 | [RangeMaxInclusive](src/Validator/RangeMaxInclusive.php)| Validate that a numeric input is at most of the given size (inclusive). |

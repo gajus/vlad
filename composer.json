@@ -1,6 +1,6 @@
 {
 	"name": "gajus/vlad",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "Input validation library, that has inbuilt error messages that are translatable, validators that are easy to extend, and that has easy to understand test declaration syntax.",
 	"keywords": ["input", "form", "validation"],
 	"homepage": "https://github.com/gajus/vlad",
